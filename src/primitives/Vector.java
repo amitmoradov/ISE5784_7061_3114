@@ -65,4 +65,14 @@ public class Vector extends Point {
         return new Vector(normal_x, normal_y, normal_z);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        return (obj instanceof Vector other) && super.xyz.equals(other.xyz);
+    }
+
+    @Override
+    public String toString() {
+        return "Vector(" + super.xyz.toString() + ")";
+    }
 }
