@@ -38,8 +38,8 @@ public class Point {
      * @param point The other point representing the vector to subtract
      * @return The resulting vector from this point to the other point
      */
-    public Double3 subtract(Point point) {
-        return new Vactor(xyz.subtract(point.xyz));
+    public Vector subtract(Point point) {
+        return new Vector(xyz.subtract(point.xyz));
     }
 
     /**
@@ -47,7 +47,7 @@ public class Point {
      * @param vector The vector to add, represented by another point
      * @return The resulting point after adding the vector
      */
-    public Point add(Vactor vector) {
+    public Point add(Vector vector) {
         return new Point(xyz.add(vector.xyz));
     }
 
