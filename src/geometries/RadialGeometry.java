@@ -1,11 +1,11 @@
 package geometries;
 
-import primitives.Point;
-import primitives.Vector;
-
+/**
+ * An abstract class representing radial geometries, such as spheres and cylinders, which have a radius.
+ */
 public abstract class RadialGeometry implements Geometry {
 
-    protected final double radius;
+    protected final double radius; // The radius of the radial geometry
 
     /**
      * Constructs a new RadialGeometry with the specified radius.
