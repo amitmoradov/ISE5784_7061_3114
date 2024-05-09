@@ -3,8 +3,8 @@ package primitives;
 /**
  * A ray represents a half-straight line in three-dimensional space, starting from a point (the head) and extending in an infinite direction. */
 public class Ray {
-    private Point head; // The starting point of the ray
-    private Vector direction; // The direction of the ray
+    private final Point head; // The starting point of the ray
+    private final Vector direction; // The direction of the ray
 
     /**
      * Constructs a new Ray with the specified starting point (head) and direction.

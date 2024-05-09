@@ -9,7 +9,7 @@ public class Point {
     /**
      * Coordinates of the point
      */
-    protected Double3 xyz;
+    protected final Double3 xyz;
     /**
      * A static field representing the beginning of the axes
      */
