@@ -13,14 +13,16 @@ public class Tube extends RadialGeometry {
     protected final Ray axis; // The axis of the tube
 
     /**
-     * Constructs a new tube with the specified axis.
+     * Constructs a new Tube object with the specified axis and radius.
      *
-     * @param axis The axis of the tube.
+     * @param axis the axis of the tube, a Ray object representing the central axis
+     * @param radius the radius of the tube
      */
-    public Tube(Ray axis) {
-        super(0); // Required by the superclass
+    public Tube(Ray axis, double radius) {
+        super(radius); // Required by the superclass
         this.axis = axis;
     }
+
 
     /**
      * Returns the normal vector to the tube at a given point.

@@ -13,13 +13,14 @@ public class Cylinder extends Tube {
     private final double height; // The height of the cylinder
 
     /**
-     * Constructs a new cylinder with the specified height.
+     * Constructs a new cylinder with the specified height, central axis, and radius.
      *
-     * @param height The height of the cylinder.
+     * @param height the height of the cylinder
+     * @param ray the central axis of the cylinder, represented by a Ray object
+     * @param radius the radius of the cylinder
      */
-
-    public Cylinder(double height) {
-        super(new Ray(new Point(0, 0, 0), new Vector(0, 0, 1))); // Assuming a default axis along the z axis
+    public Cylinder(double height, Ray ray, double radius) {
+        super(ray, radius);
         this.height = height;
     }
 

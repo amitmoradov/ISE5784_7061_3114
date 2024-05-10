@@ -12,14 +12,16 @@ public class Sphere extends RadialGeometry {
     private final Point center; // The center point of the sphere
 
     /**
-     * Constructs a new sphere with the specified center point.
+     * Constructs a new sphere with the specified center point and radius.
      *
-     * @param center The center point of the sphere.
+     * @param center the center point of the sphere
+     * @param radius the radius of the sphere
      */
-    public Sphere(Point center,double radius) {
-        super(radius); // Required by the superclass
+    public Sphere(Point center, double radius) {
+        super(radius);
         this.center = center;
     }
+
 
     /**
      * Returns the normal vector to the sphere at a given point.
