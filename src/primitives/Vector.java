@@ -38,7 +38,6 @@ public class Vector extends Point {
      */
     public Vector add(Vector v) {
        return new Vector(super.xyz.add(v.xyz));
-
     }
     /**
      * Scales this vector by the specified factor.
