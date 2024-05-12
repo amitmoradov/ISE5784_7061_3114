@@ -115,7 +115,7 @@ public class Vector extends Point {
     }
 
     /**
-     * Returns a string representation of this vector.
+     * Returns a string representation of this vector.○
      *
      * @return A string representation of this vector.
      */
