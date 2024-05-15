@@ -7,6 +7,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class PlaneTest {
 
     @Test
+    void Plane() {
+    }
+    @Test
     void getNormal() {
     }
 
