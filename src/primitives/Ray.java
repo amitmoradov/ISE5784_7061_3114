@@ -13,7 +13,8 @@ public class Ray {
      */
     public Ray(Point head, Vector direction) {
         this.head = head;
-        this.direction = direction.normalize(); // Normalizing the direction vector to ensure it represents a unit vector.
+        this.direction = direction.normalize(); // Normalizing the direction vector to ensure it represents
+        // a unit vector.
     }
 
     /**
