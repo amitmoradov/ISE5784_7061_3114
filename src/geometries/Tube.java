@@ -23,7 +23,6 @@ public class Tube extends RadialGeometry {
         this.axis = axis;
     }
 
-
     /**
      * Returns the normal vector to the tube at a given point.
      * Since a tube is infinitely thin, it has no normal at a specific point.
@@ -31,6 +30,11 @@ public class Tube extends RadialGeometry {
      * @param p The point to calculate the normal at.
      */
     public Vector getNormal(Point p) {
-        return null;
+        // By the formula normalize(p - center O)
+        // t = v * (p - p0)
+        // O = p0 + t * v
+        double t = axis.getDirection().dotProduct(p.subtract(axis.getHead()));
+        Point O = axis.getHead().add(axis.getDirection().scale(t));
+        return p.subtract(O).normalize();
     }
 }
