@@ -19,6 +19,9 @@ class TubeTest {
     /** Test method for {@link geometries.Tube#getNormal(Point)}. */
     @Test
     void getNormal() {
+        // By the formula normalize(p - center O)
+        // t = v * (p - p0)
+        // O = p0 + t * v
         // ============ Equivalence Partitions Tests ==============
 
         // TC01: Testing correct of calculate Normal with a simple tube
