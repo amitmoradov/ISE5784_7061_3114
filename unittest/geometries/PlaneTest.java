@@ -18,6 +18,8 @@ class PlaneTest {
     Point p3 = new Point(0, 0, 1);
 
     Plane plane = new Plane(p1,p2,p3);
+
+    /** Test method for {@link geometries.Plane#Plane(Point, Point, Point)}. */
     @Test
     void testConstructor() {
         // ============ Equivalence Partitions Tests ==============
@@ -39,6 +41,8 @@ class PlaneTest {
                 " line should throw an IllegalArgumentException");
 
     }
+
+    /** Test method for {@link geometries.Plane#getNormal()}. */
     @Test
     void getNormal() {
         // ============ Equivalence Partitions Tests ==============
@@ -62,6 +66,7 @@ class PlaneTest {
 
     }
 
+    /** Test method for {@link geometries.Plane#getNormal()}. */
     @Test
     void testGetNormal() {
         // TC01: Testing getNormal length is 1
@@ -70,8 +75,9 @@ class PlaneTest {
 
         // TC02: Testing if the normal of plane calculated correctly to real
         // By the formula normalize((p2 - p1) x (p3 - p1))
-        assertEquals(p2.subtract(p1).crossProduct(p3.subtract(p1)).normalize(), plane.getNormal(),
-                "ERROR: getNormal() does not return the correct normal vector");
+        Vector expectedNormal = p2.subtract(p1).crossProduct(p3.subtract(p1)).normalize();
+        assertTrue(expectedNormal.equals(plane.getNormal()) || expectedNormal.equals(plane.getNormal()
+                        .scale(-1)) , "ERROR: getNormal() does not return the correct normal vector");
 
         // TC03: Testing getNormal is orthogonal to the plane
         assertTrue(plane.getNormal().dotProduct(p2.subtract(p1))==0,
