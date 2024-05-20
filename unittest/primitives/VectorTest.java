@@ -7,6 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class VectorTest{
 
+    private final double DELTA = 0.000001;
+
+    @Test
+    void constructorTest(){
+        assertThrows(IllegalArgumentException.class, () -> new Vector(0,0,0),"Can not init to Zero Vector");
+    }
     @Test
     void add() {
         Vector v1 = new Vector(1,2,3);
@@ -28,6 +34,7 @@ class VectorTest{
         Vector v1 = new Vector(1,2,3);
 
         Vector result = v1.scale(2);
+        //Checking if the scale is work on v1 * 2
         assertEquals(new Vector(2,4,6),result,"Vector scale failed");
 
         assertThrows(IllegalArgumentException.class, () -> v1.scale(0), "Scaling a vector to itself should throw an IllegalArgumentException of zero vector");
@@ -37,17 +44,20 @@ class VectorTest{
     void dotProduct() {
         Vector v1 = new Vector(1,2,3);
         Vector v2 = new Vector(4,5,6);
-
+        Vector v3 = new Vector(0,0,-1);
         //Two vectors are perpendicular to each other
         Vector verticalXtoY = new Vector(0,0,1);
         Vector verticalYtoX = new Vector(0,1,0);
 
         double result = v1.dotProduct(v2);
-        assertEquals(32,result,"Vector dotProduct failed");
-        //Checking if two perpendicular vectors are equal to zero
+        //Checking if dot product work on two vectors
+        assertEquals(32,result,DELTA,"Vector dotProduct failed");
+        //Checking if two perpendicular vectors (90%) are equal to zero
         assertEquals(0 ,verticalXtoY.dotProduct(verticalYtoX), "dot Product a vector is zero");
-        //Scalar multiplication when one of the vectors is of unit size
-        assertEquals(3,v1.dotProduct(verticalXtoY), "dot Product a vector is need to be value of z of vector v1");
+        //Checking if two vectors create angle more 90% and this equal to negative number.
+        assertEquals(-1,DELTA ,v3.dotProduct(verticalXtoY), "dot Product a vector is not negative");
+        //Scalar multiplication when one of the vectors is of unit size (like: 0,0,1)
+        assertEquals(3,DELTA,v1.dotProduct(verticalXtoY), "dot Product a vector is need to be value of z of vector v1");
 
 
     }
@@ -79,7 +89,7 @@ class VectorTest{
         Vector v1 = new Vector(1,2,3);
         double result = v1.lengthSquared();
 
-        assertEquals(14,result,"Vector lengthSquared failed");
+        assertEquals(14,result,DELTA,"Vector lengthSquared failed");
     }
 
     @Test
@@ -94,9 +104,9 @@ class VectorTest{
         double result3 = v3.length();
 
         // Assert
-        assertEquals(1, result1, "Zero vector length calculation failed");
-        assertEquals(5, result2, "Right triangle vector length calculation failed");
-        assertEquals(Math.sqrt(3), result3, "Regular vector length calculation failed");
+        assertEquals(1, result1,DELTA, "Zero vector length calculation failed");
+        assertEquals(5, result2,DELTA, "Right triangle vector length calculation failed");
+        assertEquals(Math.sqrt(3), result3,DELTA, "Regular vector length calculation failed");
     }
 
     @Test
@@ -108,8 +118,8 @@ class VectorTest{
         Vector result = v.normalize();
         double resultLength = result.length();
 
-        // Assert
-        assertEquals(1, resultLength, "Vector normalization failed");
+        // Checking if the normalization is work
+        assertEquals(1,DELTA, resultLength, "Vector normalization failed");
     }
 
 
