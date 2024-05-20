@@ -8,6 +8,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class VectorTest{
 
     @Test
+    void constructorTest(){
+        assertThrows(IllegalArgumentException.class, () -> new Vector(0,0,0),"Can not init to Zero Vector");
+    }
+    @Test
     void add() {
         Vector v1 = new Vector(1,2,3);
         Vector v1_opozit = new Vector(-1,-2,-3);
@@ -28,6 +32,7 @@ class VectorTest{
         Vector v1 = new Vector(1,2,3);
 
         Vector result = v1.scale(2);
+        //Checking if the scale is work on v1 * 2
         assertEquals(new Vector(2,4,6),result,"Vector scale failed");
 
         assertThrows(IllegalArgumentException.class, () -> v1.scale(0), "Scaling a vector to itself should throw an IllegalArgumentException of zero vector");
@@ -37,16 +42,19 @@ class VectorTest{
     void dotProduct() {
         Vector v1 = new Vector(1,2,3);
         Vector v2 = new Vector(4,5,6);
-
+        Vector v3 = new Vector(0,0,-1);
         //Two vectors are perpendicular to each other
         Vector verticalXtoY = new Vector(0,0,1);
         Vector verticalYtoX = new Vector(0,1,0);
 
         double result = v1.dotProduct(v2);
+        //Checking if dot product work on two vectors
         assertEquals(32,result,"Vector dotProduct failed");
-        //Checking if two perpendicular vectors are equal to zero
+        //Checking if two perpendicular vectors (90%) are equal to zero
         assertEquals(0 ,verticalXtoY.dotProduct(verticalYtoX), "dot Product a vector is zero");
-        //Scalar multiplication when one of the vectors is of unit size
+        //Checking if two vectors create angle more 90% and this equal to negative number.
+        assertEquals(-1 ,v3.dotProduct(verticalXtoY), "dot Product a vector is not negative");
+        //Scalar multiplication when one of the vectors is of unit size (like: 0,0,1)
         assertEquals(3,v1.dotProduct(verticalXtoY), "dot Product a vector is need to be value of z of vector v1");
 
 
