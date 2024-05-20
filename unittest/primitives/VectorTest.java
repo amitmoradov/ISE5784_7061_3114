@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class VectorTest{
 
+    private final double DELTA = 0.000001;
+
     @Test
     void constructorTest(){
         assertThrows(IllegalArgumentException.class, () -> new Vector(0,0,0),"Can not init to Zero Vector");
@@ -49,13 +51,13 @@ class VectorTest{
 
         double result = v1.dotProduct(v2);
         //Checking if dot product work on two vectors
-        assertEquals(32,result,"Vector dotProduct failed");
+        assertEquals(32,result,DELTA,"Vector dotProduct failed");
         //Checking if two perpendicular vectors (90%) are equal to zero
         assertEquals(0 ,verticalXtoY.dotProduct(verticalYtoX), "dot Product a vector is zero");
         //Checking if two vectors create angle more 90% and this equal to negative number.
-        assertEquals(-1 ,v3.dotProduct(verticalXtoY), "dot Product a vector is not negative");
+        assertEquals(-1,DELTA ,v3.dotProduct(verticalXtoY), "dot Product a vector is not negative");
         //Scalar multiplication when one of the vectors is of unit size (like: 0,0,1)
-        assertEquals(3,v1.dotProduct(verticalXtoY), "dot Product a vector is need to be value of z of vector v1");
+        assertEquals(3,DELTA,v1.dotProduct(verticalXtoY), "dot Product a vector is need to be value of z of vector v1");
 
 
     }
@@ -87,7 +89,7 @@ class VectorTest{
         Vector v1 = new Vector(1,2,3);
         double result = v1.lengthSquared();
 
-        assertEquals(14,result,"Vector lengthSquared failed");
+        assertEquals(14,result,DELTA,"Vector lengthSquared failed");
     }
 
     @Test
@@ -102,9 +104,9 @@ class VectorTest{
         double result3 = v3.length();
 
         // Assert
-        assertEquals(1, result1, "Zero vector length calculation failed");
-        assertEquals(5, result2, "Right triangle vector length calculation failed");
-        assertEquals(Math.sqrt(3), result3, "Regular vector length calculation failed");
+        assertEquals(1, result1,DELTA, "Zero vector length calculation failed");
+        assertEquals(5, result2,DELTA, "Right triangle vector length calculation failed");
+        assertEquals(Math.sqrt(3), result3,DELTA, "Regular vector length calculation failed");
     }
 
     @Test
@@ -116,8 +118,8 @@ class VectorTest{
         Vector result = v.normalize();
         double resultLength = result.length();
 
-        // Assert
-        assertEquals(1, resultLength, "Vector normalization failed");
+        // Checking if the normalization is work
+        assertEquals(1,DELTA, resultLength, "Vector normalization failed");
     }
 
 

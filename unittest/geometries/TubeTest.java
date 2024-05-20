@@ -15,6 +15,7 @@ import primitives.Ray;
  */
 class TubeTest {
 
+    private final double DELTA = 0.000001;
     /** Test method for {@link geometries.Tube#getNormal(Point)}. */
     @Test
     void getNormal() {
@@ -31,5 +32,10 @@ class TubeTest {
         Tube tube2 = new Tube(new Ray(new Point(0, 0, 0), new Vector(0, 0, 1)), 1);
         assertEquals(new Vector(1, 0, 0), tube2.getNormal(new Point(1, 0, 0)),
                 "ERROR: the calculate when point P is in front of the head of ray in the tube not correct");
+
+        assertEquals(1,DELTA, tube2.getNormal(new Point(1, 0, 0)).length(),
+                "ERROR: getNormal().length() of Tube does not return the correct");
+
+
     }
 }
