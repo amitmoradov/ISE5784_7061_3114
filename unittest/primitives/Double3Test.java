@@ -3,23 +3,32 @@ package primitives;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * Testing Points
+ * @author Amit Moradov
+ *          Yinon Shaul
+ */
+//
 class Double3Test {
+
 
     @Test
     void testEquals() {
-    }
 
+    }
     @Test
     void testHashCode() {
+
     }
 
     @Test
     void add() {
+
     }
 
     @Test
     void subtract() {
+
     }
 
     @Test
@@ -28,6 +37,8 @@ class Double3Test {
 
     @Test
     void reduce() {
+
+
     }
 
     @Test
