@@ -15,11 +15,13 @@ import primitives.Vector;
 class TriangleTest {
     private final double DELTA = 0.000001;
 
-
+    /** Test method for {@link geometries.Triangle#getNormal(Point)}. */
     @Test
     void getNormal() {
         // By the formula normalize((p2 - p1) x (p3 - p1))
+
         // ============ Equivalence Partitions Tests ==============
+
         // TC01: Testing getNormal with a simple triangle
         Triangle triangle = new Triangle(new Point(1, 0, 0), new Point(0, 2, 0),
                 new Point(0, 0, 1));
@@ -30,6 +32,5 @@ class TriangleTest {
         //Checking if the length of normal of triangle is 1.
         assertEquals(1,DELTA, triangle.getNormal(new Point(1, 0, 0)).length(),
                 "ERROR:" + " getNormal().length() does not return the correct");
-
     }
 }

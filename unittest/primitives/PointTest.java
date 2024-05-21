@@ -26,6 +26,7 @@ class PointTest {
     Point p2 = new Point(4, 5, 8);
     Vector v1 = new Vector(3, 3, 4);
 
+    /** Test method for {@link primitives.Point#subtract(Point)}. */
     @Test
     void subtract() {
         // ============ Equivalence Partitions Tests ==============
@@ -42,6 +43,7 @@ class PointTest {
         assertThrows(IllegalArgumentException.class, () -> p1.subtract(p1), "Subtracting a point from itself" +
                 " should throw an IllegalArgumentException of zero vector");}
 
+    /** Test method for {@link primitives.Point#add(Vector)}. */
     @Test
     void add() {
         // TC01: Testing correctly add point to vector
@@ -63,6 +65,7 @@ class PointTest {
                 " zero vector to a point should throw an IllegalArgumentException of the same point");
     }
 
+    /** Test method for {@link primitives.Point#distanceSquared(Point)}. */
     @Test
     void distanceSquared() {
         // ============ Equivalence Partitions Tests ==============
@@ -79,6 +82,7 @@ class PointTest {
         assertEquals(0, p1.distanceSquared(p2) - 34, DELTA, "Squared distance between the same point is wrong");
     }
 
+    /** Test method for {@link primitives.Point#distance(Point)}. */
     @Test
     void distance() {
         // ============ Equivalence Partitions Tests ==============
@@ -97,6 +101,7 @@ class PointTest {
         assertTrue(isZero(p1.distance(p2) - 5.830951894845301), "Distance between the same point is wrong");
     }
 
+    /** Test method for {@link primitives.Point#equals(Object)}. */
     @Test
     void testEquals() {
         // ============ Equivalence Partitions Tests ==============
