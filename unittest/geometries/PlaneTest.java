@@ -73,7 +73,7 @@ class PlaneTest {
         assertEquals(1, plane.getNormal().length(), DELTA, "ERROR: getNormal() does not return a " +
                 "unit vector");
 
-        // TC02: Testing if the normal of plane calculated correctly to real
+        // TC02: Testing if the normal of plane or the scale of him by 1 calculated correctly to real
         // By the formula normalize((p2 - p1) x (p3 - p1))
         Vector expectedNormal = p2.subtract(p1).crossProduct(p3.subtract(p1)).normalize();
         assertTrue(expectedNormal.equals(plane.getNormal()) || expectedNormal.equals(plane.getNormal()

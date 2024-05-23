@@ -179,4 +179,27 @@ class VectorTest{
         //TC01: Checking if the equals is correct
         assertTrue(is_equals,"Vector equals failed");
     }
+
+    /** Test method for {@link primitives.Vector#subtract(Point)}. */
+    @Test
+    void testSubtract() {
+        // ============ Equivalence Partitions Tests ==============
+
+        Vector v1 = new Vector(1,2,3);
+        Vector v2 = new Vector(4,5,6);
+
+        //TC01: Checking if the subtraction is correct
+        assertEquals(new Vector(3,3,3),v2.subtract(v1),"Vector subtract failed");
+
+        // ================= Boundary Values Tests ==================
+
+        //TC02: Checking if the subtraction of a vector from itself is the zero vector
+        assertThrows(IllegalArgumentException.class, () -> v1.subtract(v1), "Subtracting a" +
+                " vector from itself" + " should throw an IllegalArgumentException of zero vector");
+
+        //TC03: Checking if the subtraction of opposite vectors of equal to 2 * vector
+        Vector oppositeV1 = new Vector(-1,-2,-3);
+        assertEquals(new Vector(2,4,6), v1.subtract(oppositeV1),"Vector subtract with" +
+                " V in -V failed");
+    }
 }
