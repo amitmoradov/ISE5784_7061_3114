@@ -68,6 +68,7 @@ class PointTest {
     /** Test method for {@link primitives.Point#distanceSquared(Point)}. */
     @Test
     void distanceSquared() {
+
         // ============ Equivalence Partitions Tests ==============
 
         // TC01: Testing distanceSquared with two different points
@@ -85,6 +86,7 @@ class PointTest {
     /** Test method for {@link primitives.Point#distance(Point)}. */
     @Test
     void distance() {
+
         // ============ Equivalence Partitions Tests ==============
 
         // TC01: Testing distance with two different points
@@ -104,6 +106,7 @@ class PointTest {
     /** Test method for {@link primitives.Point#equals(Object)}. */
     @Test
     void testEquals() {
+
         // ============ Equivalence Partitions Tests ==============
 
         // TC01: Testing equals with two different points

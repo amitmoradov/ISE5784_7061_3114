@@ -3,6 +3,7 @@ package geometries;
 import primitives.Ray;
 import primitives.Point;
 import primitives.Vector;
+import static primitives.Util.isZero;
 
 /**
  * Represents a tube in three-dimensional space.

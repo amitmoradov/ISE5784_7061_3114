@@ -3,7 +3,7 @@ package geometries;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
-
+import static primitives.Util.isZero;
 /**
  * Represents a cylinder in three-dimensional space.
  * Extends the Tube class.
@@ -32,7 +32,16 @@ public class Cylinder extends Tube {
      * @param p The point to calculate the normal at.
      * @return null since the cylinder does not have a meaningful normal vector at any specific point.
      */
+    @Override
     public Vector getNormal(Point p) {
-        return null;
+        // If the point is on the axis, return the direction of the axis (p0 = p)
+        if (p.equals(axis.getHead())) return axis.getDirection();
+
+        // Check whether the point is on one of the bases
+        double t = p.subtract(axis.getHead()).dotProduct(axis.getDirection());
+        // If the charge is zero
+        if (isZero(t) || isZero(t - this.height)) return axis.getDirection();
+        Point o = isZero(t) ? axis.getHead() : axis.getHead().add(axis.getDirection().scale(t));
+        return p.subtract(o).normalize();
     }
 }
