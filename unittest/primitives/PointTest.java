@@ -39,6 +39,7 @@ class PointTest {
         // TC02 : Testing subtract with when result is vector v1
         assertEquals(v1, p2.subtract(p1), "ERROR: (point2 - point1) does not work correctly");
 
+        // =============== Boundary Values Tests ==================
         // TC03: Testing subtract with the same point
         assertThrows(IllegalArgumentException.class, () -> p1.subtract(p1), "Subtracting a point from itself" +
                 " should throw an IllegalArgumentException of zero vector");}
@@ -46,6 +47,8 @@ class PointTest {
     /** Test method for {@link primitives.Point#add(Vector)}. */
     @Test
     void add() {
+
+        // ============ Equivalence Partitions Tests ==============
         // TC01: Testing correctly add point to vector
         Point result = p1.add(new Vector(p2.xyz));
         Point expected = new Point(5, 7, 12);
