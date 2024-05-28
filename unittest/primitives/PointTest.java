@@ -54,6 +54,7 @@ class PointTest {
         Point expected = new Point(5, 7, 12);
         assertEquals(expected,result,"ERROR: (point + vector) = other point does not work correctly");
 
+        // =============== Boundary Values Tests ==================
         // TC02: Testing correctly add point to vector is equal to the other point (p2)
         assertEquals(p2, p1.add(new Vector(3, 3, 4)), "ERROR: (point + vector) = other point does " +
                 "not work correctly");
@@ -78,9 +79,9 @@ class PointTest {
         double expected = 34;
         assertEquals(expected, result, DELTA,"Squared distance between two different points is wrong");
 
+        // =============== Boundary Values Tests ==================
         // TC02: Testing distanceSquared with the same point
         assertTrue(isZero(p1.distanceSquared(p1)), "Squared distance between the same point is wrong");
-
         // TC03: Testing distanceSquared when the end result is zero
         assertEquals(0, p1.distanceSquared(p2) - 34, DELTA, "Squared distance between the same point is wrong");
     }
@@ -95,6 +96,7 @@ class PointTest {
         double expected = 5.830951894845301;
         assertEquals(expected, result, DELTA, "Distance between two different points is wrong");
 
+        // =============== Boundary Values Tests ==================
         // TC02: Testing distance with the same point
         double result2 = p1.distance(p1);
         double expected2 = 0;
@@ -110,10 +112,10 @@ class PointTest {
         // ============ Equivalence Partitions Tests ==============
 
         // TC01: Testing equals with two different points
-        Point p3 = new Point(1, 2, 4);
         assertFalse(p1.equals(p2), "Equals should return false for two different points");
 
+        // =============== Boundary Values Tests ==================
         // TC02: Testing equals with the same point
-        assertTrue(p1.equals(p3), "Equals should return true for two equal points");
+        assertTrue(p1.equals(p1), "Equals should return true for equal points");
     }
 }
