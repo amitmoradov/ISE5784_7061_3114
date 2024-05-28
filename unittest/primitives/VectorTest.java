@@ -39,7 +39,8 @@ class VectorTest{
         //v1.add(v1) == v1.scale(2)
         assertEquals(new Vector(2,4,6),v1.add(v1),"Vector addition failed");
 
-        //TC03: Addition of opposite vectors of equal length
+        // =============== Boundary Values Tests ==================
+        // Test add of two vectors which are in opposite direction
         assertThrows(IllegalArgumentException.class, () -> v1.add(oppositeV1), "Adding a vector to itself" +
                 " should throw an IllegalArgumentException of zero vector");
     }
@@ -58,8 +59,7 @@ class VectorTest{
         assertEquals(new Vector(-2,-4,-6),v1.scale(-2),"Vector scale failed");
 
         // =============== Boundary Values Tests =====================
-
-        // TC03: Checking if result is the zero vector
+        // Test for vector multiplication by scalar 0
         assertThrows(IllegalArgumentException.class, () -> v1.scale(0), "Scaling a vector to itself" +
                 " should throw an IllegalArgumentException of zero vector");
     }
@@ -103,7 +103,10 @@ class VectorTest{
         Vector v3 = new Vector(2,0,0);
 
         // ============ Equivalence Partitions Tests ==============
+        Vector v4 = new Vector(1, 2, 3);
+        Vector v5 = new Vector(5, 0, 2);
 
+        assertEquals(new Vector(4,13, -10), v4.crossProduct(v5), "cross product of two vectors is incorrect");
         //TC01: Checking cross product with two vectors
         assertEquals(new Vector(0, 0, 1), v1.crossProduct(v2), "Cross product calculation failed");
 

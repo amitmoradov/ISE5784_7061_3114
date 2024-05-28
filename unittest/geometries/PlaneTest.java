@@ -36,8 +36,8 @@ class PlaneTest {
                 " two points being identical should throw an IllegalArgumentException");
 
         // TC03: Testing plane creation with all points on the same line
-        assertThrows(IllegalArgumentException.class, () -> new Plane(new Point(1, 1, 1), new Point(2, 2,
-                        2), new Point(3, 3, 3)), "Creating a plane with all points on the same" +
+        assertThrows(IllegalArgumentException.class, () -> new Plane(new Point(1, 1, 1), new Point(2, 2, 2)
+                ,new Point(3, 3, 3)), "Creating a plane with all points on the same" +
                 " line should throw an IllegalArgumentException");
 
     }
