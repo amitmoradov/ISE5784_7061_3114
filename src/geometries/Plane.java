@@ -1,7 +1,10 @@
 package geometries;
 
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
 
 /**
  * A Plane represents a flat, two-dimensional surface extending infinitely in all directions.
@@ -53,5 +56,9 @@ public class Plane implements Geometry {
      */
     public Vector getNormal() {
         return normal;
+    }
+
+    public List<Point> findIntersections(Ray ray) {
+        return null;
     }
 }

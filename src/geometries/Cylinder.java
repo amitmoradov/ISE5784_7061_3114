@@ -3,6 +3,9 @@ package geometries;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
+
 import static primitives.Util.isZero;
 /**
  * Represents a cylinder in three-dimensional space.
@@ -43,5 +46,9 @@ public class Cylinder extends Tube {
         if (isZero(t) || isZero(t - this.height)) return axis.getDirection();
         Point o = isZero(t) ? axis.getHead() : axis.getHead().add(axis.getDirection().scale(t));
         return p.subtract(o).normalize();
+    }
+
+    public List<Point> findIntersections(Ray ray) {
+        return null;
     }
 }
