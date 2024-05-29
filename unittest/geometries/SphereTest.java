@@ -75,9 +75,7 @@ class SphereTest {
         final var result3 = sphere.findIntersections(new Ray(new Point(0.5,0.25,0.2),
                 new Vector(-1,-0.25,-0.2)));
         assertNull(result3, "Ray starts after the sphere");
-         
 
-        // TC04: Ray starts after the sphere (0 points)
         // =============== Boundary Values Tests ==================
         // **** Group: Ray's line crosses the sphere (but not the center)
         // TC11: Ray starts at sphere and goes inside (1 points)
