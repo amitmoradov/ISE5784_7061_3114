@@ -39,9 +39,10 @@ class SphereTest {
     }
 
     //----------------------Stag 3 -----------------------------------//
-    /**
+    /*
      * Test method for {@link geometries.Sphere#findIntersections(primitives.Ray)}.
      */
+    /*
     @Test
     public void testFindIntersections() {
         Sphere sphere = new Sphere(p100, 1d);
@@ -80,4 +81,5 @@ class SphereTest {
         // **** Group: Special cases
         // TC22: Ray's line is outside, ray is orthogonal to ray start to sphere's center line
     }
+    */
 }

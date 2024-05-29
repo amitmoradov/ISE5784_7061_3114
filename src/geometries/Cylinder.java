@@ -44,8 +44,7 @@ public class Cylinder extends Tube {
         double t = p.subtract(axis.getHead()).dotProduct(axis.getDirection());
         // If the charge is zero
         if (isZero(t) || isZero(t - this.height)) return axis.getDirection();
-        Point o = isZero(t) ? axis.getHead() : axis.getHead().add(axis.getDirection().scale(t));
-        return p.subtract(o).normalize();
+        return super.getNormal(p);
     }
 
     public List<Point> findIntersections(Ray ray) {
