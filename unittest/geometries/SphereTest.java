@@ -17,9 +17,6 @@ import java.util.List;
  */
 class SphereTest {
     private final double DELTA = 0.000001;
-    private final Point p001 = new Point(0, 0, 1);
-    private final Point p100 = new Point(1, 0, 0);
-    private final Vector v001 = new Vector(0, 0, 1);
 
 
     /** Test method for {@link geometries.Sphere#getNormal(Point)}. */
@@ -39,12 +36,16 @@ class SphereTest {
     }
 
     //----------------------Stag 3 -----------------------------------//
-    /*
+    /**
      * Test method for {@link geometries.Sphere#findIntersections(primitives.Ray)}.
      */
-    /*
+
+    private final Point p001 = new Point(0, 0, 1);
+    private final Point p100 = new Point(1, 0, 0);
+    private final Vector v001 = new Vector(0, 0, 1);
     @Test
     public void testFindIntersections() {
+
         Sphere sphere = new Sphere(p100, 1d);
         final Point gp1 = new Point(0.0651530771650466, 0.355051025721682, 0);
         final Point gp2 = new Point(1.53484692283495, 0.844948974278318, 0);
@@ -81,5 +82,4 @@ class SphereTest {
         // **** Group: Special cases
         // TC22: Ray's line is outside, ray is orthogonal to ray start to sphere's center line
     }
-    */
 }
