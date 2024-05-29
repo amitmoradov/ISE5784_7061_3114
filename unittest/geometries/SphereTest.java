@@ -2,13 +2,16 @@ package geometries;
 
 import org.junit.jupiter.api.Test;
 
+import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.*;
+import java.util.Comparator;
+import java.util.List;
 
 import primitives.Point;
 import primitives.Vector;
 import primitives.Ray;
 
-import java.util.List;
+
 
 /**
  * Testing Sphere
@@ -55,14 +58,23 @@ class SphereTest {
         final Vector v110 = new Vector(1, 1, 0);
         final Point p01 = new Point(-1, 0, 0);
         // ============ Equivalence Partitions Tests ==============
+
         // TC01: Ray's line is outside the sphere (0 points)
         assertNull(sphere.findIntersections(new Ray(p01, v110)), "Ray's line out of sphere");
+
         // TC02: Ray starts before and crosses the sphere (2 points)
         final var result1 = sphere.findIntersections(new Ray(p01, v310))
-                .stream().sorted(Comparator.comparingDouble(p) -> p.distance(p01))).toList();
+                .stream().sorted(Comparator.comparingDouble(p -> p.distance(p01))).toList();
         assertEquals(2, result1.size(), "Wrong number of points");
         assertEquals(exp, result1, "Ray crosses sphere");
+
         // TC03: Ray starts inside the sphere (1 point)
+
+        // TC04: Ray starts after the sphere (0 points)
+        final var result3 = sphere.findIntersections(new Ray(new Point(0.5,0.25,0.2),
+                new Vector(-1,-0.25,-0.2)));
+        assertNull(result3, "Ray starts after the sphere");
+         
 
         // TC04: Ray starts after the sphere (0 points)
         // =============== Boundary Values Tests ==================
