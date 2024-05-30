@@ -6,6 +6,8 @@ import primitives.Vector;
 
 import java.util.List;
 
+import static primitives.Util.alignZero;
+
 /**
  * Represents a sphere in three-dimensional space.
  * Extends the RadialGeometry class.
@@ -28,18 +30,66 @@ public class Sphere extends RadialGeometry {
 
     /**
      * Returns the normal vector to the sphere at a given point.
-     * Since a sphere is a perfectly symmetrical object, it has the same normal at every point.
-     * Therefore, this method always returns null.
+     * The normal is the normalized vector from the center of the sphere to the point.
      *
      * @param p The point to calculate the normal at.
-     * @return null since a sphere has the same normal at every point.
+     *
      */
     public Vector getNormal(Point p) {
        // By the formula normalize(p - center)
        return p.subtract(center).normalize();
     }
 
+    /**
+     * Finds the intersections of a given ray with the sphere.
+     *
+     * @param ray the ray to intersect with the sphere
+     * @return a list of intersection points, or null if there are no intersections
+     */
     public List<Point> findIntersections(Ray ray) {
+        Point p0 = ray.getHead();
+        Vector v = ray.getDirection();
+
+        // If the ray starts at the center of the sphere, throw an illegal argument exception
+        if (p0.equals(center)) {
+            throw new IllegalArgumentException("The ray starts at the center of the sphere");
+        }
+
+        Vector u = center.subtract(p0); // Vector from the ray's starting point to the sphere's center
+        double tm = v.dotProduct(u); // The projection of vector u on the direction vector of the ray
+        double d = alignZero(Math.sqrt(u.lengthSquared() - tm * tm)); // The distance from the sphere's
+        // center to the ray
+
+        // If the distance from the ray to the sphere center is greater than the radius, there are no intersections
+        if (d >= radius) {
+            return null;
+        }
+
+        double th = Math.sqrt(radius * radius - d * d); // The distance from the points
+        // of intersection to the point of perpendicularity
+        double t1 = alignZero(tm - th); // The distance from the ray's origin to the first intersection point
+        double t2 = alignZero(tm + th); // The distance from the ray's origin to the second intersection point
+
+        // If both intersection points are in front of the ray origin
+        if (t1 > 0 && t2 > 0) {
+            Point p1 = p0.add(v.scale(t1));
+            Point p2 = p0.add(v.scale(t2));
+
+            return List.of(p1, p2);
+        }
+        // If only one intersection point is in front of the ray origin
+        if (t1 > 0) {
+            Point p1 = p0.add(v.scale(t1)); // The first intersection point
+
+            return List.of(p1);
+        }
+        if (t2 > 0) {
+            Point p2 = p0.add(v.scale(t2)); // The second intersection point
+
+            return List.of(p2);
+        }
+
+        // If no intersection points are in front of the ray origin
         return null;
     }
 }
