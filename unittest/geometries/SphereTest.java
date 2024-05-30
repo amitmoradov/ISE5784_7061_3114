@@ -47,6 +47,7 @@ class SphereTest {
     private final Point p100 = new Point(1, 0, 0);
     private final Vector v001 = new Vector(0, 0, 1);
     private final Vector v010 = new Vector(0, 1, 0);
+    private final Vector v100 = new Vector(1, 0, 0);
     @Test
     public void testFindIntersections() {
 
@@ -77,8 +78,7 @@ class SphereTest {
         assertEquals(exp2 , result2, "Ray crosses sphere");
 
         // TC04: Ray starts after the sphere (0 points)
-        final var result3 = sphere.findIntersections(new Ray(new Point(0.5,0.25,0.2),
-                new Vector(-1,-0.25,-0.2)));
+        final var result3 = sphere.findIntersections(new Ray(new Point(2,0.5,0),v100));
         assertNull(result3, "Ray starts after the sphere");
 
         // =============== Boundary Values Tests ==================
