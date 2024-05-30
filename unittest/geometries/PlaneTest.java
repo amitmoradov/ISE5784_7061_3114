@@ -2,7 +2,10 @@ package geometries;
 
 import org.junit.jupiter.api.Test;
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -86,4 +89,81 @@ class PlaneTest {
         assertTrue(plane.getNormal().dotProduct(p3.subtract(p1))==0,
                 "ERROR: getNormal() does not return a vector orthogonal to the plane");
     }
+
+    //------------------------------Stage 3------------------------------
+    @Test
+    void findIntersections() {
+        Point point200 = new Point(2,0,0);
+        Point point020 = new Point(0,2,0);
+        Point point002 = new Point(0,0,2);
+        Plane plane = new Plane(point200, point020, point002);
+
+        // ============ Equivalence Partitions Tests ==============
+
+        //TC01: ray starts outside the plane, not parallel to the plane (point 1)
+        final var resulte1 = plane.findIntersections(new Ray(new Point(0,0,3)
+                , new Vector(0,0,-4)));
+        assertEquals(List.of(new Point(0,0,2)),resulte1, " ray starts outside the plane, not parallel to the plane " +
+                "and the point is (0,0,2)");
+        assertEquals(1,resulte1.size(),"ray starts outside the plane, not parallel to the plane (point 1)" );
+
+        //TODO:TEST02
+
+        // =============== Boundary Values Tests ==================
+
+        // **** Group: Ray's parallel to plane
+
+        //TC03: ray outside plane and parallel to a plane (0 points)
+        final var resulte3 = plane.findIntersections(new Ray(new Point(2,2,0)
+                , new Vector(2,-2,0)));
+        assertNull(resulte3," ray outside plane and parallel to a plane (0 points)");
+
+        //TC04: ray inside the plane parallel to the plane (0 points)
+        final var resulte4 = plane.findIntersections(new Ray(new Point(0,0,2)
+                , new Vector(2,-2,0)));
+        assertNull(resulte4," ray inside plane and parallel to a plane (0 points)");
+
+
+        // **** Group: Ray's ortogonal to plane
+
+        //TC05:ray start inside the plane and orthogonal to the plane
+        final var resulte5 = plane.findIntersections(new Ray(new Point(0,0,2)
+                , new Vector(1,1,1)));
+        assertNull(resulte5," ray start inside the plane and orthogonal to the plane (0 points)");
+
+        //TC06: ray before  the plane and orthogonal to the plane (1 point)
+        final var resulte6 = plane.findIntersections(new Ray(new Point(-1,0,2)
+                , new Vector(1,1,1)));
+        assertEquals(List.of(new Point(-0.67,0.33,2.33)),resulte6, " ray starts outside the plane, not parallel to the plane " +
+                "and the point is (-0.67,0.33,2.33)");
+        assertEquals(1,resulte6.size()," ray before  the plane and orthogonal to the plane (1 point)" );
+
+        //TC07: ray after  the plane and orthogonal to the plane (0 point)
+        final var resulte7 = plane.findIntersections(new Ray(new Point(2,0,2)
+                , new Vector(1,1,1)));
+        assertNull(resulte7,"ray after the plane and orthogonal to the plane (0 point)");
+
+        //**** Group: ray start inside plane and not parallel and not orthogonal to the plane
+
+        //TC08: ray not parallel (מקביל) and not orthogonal to the plane but starts in one of points that present the plane (0 point)
+        final var resulte8 = plane.findIntersections(new Ray(new Point(0,0,2)
+                , new Vector(-5,-5,15)));
+        assertNull(resulte8,"ray not parallel(מקביל) and not orthogonal to the plane but starts inside the plane (0 point)");
+
+        //TC09:  ray not parallel(מקביל) and not orthogonal to the plane but starts inside the plane (0 point)
+        final var resulte9 = plane.findIntersections(new Ray(new Point(-2,3,1)
+                , new Vector(-3,-8,14)));
+        assertNull(resulte9,"ray not parallel(מקביל) and not orthogonal to the plane but starts inside the plane (0 point)");
+
+
+
+
+
+
+
+
+
+
+    }
+
 }
