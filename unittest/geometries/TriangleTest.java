@@ -4,8 +4,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Comparator;
+import java.util.List;
+
 import primitives.Point;
 import primitives.Vector;
+import primitives.Ray;
 
 /**
  * Testing Triangles
@@ -42,5 +46,35 @@ class TriangleTest {
         assertTrue(expectedNormal.equals(triangle.getNormal(p1)) ||
                 expectedNormal.equals(triangle.getNormal(p1).scale(-1)) ,
                 "ERROR: getNormal() does not return the correct normal vector");
+    }
+
+    //----------------------Stag 3 ------------------------------------------------------------------------------//
+    /**
+     * Test method for {@link geometries.Triangle#findIntersections(primitives.Ray)}.
+     */
+    @Test
+    void findIntersections() {
+        Triangle triangle = new Triangle(new Point(0, 0, 4), new Point(4, 0, 0)
+                , new Point(0, -4, 0));
+
+        // =================== Equivalence Partitions Tests ==================================
+
+        // TC01 : The point of intersection with the contained plane is inside the triangle
+        final var result = triangle.findIntersections(new Ray(new Point(1, -1, 3)
+                , new Vector(0, 0, -1)));
+        assertEquals(1, result.size(), "ERROR: The ray intersects the triangle");
+        final var exp = List.of(new Point(1, -1, 0));
+        assertEquals(exp, result, "ERROR: The ray intersects the triangle");
+
+        // TC02 : The point of intersection with the contained plane is outside the triangle,
+        // in front of one of the sides
+        final var result2 = triangle.findIntersections(new Ray(new Point(1, -1, 3)
+                , new Vector(0, 0, 1)));
+        assertNull(result2, "ERROR: The ray does not intersect the triangle");
+
+
+
+
+
     }
 }
