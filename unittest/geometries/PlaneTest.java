@@ -107,7 +107,10 @@ class PlaneTest {
                 "and the point is (0,0,2)");
         assertEquals(1,resulte1.size(),"ray starts outside the plane, not parallel to the plane (point 1)" );
 
-        // TCO2:
+        // TCO2:ray starts outside the plane, not parallel to the plane (point 0)
+        final var resulte2 = plane.findIntersections(new Ray(new Point(1,1,1)
+                , new Vector(-6,-6,14)));
+        assertNull(resulte2," ray outside plane and not parallel to a plane (0 points)");
 
         // =============== Boundary Values Tests ==================
 
