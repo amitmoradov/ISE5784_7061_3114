@@ -119,19 +119,16 @@ class SphereTest {
         assertEquals(exp6, result8, "Ray start inside sphere");
 
         // TC16: Ray starts at the center (1 point)
-        final var result9 = sphere.findIntersections(new Ray(new Point(1, 0, 0),
-                new Vector(0, 1, 0)));
+        final var result9 = sphere.findIntersections(new Ray(new Point(1, 0, 0),v010));
         assertEquals(1, result9.size(), "Wrong number of points");
         assertEquals(exp6, result9, "Ray starts at the center of sphere");
 
         // TC17: Ray starts at sphere and goes outside (0 points)
-        final var result10 = sphere.findIntersections(new Ray(new Point(1, 1, 0),
-                new Vector(0, 1, 0)));
+        final var result10 = sphere.findIntersections(new Ray(new Point(1, 1, 0), v010));
         assertNull(result10, "Ray starts at sphere and goes outside");
 
         // TC18: Ray starts after sphere (0 points)
-        final var result11 = sphere.findIntersections(new Ray(new Point(1, 2, 0),
-                new Vector(0, 1, 0)));
+        final var result11 = sphere.findIntersections(new Ray(new Point(1, 2, 0), v010));
         assertNull(result11, "Ray starts after sphere");
 
         // **** Group: Ray's line is tangent to the sphere (all tests 0 points)
@@ -152,8 +149,7 @@ class SphereTest {
         // **** Group: Special cases
 
         // TC22: Ray's line is outside, ray is orthogonal to ray start to sphere's center line
-        final var result15 = sphere.findIntersections(new Ray(new Point(0, 2, 0),
-                new Vector(0, 0, 1)));
+        final var result15 = sphere.findIntersections(new Ray(new Point(0, 2, 0), v001));
         assertNull(result15, "Ray's line is outside and orthogonal to the line from ray start to sphere's center");
     }
 }
