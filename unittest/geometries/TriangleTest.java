@@ -60,19 +60,41 @@ class TriangleTest {
         // =================== Equivalence Partitions Tests ==================================
 
         // TC01 : The point of intersection with the contained plane is inside the triangle
-        final var result = triangle.findIntersections(new Ray(new Point(1, -1, 3)
+        final var result1 = triangle.findIntersections(new Ray(new Point(1, -1, 3)
                 , new Vector(0, 0, -1)));
-        assertEquals(1, result.size(), "ERROR: The ray intersects the triangle");
-        final var exp = List.of(new Point(1, -1, 0));
-        assertEquals(exp, result, "ERROR: The ray intersects the triangle");
+        assertEquals(1, result1.size(), "ERROR: The ray intersects the triangle");
+        assertEquals(List.of(new Point(1, -1, 2)), result1, "ERROR: The ray intersects the triangle");
 
-        // TC02 : The point of intersection with the contained plane is outside the triangle,
-        // in front of one of the sides
-        final var result2 = triangle.findIntersections(new Ray(new Point(1, -1, 3)
+        // TC02 : The ray starts in front of the vertex and does not cut the triangle
+        final var result2 = triangle.findIntersections(new Ray(new Point(0, 0, 5)
                 , new Vector(0, 0, 1)));
-        assertNull(result2, "ERROR: The ray does not intersect the triangle");
+        assertNull(result2, "ERROR: The ray intersects the triangle");
 
+        //TC03 : The ray starts in front of the side of the triangle
+        // and points outward and does not cut the triangle
+        final var result3 = triangle.findIntersections(new Ray(new Point(2, -3, 0)
+                , new Vector(0, -1, 0)));
+        assertNull(result3, "ERROR: The ray intersects the triangle");
 
+        // =============== Boundary Values Tests ==================
+
+        //TC04 :The ray starts in front of vertex of the triangle
+        // and points outward and does not cut the triangle
+        final var result4 = triangle.findIntersections(new Ray(new Point(0, 0, 5)
+                , new Vector(0, 0, -1)));
+        assertNull(result4, "ERROR: The ray intersects the triangle");
+
+        //TC05 : The ray starts in front of edge of the triangle
+        // and is directed towards it and does not cut the triangle
+        final var result5 = triangle.findIntersections(new Ray(new Point(2, -3, 0)
+                , new Vector(-2, 3, 0)));
+        assertNull(result5, "ERROR: The ray intersects the triangle");
+
+        //TC06 :The ray begins from the continuation of the side of the triangle inward (0 points)
+        //                      Continue the edge : Y = X - 4 => IF Y = 2 => X = 6 => POINT(6,2,0)
+        final var result6 = triangle.findIntersections(new Ray(new Point(6,2,0)
+                , new Vector(-2, 3, 0)));
+        assertNull(result6, "ERROR: The ray intersects the triangle");
 
 
 
