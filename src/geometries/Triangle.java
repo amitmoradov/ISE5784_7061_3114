@@ -5,6 +5,8 @@ import primitives.Vector;
 
 import java.util.List;
 
+import static primitives.Util.isZero;
+
 /**
  * A class representing a triangle in three-dimensional space.
  * Extends the Polygon class.
@@ -40,6 +42,10 @@ public class Triangle extends Polygon {
             double vn2 = ray.getDirection().dotProduct(n2);
             double vn3 = ray.getDirection().dotProduct(n3);
 
+            // If one or more are 0.0 - no intersection
+            if (isZero(vn1) || isZero(vn2) || isZero(vn3)) {
+                return null;
+            }
             if (vn1 > 0 && vn2 > 0 && vn3 > 0 || vn1 < 0 && vn2 < 0 && vn3 < 0) {
                 return intersections;
             }
