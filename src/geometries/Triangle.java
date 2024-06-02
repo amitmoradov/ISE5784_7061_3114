@@ -25,20 +25,24 @@ public class Triangle extends Polygon {
     public List<Point> findIntersections(Ray ray) {
         List<Point> intersections = plane.findIntersections(ray);
 
-        Vector v1 = vertices.get(0).subtract(ray.getHead());
-        Vector v2 = vertices.get(1).subtract(ray.getHead());
-        Vector v3 = vertices.get(2).subtract(ray.getHead());
+        // If the ray intersects the plane of the triangle
+        if (intersections != null) {
 
-        Vector n1 = v1.crossProduct(v2).normalize();
-        Vector n2 = v2.crossProduct(v3).normalize();
-        Vector n3 = v3.crossProduct(v1).normalize();
+            Vector v1 = vertices.get(0).subtract(ray.getHead());
+            Vector v2 = vertices.get(1).subtract(ray.getHead());
+            Vector v3 = vertices.get(2).subtract(ray.getHead());
 
-        double vn1 = ray.getDirection().dotProduct(n1);
-        double vn2 = ray.getDirection().dotProduct(n2);
-        double vn3 = ray.getDirection().dotProduct(n3);
+            Vector n1 = v1.crossProduct(v2).normalize();
+            Vector n2 = v2.crossProduct(v3).normalize();
+            Vector n3 = v3.crossProduct(v1).normalize();
 
-        if (vn1 > 0 && vn2 > 0 && vn3 > 0 || vn1 < 0 && vn2 < 0 && vn3 < 0) {
-            return intersections;
+            double vn1 = ray.getDirection().dotProduct(n1);
+            double vn2 = ray.getDirection().dotProduct(n2);
+            double vn3 = ray.getDirection().dotProduct(n3);
+
+            if (vn1 > 0 && vn2 > 0 && vn3 > 0 || vn1 < 0 && vn2 < 0 && vn3 < 0) {
+                return intersections;
+            }
         }
         return null;
     }

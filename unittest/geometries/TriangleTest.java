@@ -79,25 +79,26 @@ class TriangleTest {
 
         // =============== Boundary Values Tests ==================
 
-        //TC11 :The ray starts in front of vertex of the triangle
+        //TC04 :The ray starts in front of vertex of the triangle
         // and points outward and does not cut the triangle
         final var result4 = triangle.findIntersections(new Ray(new Point(0, 0, 5)
                 , new Vector(0, 0, -1)));
         assertNull(result4, "ERROR: The ray intersects the triangle");
 
-        //TC12 : The ray starts in front of edge of the triangle
+        //TC05 : The ray starts in front of edge of the triangle
         // and is directed towards it and does not cut the triangle
         final var result5 = triangle.findIntersections(new Ray(new Point(2, -3, 0)
                 , new Vector(-2, 3, 0)));
         assertNull(result5, "ERROR: The ray intersects the triangle");
 
-        //TC12 :The ray begins from the continuation of the side of the triangle inward (0 points)
+        // Different triangle for the last test
+        Triangle triangle2 = new Triangle(new Point(0, 0, 1), new Point(5, 0, 1),
+                new Point(3, 4, 1));
+
+        //TC06 :The ray begins from the continuation of the side of the triangle inward (0 points)
         // Continue the edge : Y = X - 4 => IF Y = 2 => X = 6 => POINT(6,2,0)
-        final var result6 = triangle.findIntersections(new Ray(new Point(6,2,0)
+        final var result6 = triangle2.findIntersections(new Ray(new Point(6,2,0)
                 , new Vector(-2, 3, 0)));
         assertNull(result6, "ERROR: The ray intersects the triangle");
-
-
-
     }
 }
