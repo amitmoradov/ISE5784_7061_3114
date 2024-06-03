@@ -1,5 +1,6 @@
 package geometries;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import static primitives.Util.isZero;
@@ -79,10 +80,58 @@ public class Polygon implements Geometry {
       }
    }
 
+   /**
+    * @return the normal to the polygon
+    * @param point
+    *
+    */
    @Override
    public Vector getNormal(Point point) { return plane.getNormal(); }
 
+   /**
+    * Find intersections of the ray with the polygon
+    * @param ray
+    * @return List of intersections points, or null if there are no intersections
+    */
    public List<Point> findIntersections(Ray ray) {
+      // First, we check if the ray intersects the plane of the polygon
+      List<Point> intersections = plane.findIntersections(ray);
+
+      if (intersections != null) {
+         Point p0 = ray.getHead();
+         Vector v = ray.getDirection();
+         // We need all the dot products between ray direction , and the normals are just positive or just negative
+         boolean allPositive = true;
+         boolean allNegative = true;
+
+         for (int i = 0; i < vertices.size(); i++) {
+            // v1 , v2 ... vn
+            Vector vector = vertices.get(i).subtract(p0);
+            // v2 , v3 ... v1
+            Vector nextVector = vertices.get((i + 1) % size).subtract(p0);
+            // The normal ni from formula v1 x v2 ... vn x v1
+            Vector currentNormal = vector.crossProduct(nextVector).normalize();
+            double dotProduct = v.dotProduct(currentNormal);
+
+            // If one or more are 0.0 - no intersection
+            if (isZero(dotProduct)) {
+               return null;
+            }
+
+            else if (dotProduct > 0) {
+               allNegative = false;
+            }
+
+            else if (dotProduct < 0) {
+               allPositive = false;
+            }
+
+            // If all the dot products are positive or all are negative, there is an intersection
+            if (allPositive || allNegative) {
+               return intersections;
+            }
+         }
+      }
       return null;
    }
 }
