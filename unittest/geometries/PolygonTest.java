@@ -9,7 +9,10 @@ import org.junit.jupiter.api.Test;
 
 import geometries.Polygon;
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
 
 /**
  * Testing Polygons
@@ -91,4 +94,52 @@ public class PolygonTest {
                     "Polygon's normal is not orthogonal to one of the edges");
     }
 
+    /** Test method for {@link geometries.Polygon#findIntersections(primitives.Ray)}. */
+    @Test
+    void findIntersections() {
+        Polygon polygon5Edge = new Polygon(new Point(1,1,1),new Point(4,1,1)
+                ,new Point(5,3,1),new Point(3,5,1),new Point(1,4,1));
+
+        // =================== Equivalence Partitions Tests ==================================
+
+        // TC01 : The point of intersection with the contained plane is inside the polygon
+        final var result1 = polygon5Edge.findIntersections(new Ray(new Point(3, 3, 0)
+                , new Vector(-3, -3, 2)));
+        assertEquals(1, result1.size(), "ERROR: The ray intersects the polygon");
+        assertEquals(List.of(new Point(1.5, 1.5, 1)), result1,
+                "ERROR: The ray intersects the polygon");
+
+        // TC02 : The point of intersection with the contained plane is outside the polygon, opposite one of the sides
+        final var result2 = polygon5Edge.findIntersections(new Ray(new Point(1, 0, 1)
+                , new Vector(1, 0, 0)));
+        assertNull(result2, "ERROR: The ray opposite one of the sides , and not intersects the polygon");
+
+        // TC03 : The point of intersection with the contained plane is outside the polygon, opposite
+        // one of the vertices
+        final var result3 = polygon5Edge.findIntersections(new Ray(new Point(1, 1, 1)
+                , new Vector(-1, -1, 0)));
+        assertNull(result3, "ERROR: The ray opposite one of the vertices , and not intersects the polygon");
+
+
+        // ============================== Boundary Values Tests =======================================================
+
+        // TC04 : The point of intersection with the contained plane is on one of the sides of the polygon
+        final var result4 = polygon5Edge.findIntersections(new Ray(new Point(1, 0, 1)
+                , new Vector(0, 2, 0)));
+        assertNull(result4, "ERROR: The point of intersection with the contained plane is on one of the" +
+                " sides of the polygon");
+
+        // TC05 : The point of intersection with the contained plane is inside one of the vertices of the polygon
+        final var result5 = polygon5Edge.findIntersections(new Ray(new Point(5, 2, 1)
+                , new Vector(0, 4, 0)));
+        assertNull(result5, "ERROR: The point of intersection with the contained plane is inside one of" +
+                " the vertices of the polygon");
+
+        // TC06 : The point of intersection with the contained plane is on a continuation of one of the sides
+        // of the polygon
+        final var result6 = polygon5Edge.findIntersections(new Ray(new Point(0, 0, 1)
+                , new Vector(2, 0, 0)));
+        assertNull(result6, "ERROR: The point of intersection with the contained plane is on a continuation" +
+                " of one of the sides");
+    }
 }
