@@ -30,18 +30,18 @@ class GeometriesTest {
         // =============== Boundary Values Tests ===================
 
         //TC02: Empty collection of objects (0 point)
-        assertNull(geometries.findIntersections(new Ray(new Point(-7, -3, 2),new Vector(3,5,50))), "Empty collection of objects - wrong intersection points");
+        assertNull(geometries.findIntersections(new Ray(new Point(2, -3, 2),new Vector(50,-20,50))), "Empty collection of objects - wrong intersection points");
 
         //TC03: only one intersection in all geometries
         //There is one object with interaction
         int result3  = geometries.findIntersections(new Ray(new Point(-7, -3, 2), new Vector(10, 5, 1))).size();
         assertEquals(1, result3, "Wrong number of intersection points");
 
-        //TC04:The all shapes with interaction (3 points)
+        //TC04:The all shapes with interaction (4 points) - intersection of sphere in 2 points = result of intersection is 4
         int result4  = geometries.findIntersections(new Ray(new Point(0, 2, 0), new Vector(2, -4, 1))).size();
-        assertEquals(3, result3, "Wrong number of intersection points");
+        assertEquals(4, result4, "Wrong number of intersection points");
 
-        //TC05: ??? I dont Know if that's what they want
+        //TC05: empty list of geometries
         Geometries emptyGeometries = new Geometries();
         assertNull(emptyGeometries.findIntersections(new Ray(new Point(0, 2, 0), new Vector(2, -4, 1))), "Empty collection of objects - wrong intersection points");
 
