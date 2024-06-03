@@ -1,5 +1,7 @@
 package primitives;
 
+import static primitives.Util.isZero;
+
 /**
  * A ray represents a half-straight line in three-dimensional space, starting from a point (the head) and extending in an infinite direction. */
 public class Ray {
@@ -56,7 +58,15 @@ public class Ray {
                 '}';
     }
 
+    /**
+     * Retrieves a point on the ray at a specified distance from the head.
+     * @param t The distance from the head of the ray.
+     * @return The point on the ray at the specified distance.
+     */
     public Point getPoint(double t) {
-        return null;
+        if (isZero(t)){
+            return head;
+        }
+        return head.add(direction.scale(t));
     }
 }

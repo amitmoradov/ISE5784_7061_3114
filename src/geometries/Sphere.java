@@ -72,19 +72,19 @@ public class Sphere extends RadialGeometry {
 
         // If both intersection points are in front of the ray origin
         if (t1 > 0 && t2 > 0) {
-            Point p1 = p0.add(v.scale(t1));
-            Point p2 = p0.add(v.scale(t2));
+            Point p1 = ray.getPoint(t1);
+            Point p2 = ray.getPoint(t2);
 
             return List.of(p1, p2);
         }
         // If only one intersection point is in front of the ray origin
         if (t1 > 0) {
-            Point p1 = p0.add(v.scale(t1)); // The first intersection point
+            Point p1 = ray.getPoint(t1); // The first intersection point
 
             return List.of(p1);
         }
         if (t2 > 0) {
-            Point p2 = p0.add(v.scale(t2)); // The second intersection point
+            Point p2 = ray.getPoint(t2); // The second intersection point
 
             return List.of(p2);
         }

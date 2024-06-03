@@ -89,7 +89,7 @@ public class Plane implements Geometry {
 
         // If the intersection point is in the positive direction of the ray
         if (t > 0) {
-            Point p = p0.add(v.scale(t)); // The intersection point
+            Point p = ray.getPoint(t); // The intersection point
             return List.of(p);
         }
 

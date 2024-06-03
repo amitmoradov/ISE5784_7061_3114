@@ -81,6 +81,29 @@ public class Point {
     @Override
     public String toString() {
         return "" + xyz.toString(); }
+
+    /**
+     * Retrieves the x coordinate of the point.
+     * @return The x coordinate of the point
+     */
+    public double getX(){
+        return xyz.d1;
+    }
+    /**
+     * Retrieves the y coordinate of the point.
+     * @return The y coordinate of the point
+     */
+    public double getY(){
+        return xyz.d2;
+    }
+    /**
+     * Retrieves the z coordinate of the point.
+     * @return The z coordinate of the point
+     */
+    public double getZ(){
+        return xyz.d3;
+    }
 }
+
 
 
