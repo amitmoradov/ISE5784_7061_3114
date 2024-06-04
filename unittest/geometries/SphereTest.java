@@ -119,14 +119,10 @@ class SphereTest {
         assertEquals(exp6, result8, "Ray start inside sphere");
 
         // TC16: Ray starts at the center (1 point)
-        try{
-            sphere.findIntersections(new Ray(p100, v100));
-            fail("Ray starts at the center of sphere");
-            //assertEquals(1, result9.size(), "Wrong number of points");
-            //assertEquals(exp6, result9, "Ray starts at the center of sphere");
-        }
-        catch (IllegalArgumentException e) {
-        }
+        final var result9 = sphere.findIntersections(new Ray(p100, v100));
+        assertEquals(1, result9.size(), "Wrong number of points");
+        assertEquals(exp6, result9, "Ray starts at the center of sphere");
+
 
         // TC17: Ray starts at sphere and goes outside (0 points)
         final var result10 = sphere.findIntersections(new Ray(new Point(1, 1, 0), v010));

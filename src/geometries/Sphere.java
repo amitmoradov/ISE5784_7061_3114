@@ -45,11 +45,6 @@ public class Sphere extends RadialGeometry {
         Point p0 = ray.getHead();
         Vector v = ray.getDirection();
 
-        // If the ray starts at the center of the sphere, throw an illegal argument exception
-        if (p0.equals(center)) {
-            throw new IllegalArgumentException("The ray starts at the center of the sphere");
-        }
-
         Vector u = center.subtract(p0); // Vector from the ray's starting point to the sphere's center
         double tm = v.dotProduct(u); // The projection of vector u on the direction vector of the ray
         double d = alignZero(Math.sqrt(u.lengthSquared() - tm * tm)); // The distance from the sphere's

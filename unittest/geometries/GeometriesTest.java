@@ -30,13 +30,13 @@ class GeometriesTest {
 
         //TC01: A few (but not all of them) in interaction
         int numOfIntersections = geometries.findIntersections(new Ray(new Point(-4, -3, 2),
-                new Vector(9, 5, 2))).size();
-        assertEquals(2, numOfIntersections, "Wrong number of intersection points");
+                new Vector(12, 3, 2))).size();
+        assertEquals(1, numOfIntersections, "Wrong number of intersection points");
 
         // =============== Boundary Values Tests ===================
 
         //TC02: Empty collection of objects (0 point)
-        assertNull(geometries.findIntersections(new Ray(new Point(2, -3, 2),new Vector(50,-20,50)))
+        assertNull(geometries.findIntersections(new Ray(new Point(2, 1, 1),new Vector(0,0,-2)))
                 , "Empty collection of objects - wrong intersection points");
 
         //TC03: only one intersection in all geometries
