@@ -41,12 +41,7 @@ public class Plane implements Geometry {
         this.normal = n.normalize(); // Normalizing the normal vector to ensure it represents a unit vector.
     }
 
-    /**
-     * Retrieves the normal vector to the plane at a specified point.
-     *
-     * @param p The point on the plane (unused in this implementation).
-     * @return The normal vector to the plane.
-     */
+
     @Override
     public Vector getNormal(Point p) {
         return normal;
@@ -61,18 +56,7 @@ public class Plane implements Geometry {
         return normal;
     }
 
-    /**
-     * Finds the intersections of a given ray with the plane.
-     *
-     * @param ray The ray to intersect with the plane.
-     * @return A list of intersection points, or null if there are no intersections.
-     */
-    /**
-     * Finds the intersections of a given ray with the plane.
-     *
-     * @param ray the ray to intersect with the plane
-     * @return a list containing the intersection point if it exists, or null if there are no intersections
-     */
+    @Override
     public List<Point> findIntersections(Ray ray) {
         Point p0 = ray.getHead();
         Vector v = ray.getDirection();

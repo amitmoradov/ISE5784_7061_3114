@@ -23,6 +23,12 @@ public class Triangle extends Polygon {
         super(p1, p2, p3);
     }
 
+
+    /**
+     * The method calculates the intersections of a given ray with the triangle.
+     * @param ray the ray to intersect with the triangle
+     * @return a list of intersection points, or null if there are no intersections
+     */
     @Override
     public List<Point> findIntersections(Ray ray) {
         List<Point> intersections = plane.findIntersections(ray);

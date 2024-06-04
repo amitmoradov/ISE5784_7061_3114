@@ -1,5 +1,6 @@
 package geometries;
 
+import org.junit.jupiter.api.Test;
 import primitives.Ray;
 import primitives.Point;
 import primitives.Vector;
@@ -27,12 +28,8 @@ public class Tube extends RadialGeometry {
         this.axis = axis;
     }
 
-    /**
-     * Returns the normal vector to the tube at a given point.
-     * Since a tube is infinitely thin, it has no normal at a specific point.
-     *
-     * @param p The point to calculate the normal at.
-     */
+
+    @Override
     public Vector getNormal(Point p) {
         // By the formula normalize(p - center O)
         // t = v * (p - p0)
@@ -43,6 +40,7 @@ public class Tube extends RadialGeometry {
         return p.subtract(O).normalize(); //
     }
 
+    @Override
     public List<Point> findIntersections(Ray ray) {
         return null;
     }

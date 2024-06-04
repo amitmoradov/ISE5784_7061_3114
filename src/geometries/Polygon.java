@@ -88,11 +88,7 @@ public class Polygon implements Geometry {
    @Override
    public Vector getNormal(Point point) { return plane.getNormal(); }
 
-   /**
-    * Find intersections of the ray with the polygon
-    * @param ray
-    * @return List of intersections points, or null if there are no intersections
-    */
+   @Override
    public List<Point> findIntersections(Ray ray) {
       // First, we check if the ray intersects the plane of the polygon
       List<Point> intersections = plane.findIntersections(ray);

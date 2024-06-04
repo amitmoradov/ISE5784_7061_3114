@@ -164,16 +164,6 @@ class PlaneTest {
                 , new Vector(-3,-8,14)));
         assertNull(resulte9,"ray not parallel(מקביל) and not orthogonal to the plane but starts" +
                 " inside the plane (0 point)");
-
-
-
-
-
-
-
-
-
-
     }
 
 }
