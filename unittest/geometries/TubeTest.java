@@ -34,8 +34,8 @@ class TubeTest {
 
         // TC02: Testing when p - p0 is orthogonal to direction of the ray in the tube
         Tube tube2 = new Tube(new Ray(new Point(0, 0, 0), new Vector(0, 0, 1)), 1);
-        assertThrows(IllegalArgumentException.class, () -> tube2.getNormal(new Point(1, 0, 0)),
-                "ERROR: the calculate when point P is in front of the head of ray in the tube return zero vector");
+        assertEquals(new Vector(1,0,0), tube2.getNormal(new Point(1,0,0)),"ERROR:" +
+                " getNormal() does not return the correct normal vector");
 
         // TC03: Testing if the length of norma of tube is 1.
         assertEquals(1, tube.getNormal(new Point(1,1,1)).length(),DELTA,

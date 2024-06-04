@@ -121,7 +121,8 @@ class SphereTest {
         // TC16: Ray starts at the center (1 point)
         final var result9 = sphere.findIntersections(new Ray(p100, v100));
         assertEquals(1, result9.size(), "Wrong number of points");
-        assertEquals(exp6, result9, "Ray starts at the center of sphere");
+        final var exp7 = List.of(new Point(2,0,0));
+        assertEquals(exp7, result9, "Ray starts at the center of sphere");
 
 
         // TC17: Ray starts at sphere and goes outside (0 points)
