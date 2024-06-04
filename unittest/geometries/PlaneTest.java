@@ -100,6 +100,8 @@ class PlaneTest {
 
         // ============ Equivalence Partitions Tests ==============
 
+        // **** Group: Ray starts outside the plane, not parallel to the plane
+
         //TC01: ray starts outside the plane, not parallel to the plane (point 1)
         final var resulte1 = plane.findIntersections(new Ray(new Point(0,0,3)
                 , new Vector(0,0,-4)));
