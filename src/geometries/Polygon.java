@@ -125,11 +125,10 @@ public class Polygon implements Geometry {
             else if (dotProduct < 0) {
                allPositive = false;
             }
-
-            // If all the dot products are positive or all are negative, there is an intersection
-            if (allPositive || allNegative) {
-               return intersections;
-            }
+         }
+         // If all the dot products are positive or all are negative, there is an intersection
+         if (allPositive || allNegative) {
+            return intersections;
          }
       }
       return null;

@@ -110,8 +110,8 @@ public class PolygonTest {
                 "ERROR: The ray intersects the polygon");
 
         // TC02 : The point of intersection with the contained plane is outside the polygon, opposite one of the sides
-        final var result2 = polygon5Edge.findIntersections(new Ray(new Point(1, 0, 1)
-                , new Vector(1, 0, 0)));
+        final var result2 = polygon5Edge.findIntersections(new Ray(new Point(1, 0, 2)
+                , new Vector(1, 0, -1)));
         assertNull(result2, "ERROR: The ray opposite one of the sides , and not intersects the polygon");
 
         // TC03 : The point of intersection with the contained plane is outside the polygon, opposite
@@ -124,21 +124,21 @@ public class PolygonTest {
         // ============================== Boundary Values Tests =======================================================
 
         // TC04 : The point of intersection with the contained plane is on one of the sides of the polygon
-        final var result4 = polygon5Edge.findIntersections(new Ray(new Point(1, 0, 1)
-                , new Vector(0, 2, 0)));
+        final var result4 = polygon5Edge.findIntersections(new Ray(new Point(1, 0, 2)
+                , new Vector(0, 2, -1)));
         assertNull(result4, "ERROR: The point of intersection with the contained plane is on one of the" +
                 " sides of the polygon");
 
         // TC05 : The point of intersection with the contained plane is inside one of the vertices of the polygon
-        final var result5 = polygon5Edge.findIntersections(new Ray(new Point(5, 2, 1)
-                , new Vector(0, 4, 0)));
+        final var result5 = polygon5Edge.findIntersections(new Ray(new Point(5, 3, 2)
+                , new Vector(0, 0, -1)));
         assertNull(result5, "ERROR: The point of intersection with the contained plane is inside one of" +
                 " the vertices of the polygon");
 
         // TC06 : The point of intersection with the contained plane is on a continuation of one of the sides
         // of the polygon
-        final var result6 = polygon5Edge.findIntersections(new Ray(new Point(0, 0, 1)
-                , new Vector(2, 0, 0)));
+        final var result6 = polygon5Edge.findIntersections(new Ray(new Point(1, 0, 2)
+                , new Vector(0, 0, -2)));
         assertNull(result6, "ERROR: The point of intersection with the contained plane is on a continuation" +
                 " of one of the sides");
     }
