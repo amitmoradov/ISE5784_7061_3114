@@ -47,8 +47,8 @@ class GeometriesTest {
 
         //TC04:The all shapes with interaction (4 points) - intersection of sphere in 2 points = result
         // of intersection is 4
-        int result4  = geometries.findIntersections(new Ray(new Point(0, 2, 0)
-                , new Vector(2, -4, 1))).size();
+        int result4  = geometries.findIntersections(new Ray(new Point(0, 4, 0)
+                , new Vector(4, -12, 1))).size();
         assertEquals(4, result4, "Wrong number of intersection points");
 
         //TC05: empty list of geometries

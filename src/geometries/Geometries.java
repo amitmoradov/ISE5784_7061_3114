@@ -44,19 +44,17 @@ public class Geometries implements Intersectable {
         if (this.lstGeo.isEmpty()) { // Check if the list is empty
             return null; // If empty, return null
         }
-        List<Point> intersections = null; // Initialize the intersections list as null
+        List<Point>  intersections = null; // Create a new list to store intersection points
          for (Intersectable geometry : lstGeo) { // Loop through all objects in the list
             List<Point> geometryIntersections = geometry.findIntersections(ray); // Find intersection points with
             // the current object
             if (geometryIntersections != null) { // Check if intersection points were found
-                intersections = new LinkedList<Point>(); // Create a new list to store intersection points
+                if (intersections == null)
+                    intersections = new LinkedList<>();
                 intersections.addAll(geometryIntersections); // Add the found intersection points to the general list
             }
         }
 
-        if (intersections.isEmpty()) { // Check if no intersection points were found
-            return null; // If none were found, return null
-        }
         return intersections; // Return the list of found intersection points
     }
 }
