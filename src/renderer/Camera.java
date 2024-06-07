@@ -79,6 +79,7 @@ public class Camera implements Cloneable {
         return new Builder();
     }
 
+
     /**
      * Creating a ray through the center of the pixel
      * @param nx The number of pixels in the x direction
