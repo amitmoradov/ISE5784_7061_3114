@@ -68,7 +68,6 @@ public class Camera implements Cloneable {
 
     public static class Builder{
         private final Camera camera = new Camera();
-        public Builder(){}
 
     }
 
