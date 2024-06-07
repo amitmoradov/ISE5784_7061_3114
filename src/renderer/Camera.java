@@ -56,6 +56,7 @@ public class Camera implements Cloneable {
     }
 
     // Private constructor
+    /*
     private Camera(Point location, Vector vTo, Vector vUp, double viewPlaneWidth, double viewPlaneHeight, double distance) {
         this.p0 = location;
         this.vTo = vTo.normalize();
@@ -66,9 +67,51 @@ public class Camera implements Cloneable {
         this.height = viewPlaneHeight;
 
     }
+    */
+    /**
+     * Builder class for Camera, implementing the Builder Pattern.
+     */
+    public static class Builder {
+        /**
+         * Represents a builder for constructing Camera objects.
+         * This builder class allows for the creation of Camera objects with a fluent interface.
+         */
+        private final Camera camera;
 
-    public static class Builder{
-        private final Camera camera = new Camera();
+        /**
+         * Private constructor for Builder.
+         */
+        private Builder() {
+            camera = new Camera();
+        }
+
+        /**
+         * Constructs a Builder object with the given Camera object.
+         *
+         * @param camera to initialize the Builder with
+         */
+        private Builder(Camera camera) {
+            this.camera = camera;
+        }
+
+        /**
+         * Sets the location of the camera.
+         *
+         * @param location The position to set for the camera.
+         * @return The current Builder object.
+         * @throws IllegalArgumentException if the provided position is null.
+         */
+        private Builder setLocation(Point location){
+            if (location == null)
+            {
+                throw new IllegalArgumentException("Camera location cannot be null");
+            }
+            this.camera.p0 = location;
+            return this;
+        }
+
+        private Builder setDirection(Vector direction){}
+
 
     }
 
@@ -76,7 +119,8 @@ public class Camera implements Cloneable {
     /**
      * Returns a new object of A Builder class
      */
-    public getBuilder(){
+    public Builder getBuilder()
+    {
         return new Builder();
     }
 
