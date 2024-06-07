@@ -62,8 +62,9 @@ public class Camera implements Cloneable {
         this.vUp = vUp.normalize();
         this.vRight = this.vTo.crossProduct(this.vUp).normalize();
         this.width = viewPlaneWidth;
-        this.height = viewPlaneHeight;
         this.distance = distance;
+        this.height = viewPlaneHeight;
+
     }
 
     public static class Builder{
