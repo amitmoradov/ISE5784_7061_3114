@@ -9,7 +9,6 @@ import primitives.Vector;
  * The camera is used to render images of the scene.
  */
 
-
 public class Camera implements Cloneable {
 
     private Point p0; // The camera's location
@@ -53,7 +52,26 @@ public class Camera implements Cloneable {
      * A builder class for constructing a Camera object.
      */
     private Camera(){
+
     }
+
+    // Private constructor
+    private Camera(Point location, Vector vTo, Vector vUp, double viewPlaneWidth, double viewPlaneHeight, double distance) {
+        this.p0 = location;
+        this.vTo = vTo.normalize();
+        this.vUp = vUp.normalize();
+        this.vRight = this.vTo.crossProduct(this.vUp).normalize();
+        this.width = viewPlaneWidth;
+        this.height = viewPlaneHeight;
+        this.distance = distance;
+    }
+
+    public static class Builder{
+        private final Camera camera = new Camera();
+        public Builder(){}
+
+    }
+
 
     /**
      * Returns a new object of A Builder class
