@@ -4,6 +4,10 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.MissingResourceException;
+
+import static primitives.Util.isZero;
+
 /**
  * Represents a camera in three-dimensional space.
  * The camera is used to render images of the scene.
@@ -55,19 +59,7 @@ public class Camera implements Cloneable {
 
     }
 
-    // Private constructor
-    /*
-    private Camera(Point location, Vector vTo, Vector vUp, double viewPlaneWidth, double viewPlaneHeight, double distance) {
-        this.p0 = location;
-        this.vTo = vTo.normalize();
-        this.vUp = vUp.normalize();
-        this.vRight = this.vTo.crossProduct(this.vUp).normalize();
-        this.width = viewPlaneWidth;
-        this.distance = distance;
-        this.height = viewPlaneHeight;
 
-    }
-    */
     /**
      * Builder class for Camera, implementing the Builder Pattern.
      */
@@ -106,15 +98,131 @@ public class Camera implements Cloneable {
             {
                 throw new IllegalArgumentException("Camera location cannot be null");
             }
+
             this.camera.p0 = location;
             return this;
         }
 
-        private Builder setDirection(Vector direction){}
+        /**
+         * Sets the direction of the camera.
+         *
+         * @param vTo The direction to set for the camera.
+         * @param vUp The up vector to set for the camera.
+         * @return The current Builder object.
+         * @throws IllegalArgumentException if the provided direction is null or if the direction and up vector are
+         * not orthogonal.
+         */
+        private Builder setDirection(Vector vTo , Vector vUp){
+            if (vTo == null || vUp == null)
+            {
+                throw new IllegalArgumentException("Camera direction cannot be null");
+            }
 
+            // Check if the vectors are orthogonal
+            if (!isZero(vTo.dotProduct(vUp)))
+            {
+                throw new IllegalArgumentException("The vectors vTo , and vUp are not orthogonal");
+            }
+
+            this.camera.vTo = vTo.normalize();
+            this.camera.vUp = vUp.normalize();
+            return this;
+        }
+
+        /**
+         * Sets the size of the view plane.
+         *
+         * @param width The width of the view plane.
+         * @param height The height of the view plane.
+         * @return The current Builder object.
+         * @throws IllegalArgumentException if the provided width or height is not positive.
+         */
+
+        private Builder setVpSize(double width, double height){
+            if (width <= 0 || height <= 0)
+            {
+                throw new IllegalArgumentException("The width and height of the view plane must be positive");
+            }
+
+            this.camera.width = width;
+            this.camera.height = height;
+            return this;
+        }
+
+        private Builder setVpDistance(double distance){
+            if (distance <= 0)
+            {
+                throw new IllegalArgumentException("The distance between the camera and the view" +
+                        " plane must be positive");
+            }
+
+            this.camera.distance = distance;
+            return this;
+        }
+
+
+        /**
+         * Builds a Camera object with the specified parameters.
+         *
+         * @return A new Camera object with the specified parameters.
+         * @throws MissingResourceException if any of the required parameters are missing.
+         */
+        public Camera build(){
+
+            // Const string for missing data to be used in the exception
+            final String missingData = "Missing rendering data";
+
+            if (camera.p0 == null)
+            {
+                new IllegalArgumentException("Camera location cannot be null");
+            }
+
+            if (camera.vTo == null)
+            {
+                new IllegalArgumentException("Camera direction vTo cannot be null");
+            }
+
+            if (camera.vUp == null)
+            {
+                new IllegalArgumentException("Camera direction vUp cannot be null");
+            }
+
+            // Vright calculation by cross product of vTo and vUp , therefore we not check if vRight is null
+
+
+
+            if (camera.width <= 0.0)
+            {
+                throw new MissingResourceException(missingData, Camera.class.getName(), "width");
+            }
+
+            if (camera.height <= 0.0)
+            {
+                throw new MissingResourceException(missingData, Camera.class.getName(), "height");
+            }
+
+            if (camera.distance <= 0.0)
+            {
+                throw new MissingResourceException(missingData, Camera.class.getName(), "distance");
+            }
+
+            // vRight = vTo x vUp
+            this.camera.vRight = camera.vTo.crossProduct(camera.vUp).normalize();
+
+            return (Camera) camera.clone();
+        }
 
     }
+//====================================== END OF BUILDER CLASS =========================================================
 
+    @Override
+    public Camera clone() {
+        try {
+            return (Camera) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError(); // Can't happen
+        }
+    }
 
     /**
      * Returns a new object of A Builder class
