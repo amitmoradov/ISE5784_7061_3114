@@ -60,6 +60,8 @@ public class Camera implements Cloneable {
     }
 
 
+
+
     /**
      * Builder class for Camera, implementing the Builder Pattern.
      */
@@ -93,7 +95,7 @@ public class Camera implements Cloneable {
          * @return The current Builder object.
          * @throws IllegalArgumentException if the provided position is null.
          */
-        private Builder setLocation(Point location){
+        public Builder setLocation(Point location){
             if (location == null)
             {
                 throw new IllegalArgumentException("Camera location cannot be null");
@@ -112,7 +114,7 @@ public class Camera implements Cloneable {
          * @throws IllegalArgumentException if the provided direction is null or if the direction and up vector are
          * not orthogonal.
          */
-        private Builder setDirection(Vector vTo , Vector vUp){
+        public Builder setDirection(Vector vTo, Vector vUp){
             if (vTo == null || vUp == null)
             {
                 throw new IllegalArgumentException("Camera direction cannot be null");
@@ -138,7 +140,7 @@ public class Camera implements Cloneable {
          * @throws IllegalArgumentException if the provided width or height is not positive.
          */
 
-        private Builder setVpSize(double width, double height){
+        public Builder setVpSize(double width, double height){
             if (width <= 0 || height <= 0)
             {
                 throw new IllegalArgumentException("The width and height of the view plane must be positive");
@@ -149,7 +151,7 @@ public class Camera implements Cloneable {
             return this;
         }
 
-        private Builder setVpDistance(double distance){
+        public Builder setVpDistance(double distance){
             if (distance <= 0)
             {
                 throw new IllegalArgumentException("The distance between the camera and the view" +
@@ -227,7 +229,7 @@ public class Camera implements Cloneable {
     /**
      * Returns a new object of A Builder class
      */
-    public Builder getBuilder()
+    public static Builder getBuilder()
     {
         return new Builder();
     }
@@ -241,8 +243,9 @@ public class Camera implements Cloneable {
      * @param i  The y index of the pixel
      * @return
      */
-    public Ray construcRay(int nx, int ny, int j, int i){
-         return null;
+    public Ray constructRay(int nx, int ny, int j, int i){
+
+        return null;
     }
 }
 
