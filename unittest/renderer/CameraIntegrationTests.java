@@ -6,6 +6,8 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CameraIntegrationTests {
@@ -25,6 +27,7 @@ public class CameraIntegrationTests {
         // Define the camera parameters
 
         // Sphere tests
+        //TC01:
         testRayIntersections(camera, new Sphere(new Point(0, 0, -3), 1), 2);
 
         //TC02: The camera is located at point (0,0,0.5) and it cuts the ball there are 18 cuts
@@ -70,6 +73,7 @@ public class CameraIntegrationTests {
         testRayIntersections(camera, new Triangle(new Point(0, 20, -2), new Point(1, -1, -2), new Point(-1, -1, -2)), 2);
 
     }
+
     /**
      * Helper method to test the number of intersections of rays from the camera
      * with a given geometry.
@@ -77,19 +81,21 @@ public class CameraIntegrationTests {
      * @param camera                the camera
      * @param geometry              the geometry to test intersections with
      * @param expectedIntersections the expected number of intersections
-     * */
-    private void testRayIntersections(Camera camera, Intersectable geometry, int expectedIntersections){
+     */
+    private void testRayIntersections(Camera camera, Intersectable geometry, int expectedIntersections) {
         int count = 0;
         int nX = 3, nY = 3;
 
         for (int i = 0; i < nY; i++) {
             for (int j = 0; j < nX; j++) {
                 Ray ray = camera.constructRay(nX, nY, j, i);
-                count += geometry.findIntersections(ray).size();
+                List<Point> intersections = geometry.findIntersections(ray);
+                if (intersections != null) {
+                    count += intersections.size();
+                }
             }
+
+            assertEquals(expectedIntersections, count, "Wrong number of intersections");
         }
-
-        assertEquals(expectedIntersections, count, "Wrong number of intersections");
     }
-
 }
