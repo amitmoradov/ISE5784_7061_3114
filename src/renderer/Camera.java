@@ -244,8 +244,28 @@ public class Camera implements Cloneable {
      * @return
      */
     public Ray constructRay(int nx, int ny, int j, int i){
+        // pc = p0 + d * vto
+        Point pc = p0.add(vTo.scale(distance).normalize());
 
-        return null;
+        double Ry = height / ny;
+        double Rx = width / nx;
+
+        double Yi = -(i -((ny - 1) / 2)) * Ry;
+        double Xj = (j -((nx - 1) / 2)) * Rx;
+
+        Point Pij = pc;
+
+        if (Xj != 0)
+            Pij = Pij.add(vRight.normalize().scale(Xj));
+
+        if (Yi != 0)
+            Pij = Pij.add(vUp.normalize().scale(Yi));
+
+
+        // Return a ray in direction of Pij - p0
+        Vector Vij = Pij.subtract(p0);
+        return new Ray(p0, Vij.normalize());
+
     }
 }
 
