@@ -50,11 +50,14 @@ public class CameraIntegrationTests {
     public void testsplaneIntegretions() {
         // Plane tests
         //TC01:
-        testRayIntersections(camera, new Plane(new Point(0, 0, -4), new Vector(0, 0, 1)), 9);
+        testRayIntersections(camera, new Plane(new Point(0, 0, -4),
+                new Vector(0, 0, 1)), 9);
         //TC02:
-        testRayIntersections(camera, new Plane(new Point(0, 0, -4), new Vector(0, 1, 1)), 9);
+        testRayIntersections(camera, new Plane(new Point(0, 0, -4),
+                new Vector(0, 1, 1)), 9);
         //TC03:
-        testRayIntersections(camera, new Plane(new Point(0, 0, -4), new Vector(0, -1, 1)), 6);
+        testRayIntersections(camera, new Plane(new Point(0, 0, -4),
+                new Vector(0, -1, 1)), 6);
     }
 
     /**
@@ -65,9 +68,11 @@ public class CameraIntegrationTests {
     public void teststrianleIntegretions() {
         //Triangle tests
         //TC01:
-        testRayIntersections(camera, new Triangle(new Point(0, 1, -2), new Point(1, -1, -2), new Point(-1, -1, -2)), 1);
+        testRayIntersections(camera, new Triangle(new Point(0, 1, -2), new Point(1, -1, -2),
+                new Point(-1, -1, -2)), 1);
         //TC02:
-        testRayIntersections(camera, new Triangle(new Point(0, 20, -2), new Point(1, -1, -2), new Point(-1, -1, -2)), 2);
+        testRayIntersections(camera, new Triangle(new Point(0, 20, -2), new Point(1, -1, -2),
+                new Point(-1, -1, -2)), 2);
 
     }
     /**
