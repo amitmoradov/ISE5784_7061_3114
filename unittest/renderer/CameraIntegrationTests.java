@@ -15,7 +15,8 @@ public class CameraIntegrationTests {
     private final Camera.Builder cameraBuilder = Camera.getBuilder()
             // .setRayTracer(new SimpleRayTracer(new Scene("Test"))).setImageWriter(new
             // ImageWriter("Test", 1, 1))
-            .setLocation(Point.ZERO).setDirection(new Vector(0, 0, -1), new Vector(0, -1, 0)).setVpDistance(1);
+            .setLocation(Point.ZERO).setDirection(new Vector(0, 0, -1),
+                    new Vector(0, 1, 0)).setVpDistance(1);
     Camera camera = cameraBuilder.setVpSize(3, 3).build();
 
     /**
@@ -31,17 +32,18 @@ public class CameraIntegrationTests {
         testRayIntersections(camera, new Sphere(new Point(0, 0, -3), 1), 2);
 
         //TC02: The camera is located at point (0,0,0.5) and it cuts the ball there are 18 cuts
-        cameraBuilder.setLocation(new Point(0, 0, 0.5));
+        cameraBuilder.setLocation(new Point(0, 0, 0.5)).build();
         testRayIntersections(camera, new Sphere(new Point(0, 0, -2.5), 2.5), 18);
 
         //TC03:The camera is positioned at (0,0,0.5) and it cuts the ball at 10 points
         testRayIntersections(camera, new Sphere(new Point(0, 0, -2), 2), 10);
 
+        cameraBuilder.setLocation(Point.ZERO).build();
         //TC04:The camera inside the sphere
         testRayIntersections(camera, new Sphere(new Point(0, 0, -2), 4), 9);
 
         //TC05:The count is after the camera so there are no cutoff points
-        cameraBuilder.setLocation(Point.ZERO);
+
         testRayIntersections(camera, new Sphere(new Point(0, 0, 1), 0.5), 0);
     }
 
@@ -54,10 +56,10 @@ public class CameraIntegrationTests {
         // Plane tests
         //TC01:
         testRayIntersections(camera, new Plane(new Point(0, 0, -4),
-                new Vector(0, 0, 1)), 9);
+                new Vector(0, 0, -1)), 9);
         //TC02:
         testRayIntersections(camera, new Plane(new Point(0, 0, -4),
-                new Vector(0, 1, 1)), 9);
+                new Vector(0, 0.1, 1)), 9);
         //TC03:
         testRayIntersections(camera, new Plane(new Point(0, 0, -4),
                 new Vector(0, -1, 1)), 6);
@@ -99,8 +101,7 @@ public class CameraIntegrationTests {
                     count += intersections.size();
                 }
             }
-
-            assertEquals(expectedIntersections, count, "Wrong number of intersections");
         }
+        assertEquals(expectedIntersections, count, "Wrong number of intersections");
     }
 }
