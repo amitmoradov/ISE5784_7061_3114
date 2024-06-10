@@ -28,7 +28,7 @@ public class CameraIntegrationTests {
         // Define the camera parameters
 
         // Sphere tests
-        //TC01:
+        //TC01: Camera location at point(0,0,0) .
         testRayIntersections(camera, new Sphere(new Point(0, 0, -3), 1), 2);
 
         Camera camera2 = cameraBuilder.setLocation(new Point(0, 0, 0.5)).build();
