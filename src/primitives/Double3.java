@@ -99,7 +99,7 @@ public class Double3 {
     * @param  rhs right hand side operand for product
     * @return     result of product
     */
-   public double product(Double3 rhs) { return (d1 * rhs.d1 + d2 * rhs.d2 +d3 * rhs.d3); }
+   public Double3 product(Double3 rhs) { return new Double3(d1 * rhs.d1, d2 * rhs.d2 , d3 * rhs.d3); }
 
    /**
     * Checks whether all the numbers are lower than a test number
