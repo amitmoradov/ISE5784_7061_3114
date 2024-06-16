@@ -21,7 +21,9 @@ class ImageWriterTest {
          */
 
         ImageWriter imageWriter = new ImageWriter("Grid 10x16", 800, 500);
+        /** The number of columns of pixels */
         int Nx = imageWriter.getNx();
+        /** The number of row of pixels */
         int Ny = imageWriter.getNy();
 
         /** The colors of the background and , grid lines by RGB */
