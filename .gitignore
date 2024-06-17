@@ -27,6 +27,7 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+/images/
 
 ### Ignore images directory ###
 /images/

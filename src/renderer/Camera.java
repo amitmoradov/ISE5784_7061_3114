@@ -26,6 +26,9 @@ public class Camera implements Cloneable {
     double height = 0.0; // The height of the view plane
     double distance = 0.0; // The distance between the camera and the view plane
 
+    ImageWriter imageWriter;
+    RayTracerBase rayTracer;
+
     Point getP0() {
         return p0;
     }
