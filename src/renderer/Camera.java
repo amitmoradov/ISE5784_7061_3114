@@ -177,10 +177,11 @@ public class Camera implements Cloneable {
         }
 
         /**
-         * Sets the ray tracer to be used by the camera.
+         * Sets the image writer to be used by the camera.
          *
-         * @param rayTracer The ray tracer to be used by the camera.
+         * @param imageWriter The image writer to be used by the camera.
          * @return The current Builder object.
+         * @throws IllegalArgumentException if the provided image writer is null.
          */
         public Builder setImageWriter(ImageWriter imageWriter){
             if (imageWriter == null)
@@ -237,15 +238,6 @@ public class Camera implements Cloneable {
 
             // Vright calculation by cross product of vTo and vUp , therefore we not check if vRight is null
 
-            if (camera.imageWriter == null){
-                throw new MissingResourceException(missingData, Camera.class.getName(), "image writer");
-            }
-
-            if (camera.rayTracer == null){
-                throw new MissingResourceException(missingData, Camera.class.getName(), "ray tracer");
-            }
-
-
             if (camera.width <= 0.0)
             {
                 throw new MissingResourceException(missingData, Camera.class.getName(), "width");
@@ -270,6 +262,14 @@ public class Camera implements Cloneable {
 
             if (camera.distance <= 0)
                 throw new IllegalStateException("dThe distance must be positive");
+
+            if (camera.imageWriter == null){
+                throw new MissingResourceException(missingData, Camera.class.getName(), "image writer");
+            }
+
+            if (camera.rayTracer == null){
+                throw new MissingResourceException(missingData, Camera.class.getName(), "ray tracer");
+            }
 
             // vRight = vTo x vUp
 
@@ -337,24 +337,49 @@ public class Camera implements Cloneable {
     }
 
     /**
-     * Renders the image using the camera and the ray tracer.
+     * Renders the image by casting rays from the camera to the view plane.
      */
-    public void renderImage(){
-        throw new UnsupportedOperationException("Not implemented yet");
+    public Camera renderImage(){
+        // Get the number of pixels in the x and y direction
+        int Nx = imageWriter.getNx();
+        int Ny = imageWriter.getNy();
+
+        // Iterate over the pixels in the image
+        for (int i = 0; i < Ny; i++){
+            for (int j = 0; j < Nx; j++){
+                castRay(Nx, Ny, j, i);
+            }
+        }
+
+        return this;
     }
 
     /**
      * Print a grid on the view plane with a given interval and color.
      */
-    public void printGrid(int interval, Color color){
-        return;
+    public Camera printGrid(int interval, Color color){
+        // For each pixel in the image writer , if the pixel is on the grid , color it with the given color , otherwise
+        // color it with the background color
+        for (int i = 0; i < imageWriter.getNy(); i++){
+            for (int j = 0; j < imageWriter.getNx(); j++){
+                if (i % interval == 0 || j % interval == 0){
+                    imageWriter.writePixel(j, i, color);
+                }
+            }
+        }
+
+        return this;
     }
 
     /**
-     * Writes the rendered image to a file.
+     * Writes the rendered image to a file by delegation to imageWriter class .
      */
     public void writeToImage(){
-        return;
+        if (imageWriter == null) {
+            throw new IllegalStateException("Image writer is not set");
+        }
+
+        imageWriter.writeToImage();
     }
 
     /**
@@ -365,7 +390,12 @@ public class Camera implements Cloneable {
      * @param row The row index of the pixel
      */
     private void castRay(int Nx, int Ny, int column, int row){
-        return;
+        /* Construct a ray from the camera to the view plane */
+        Ray ray = constructRay(Nx, Ny, column, row);
+
+        Color color = rayTracer.traceRay(ray);
+        // Write the color to the image writer
+        imageWriter.writePixel(column, row, color);
     }
 }
 
