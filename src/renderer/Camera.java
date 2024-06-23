@@ -30,6 +30,7 @@ public class Camera implements Cloneable {
 
     private ImageWriter imageWriter; // The image writer used to write the rendered image
     private RayTracerBase rayTracer; // The ray tracer used to render the image
+    private Point pCenter;
 
     Point getP0() {
         return p0;
@@ -278,7 +279,7 @@ public class Camera implements Cloneable {
                 throw new IllegalArgumentException("Direction vectors must be orthogonal");
 
             this.camera.vRight = camera.vTo.crossProduct(camera.vUp).normalize();
-
+            camera.pCenter = camera.p0.add(camera.vTo.scale(camera.distance));
             return (Camera) camera.clone();
         }
 
@@ -313,7 +314,7 @@ public class Camera implements Cloneable {
      */
     public Ray constructRay(int nx, int ny, int j, int i){
         // pc = p0 + d * vto
-        Point Pc = p0.add(vTo.scale(distance));
+        Point Pc = pCenter;
 
         double Ry = height / ny;
         double Rx = width / nx;

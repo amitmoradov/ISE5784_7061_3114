@@ -21,7 +21,7 @@ public class RenderTests {
    /** Camera builder of the tests */
    private final Camera.Builder camera = Camera.getBuilder()
            .setRayTracer(new SimpleRayTracer(scene))
-           .setLocation(Point.ZERO).setDirection(new Point(0, 0, -1), Vector.Y)
+           .setLocation(Point.ZERO).setDirection(new Vector(0, 0, -1), new Vector(0, 1, 0))
            .setVpDistance(100)
            .setVpSize(500, 500);
 
@@ -39,7 +39,7 @@ public class RenderTests {
               // left
               new Triangle(new Point(100, 0, -100), new Point(0, -100, -100), new Point(100, -100, -100))); // down
       scene.setAmbientLight(new AmbientLight(new Color(255, 191, 191), Double3.ONE))
-              .setBackground(new Color(75, 127, 90));
+              .setBackground(new Color(255, 127, 90));
 
       // right
       camera

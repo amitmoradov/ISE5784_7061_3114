@@ -2,6 +2,7 @@ package geometries;
 
 import primitives.Point;
 import primitives.Ray;
+import primitives.Util;
 import primitives.Vector;
 
 import static primitives.Util.*;
@@ -12,7 +13,7 @@ import java.util.List;
 /**
  * A Plane represents a flat, two-dimensional surface extending infinitely in all directions.
  */
-public class Plane implements Geometry {
+public class Plane extends Geometry {
 
     private final Point q; // A point on the plane
     private final Vector normal; // The normal vector to the plane
@@ -57,28 +58,35 @@ public class Plane implements Geometry {
     }
 
     @Override
-    public List<Point> findIntersections(Ray ray) {
-        Point p0 = ray.getHead();
-        Vector v = ray.getDirection();
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        // Calculate the denominator of the division for finding the parameter t
+        double denominator = this.normal.dotProduct(ray.getDirection());
+        // If the denominator is close to zero, the ray is parallel to the plane
+        if (Util.isZero(denominator))
+            return null; // Ray is parallel to the plane
 
-        double nv = normal.dotProduct(v); // Dot product of the plane's normal and the ray's direction
-        // If the ray is parallel to the plane, there are no intersections
-        if (isZero(nv)) {
+        // Calculate the numerator of the division for finding the parameter t
+        Vector p0MinusQ0;
+        try {
+            p0MinusQ0 = q.subtract(ray.getHead());
+        } catch (IllegalArgumentException ignore) {
             return null;
         }
 
-        Vector qp0 = q.subtract(p0); // Vector from the ray's starting point to a point on the plane
-        double t = alignZero(normal.dotProduct(qp0) / nv); // Distance from the ray's starting
-        // point to the intersection point
+        double numerator = this.normal.dotProduct(p0MinusQ0);
+        // Calculate the parameter t
+        double t = Util.alignZero(numerator / denominator);
 
-        // If the intersection point is in the positive direction of the ray
-        if (t > 0) {
-            Point p = ray.getPoint(t); // The intersection point
-            return List.of(p);
-        }
+        // If t is negative, the intersection point is behind the ray's start point
+        if (t < 0)
+            return null;
 
-        // If the intersection point is behind the ray's starting point
-        return null;
+        // Calculate the intersection point
+        Point intersectionPoint = ray.getPoint(t);
+
+        // Return a list with a single GeoPoint containing this plane and the
+        // intersection point
+        return List.of(new Intersectable.GeoPoint(this, intersectionPoint));
     }
 
 }

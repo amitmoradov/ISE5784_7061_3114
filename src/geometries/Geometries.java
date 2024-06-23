@@ -14,13 +14,14 @@ import java.util.List;
  * It is used to store multiple objects and find intersection points with them.
  * author Amit Moradov , Yinon Shaul
  */
-public class Geometries implements Intersectable {
+public class Geometries extends Intersectable {
 
     // List of Intersectable objects stored in a linked list
-    private List<Intersectable> lstGeo = new LinkedList<Intersectable>();
+    private final List<Intersectable> lstGeo = new LinkedList<Intersectable>();
 
     // Default constructor that initializes the list of geometries
-    public Geometries() {}
+    public Geometries() {
+    }
 
     // Constructor that takes a collection of Intersectable objects and adds them to the list
     public Geometries(Intersectable... geometries) {
@@ -34,19 +35,20 @@ public class Geometries implements Intersectable {
         }
     }
 
-    /**
-     * Finds the intersection points between a ray and the object.
-     *
-     * @param ray The ray to intersect with the object.
-     * @return A list of intersection points, or null if no intersections were found.
-     */
+/*
+    @Override
     public List<Point> findIntersections(Ray ray) {
+        return List.of();
+    }
+*/
+    @Override
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         if (this.lstGeo.isEmpty()) { // Check if the list is empty
             return null; // If empty, return null
         }
-        List<Point>  intersections = null; // Create a new list to store intersection points
-         for (Intersectable geometry : lstGeo) { // Loop through all objects in the list
-            List<Point> geometryIntersections = geometry.findIntersections(ray); // Find intersection points with
+        List<GeoPoint> intersections = null; // Create a new list to store intersection points
+        for (Intersectable geometry : lstGeo) { // Loop through all objects in the list
+            List<GeoPoint> geometryIntersections = geometry.findGeoIntersectionsHelper(ray); // Find intersection points with
             // the current object
             if (geometryIntersections != null) { // Check if intersection points were found
                 if (intersections == null)
@@ -57,4 +59,5 @@ public class Geometries implements Intersectable {
 
         return intersections; // Return the list of found intersection points
     }
+
 }
