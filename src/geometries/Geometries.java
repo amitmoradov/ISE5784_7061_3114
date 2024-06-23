@@ -42,7 +42,7 @@ public class Geometries extends Intersectable {
     }
 */
     @Override
-    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         if (this.lstGeo.isEmpty()) { // Check if the list is empty
             return null; // If empty, return null
         }

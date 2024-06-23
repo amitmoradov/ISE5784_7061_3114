@@ -65,8 +65,8 @@ public abstract class Intersectable {
     }
 
     /**
-     * Public method findGeoIntersections for finding GeoPoints of intersections
-     * between the intersectable object and a given ray.
+     * Public method findGeoIntersections for finding GeoPoints of intersections ,
+     * between the intersectable object and a given ray , by calling the helper method.
      *
      * @param ray The ray to intersect with the object.
      * @return A list of GeoPoints representing intersection points between the

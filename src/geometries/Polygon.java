@@ -89,7 +89,7 @@ public class Polygon extends Geometry {
    public Vector getNormal(Point point) { return plane.getNormal(); }
 
    @Override
-   public List<Point> findIntersections(Ray ray) {
+   protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
       // First, we check if the ray intersects the plane of the polygon
       List<Point> intersections = plane.findIntersections(ray);
 
@@ -124,7 +124,7 @@ public class Polygon extends Geometry {
          }
          // If all the dot products are positive or all are negative, there is an intersection
          if (allPositive || allNegative) {
-            return intersections;
+            return List.of(new GeoPoint(this, intersections.get(0)));
          }
       }
       return null;

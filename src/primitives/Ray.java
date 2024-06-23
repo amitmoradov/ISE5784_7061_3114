@@ -4,6 +4,9 @@ import java.util.List;
 
 import static primitives.Util.isZero;
 
+import geometries.Intersectable.GeoPoint;
+
+
 /**
  * A ray represents a half-straight line in three-dimensional space, starting from a point (the head) and extending in an infinite direction. */
 public class Ray {
@@ -92,4 +95,27 @@ public class Ray {
         }
         return min;
     }
+
+    /**
+     * find the closest GeoPoint to ray's head
+     *
+     * @return the closest GeoPoint
+     */
+    public GeoPoint findClosestGeoPoint(List<GeoPoint> points) {
+        if (points == null) {
+            return null;
+        }
+        GeoPoint min = null;
+        double distance = Double.POSITIVE_INFINITY;
+        // run over all the points and , find the closest one
+        for (GeoPoint point : points) {
+
+            if(point.point.distance(head) < distance){
+                min = point;
+                distance = point.point.distance(head);
+            }
+        }
+        return min;
+    }
+
 }
