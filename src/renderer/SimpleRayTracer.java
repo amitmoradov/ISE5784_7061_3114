@@ -28,7 +28,7 @@ public class SimpleRayTracer extends RayTracerBase{
     /**
      * function to calculate the color of a ray through pixel in the scene
      *
-     * @param ray the ray
+     * @param ray the ray through pixel
      * @return the color
      */
     public Color traceRay(Ray ray) {
