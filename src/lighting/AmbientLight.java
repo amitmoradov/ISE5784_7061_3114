@@ -1,49 +1,45 @@
+
 package lighting;
 
 import primitives.Color;
 import primitives.Double3;
 
 /**
- * Ambient light is a type of light that fills in the shadows created by other light sources.
- * It is a constant light that shines on all objects in the scene.
- * @author Amit , Yinon
+ * A class representing Ambient Light.
  */
-public class AmbientLight {
-
-    /** The fill light bone field */
-    private final Color intensity;
-
-    /** The default fill light BLACK */
-    public static final AmbientLight NONE = new AmbientLight(Color.BLACK, Double3.ZERO);
-
-    // ***************** Constructors ********************** //
+public class AmbientLight extends Light {
 
     /**
-     * Constructor for AmbientLight
-     * @param IA Color of the Fill light by RGB
-     * @param KA The Fill light attenuation coefficient
+     * Represents an ambient light source with no ambient light effect. The ambient
+     * light color is set to black (no contribution to ambient lighting), and the
+     * ambient light intensity is set to zero. This constant can be used to
+     * represent absence of ambient light in a scene.
      */
-    public AmbientLight(Color IA , Double3 KA) {
-        this.intensity = IA.scale(KA);
+    public static final AmbientLight NONE = new AmbientLight(new Color(java.awt.Color.BLACK), Double3.ZERO);
+
+    /**
+     * Constructs an ambient light source with the specified intensity and ambient
+     * reflection coefficient.
+     *
+     * @param intensity The color intensity of the ambient light.
+     * @param KA        The ambient reflection coefficient (ambient reflectivity)
+     *                  represented as a {@code Double3} vector. This coefficient
+     *                  scales the intensity of the ambient light.
+     */
+    public AmbientLight(Color intensity, Double3 KA) {
+        super(intensity.scale(KA));
     }
 
     /**
-     * Constructor for AmbientLight
-     * @param IA Color of the Fill light by RGB
-     * @param KA The attenuation coefficient
+     * Constructs an ambient light source with the specified intensity and ambient
+     * reflection coefficient.
+     *
+     * @param intensity The color intensity of the ambient light.
+     * @param KA        The ambient reflection coefficient (ambient reflectivity)
+     *                  represented as a scalar value. This coefficient scales the
+     *                  intensity of the ambient light.
      */
-    public AmbientLight(Color IA, double KA) {
-        this.intensity = IA.scale(KA);
+    public AmbientLight(Color intensity, double KA) {
+        super(intensity.scale(KA));
     }
-
-    // ***************** Operations ******************** //
-
-    /**
-     * Getter for the fill light intensity
-     * @return the fill light intensity
-     */
-    public Color getIntensity() {
-        return intensity;
-    }
-
 }
