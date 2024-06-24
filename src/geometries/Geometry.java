@@ -17,7 +17,7 @@ public abstract class Geometry extends Intersectable {
     /**
      * Field representing the material of the geometry.
      */
-//    private Material material = new Material();
+    private Material material = new Material();
 
     /**
      * Method that returns the emission color of the geometry.
@@ -54,10 +54,10 @@ public abstract class Geometry extends Intersectable {
      * @param material the new material to set
      * @return the updated Geometry object
      */
-//    public Geometry setMaterial(Material material) {
-//        this.material = material;
-//        return this;
-//    }
+    public Geometry setMaterial(Material material) {
+        this.material = material;
+        return this;
+    }
 
     /**
      * Method that returns the normal vector to the surface body at a given point.

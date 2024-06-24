@@ -82,10 +82,11 @@ public class PointLight  extends Light implements LightSource{
 
     @Override
     public Vector getL(Point p) {
-        // if the point is the same as the light source, return null
+        // If the point is the same as the light source, return null
         if (p.equals(position))
             return null;
-        // otherwise, return the normalized vector from the light source to the point
+
+        // Otherwise, return the normalized vector from the light source to the point
         return p.subtract(position).normalize();
     }
 

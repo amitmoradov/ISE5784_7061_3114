@@ -5,8 +5,12 @@ import primitives.Vector;
 import primitives.Point;
 
 import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
 
-
+/**
+ * A class representing a spotlight.
+ * Inherits from PointLight and implements LightSource.
+ */
 public class SpotLight extends PointLight implements LightSource{
 
     /**
@@ -54,7 +58,18 @@ public class SpotLight extends PointLight implements LightSource{
 
     @Override
     public Color getIntensity(Point point) {
-        return null;
+        double d = direction.dotProduct(getL(point));
+
+        // If the angle between the direction vector , and the vector from the light source to the point is 0 degrees ,
+        // return color (0,0,0) - black.
+        if (isZero(d) || d < 0) {
+           return Color.BLACK;
+        }
+
+        // If the angle between the direction vector and the vector from the light source to the point is greater than
+        // 0 degrees, return the Point light calculation .
+        return super.getIntensity(point).scale(d);
+
     }
 
 }

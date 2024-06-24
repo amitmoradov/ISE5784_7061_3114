@@ -21,7 +21,8 @@ public interface LightSource {
 
     /**
      * Returns the direction vector from the light source to a given point in the
-     * scene. This vector represents the direction in which the light is shining.
+     * scene.
+     * This vector represents the direction where the light is shining.
      *
      * @param p The point in the scene.
      * @return The direction vector from the light source to the given point.
