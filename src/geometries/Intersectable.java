@@ -13,12 +13,17 @@ import java.util.Objects;
  */
 public abstract class Intersectable {
     /**
-     * Finds the intersection points between a ray and the object.
+     * Public method findIntersections for finding intersection points between the
+     * intersectable object and a given ray, by calling the helper method.
      *
      * @param ray The ray to intersect with the object.
-     * @return A list of intersection points, or null if no intersections were found.
+     * @return A list of intersection points between the object and the ray.
      */
-    public abstract List<Point> findIntersections(Ray ray);
+    public List<Point> findIntersections(Ray ray) {
+        var geoList = findGeoIntersections(ray);
+        return geoList == null ? null : geoList.stream().map(gp -> gp.point).toList();
+    }
+
 
     /**
      * Inner static class GeoPoint representing a geometric intersection point with
