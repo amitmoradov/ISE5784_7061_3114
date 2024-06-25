@@ -1,11 +1,12 @@
 package geometries;
 
 import primitives.Color;
+import primitives.Material;
 import primitives.Vector;
 import primitives.Point;
 
 /**
- * The Geometry interface represents a geometric shape in 3D space.
+ * The Geometry abstract represents a geometric shape in 3D space.
  */
 public abstract class Geometry extends Intersectable {
 
@@ -39,25 +40,6 @@ public abstract class Geometry extends Intersectable {
         return this;
     }
 
-    /**
-     * Method that returns the material of the geometry.
-     *
-     * @return the material of the geometry
-     */
-//    public Material getMaterial() {
-//        return material;
-//    }
-
-    /**
-     * Method to update the material of the geometry.
-     *
-     * @param material the new material to set
-     * @return the updated Geometry object
-     */
-    public Geometry setMaterial(Material material) {
-        this.material = material;
-        return this;
-    }
 
     /**
      * Method that returns the normal vector to the surface body at a given point.
@@ -67,5 +49,25 @@ public abstract class Geometry extends Intersectable {
      * @return a vector
      */
     public abstract Vector getNormal(Point point);
+
+    /**
+     * Method that returns the material of the geometry.
+     *
+     * @return the material of the geometry
+     */
+    public Material getMaterial() {
+        return this.material;
+    }
+
+    /**
+     * Method to update the material of the geometry.
+     *
+     * @param material the new material to set
+     * @return the updated Geometry object
+     */
+    public Geometry setMaterial(Material material){
+        this.material = material;
+        return this;
+    }
 
 }
