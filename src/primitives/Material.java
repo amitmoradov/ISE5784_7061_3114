@@ -22,7 +22,7 @@ public class Material {
      * @param kD The diffuse coefficient to set.
      * @return This Material object.
      */
-    public Material setKD(double kD) {
+    public Material setKd(double kD) {
         this.kD = new Double3(kD);
         return this;
     }
@@ -33,7 +33,7 @@ public class Material {
      * @param kD The diffuse coefficient to set.
      * @return This Material object.
      */
-    public Material setKD(Double3 kD) {
+    public Material setKd(Double3 kD) {
         this.kD = kD;
         return this;
     }
@@ -44,7 +44,7 @@ public class Material {
      * @param kS The specular coefficient to set.
      * @return This Material object.
      */
-    public Material setKS(double kS) {
+    public Material setKs(double kS) {
         this.kS = new Double3(kS);
         return this;
     }
@@ -55,7 +55,7 @@ public class Material {
      * @param kS The specular coefficient to set.
      * @return This Material object.
      */
-    public Material setKS(Double3 kS) {
+    public Material setKs(Double3 kS) {
         this.kS = kS;
         return this;
     }

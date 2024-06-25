@@ -20,20 +20,20 @@ public class SpotLight extends PointLight implements LightSource{
 
 
     @Override
-    public PointLight setKC(double kC) {
-        return (SpotLight) super.setKC(kC);
+    public PointLight setKc(double kC) {
+        return (SpotLight) super.setKc(kC);
     }
 
 
     @Override
-    public PointLight setKL(double kL) {
-        return (SpotLight) super.setKL(kL);
+    public PointLight setKl(double kL) {
+        return (SpotLight) super.setKl(kL);
     }
 
 
     @Override
-    public PointLight setKQ(double kQ) {
-        return (SpotLight)super.setKQ(kQ);
+    public PointLight setKq(double kQ) {
+        return (SpotLight)super.setKq(kQ);
 
     }
 
