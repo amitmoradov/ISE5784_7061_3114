@@ -132,8 +132,8 @@ class PlaneTest {
         // **** Group: Ray's ortogonal to plane
 
         //TC05:ray start inside the plane and orthogonal to the plane
-        final var resulte5 = plane.findIntersections(new Ray(new Point(0,0,2)
-                , new Vector(1,1,1)));
+        final var resulte5 = new Plane(new Point(1,0,0),new Point(0,1,0),new Point(0,0,0)).findIntersections(new Ray(new Point(1,0,0)
+                , new Vector(0,0,1)));
         assertNull(resulte5," ray start inside the plane and orthogonal to the plane (0 points)");
 
         //TC06: ray before  the plane and orthogonal to the plane (1 point)
@@ -154,16 +154,16 @@ class PlaneTest {
 
         //TC08: ray not parallel (מקביל) and not orthogonal to the plane but starts in one of points that
         // present the plane (0 point)
-        final var resulte8 = plane.findIntersections(new Ray(new Point(0,0,2)
-                , new Vector(-5,-5,15)));
-        assertNull(resulte8,"ray not parallel(מקביל) and not orthogonal to the plane but" +
-                " starts inside the plane (0 point)");
+        Plane plane1 = new Plane(new Point(1, 0, 0), new Vector(1, 0, 0));
+        Ray ray8 = new Ray(new Point(1, 0, 0), new Vector(0, 1, 0));
+        assertNull(plane1.findIntersections(ray8),
+                "Ray is neither orthogonal nor parallel to the plane and begins in the same point which appears as reference point in the plane");
 
-        //TC09:  ray not parallel(מקביל) and not orthogonal to the plane but starts inside the plane (0 point)
-        final var resulte9 = plane.findIntersections(new Ray(new Point(-2,3,1)
-                , new Vector(-3,-8,14)));
-        assertNull(resulte9,"ray not parallel(מקביל) and not orthogonal to the plane but starts" +
-                " inside the plane (0 point)");
+
+        // TC09 BVA: Ray is neither orthogonal nor parallel to and begins at the plane
+        Ray ray7 = new Ray(new Point(0, 1, 0), new Vector(0, 0, 2));
+        assertNull(plane1.findIntersections(ray7), "Ray is neither orthogonal nor parallel to and begins at the plane");
+
     }
 
 }
