@@ -7,10 +7,13 @@ public class Material {
     /** The ambient coefficient of the material */
     public double kA;
 
-    /** The diffuse coefficient of the material */
+    /** The diffuse coefficient of the material
+     * dispersion of light to all directions */
+
     public Double3 kD = Double3.ZERO;
 
-    /** The specular coefficient of the material */
+    /** The specular coefficient of the material
+     * mirror reflection */
     public Double3 kS = Double3.ZERO;
 
     /** The shininess exponent of the material */

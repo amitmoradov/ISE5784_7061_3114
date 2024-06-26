@@ -11,12 +11,18 @@ import static primitives.Util.isZero;
  * A class representing a spotlight.
  * Inherits from PointLight and implements LightSource.
  */
-public class SpotLight extends PointLight implements LightSource{
+public class SpotLight extends PointLight implements LightSource {
 
     /**
      * the direction vector.
      */
     private Vector direction;
+
+    /**
+     * the angle of the beam.
+     * 1 - wide beam
+     */
+    private int narrowBeam = 1;
 
 
     @Override
@@ -33,9 +39,11 @@ public class SpotLight extends PointLight implements LightSource{
 
     @Override
     public PointLight setKq(double kQ) {
-        return (SpotLight)super.setKq(kQ);
+        return (SpotLight) super.setKq(kQ);
 
     }
+
+
 
     /**
      * Constructs a spotlight with the specified intensity, position, and direction.
@@ -46,8 +54,8 @@ public class SpotLight extends PointLight implements LightSource{
      *                  spotlight is pointing. This vector will be normalized
      *                  internally.
      */
-    public SpotLight(Color intensity, Point position , Vector direction) {
-        super(intensity,position);
+    public SpotLight(Color intensity, Point position, Vector direction) {
+        super(intensity, position);
         this.direction = direction.normalize();
     }
 
@@ -56,20 +64,32 @@ public class SpotLight extends PointLight implements LightSource{
         return super.getL(p); // Returns the direction from the point to the light source
     }
 
-    @Override
-    public Color getIntensity(Point point) {
-        double d = direction.dotProduct(getL(point));
-
-        // If the angle between the direction vector , and the vector from the light source to the point is 0 degrees ,
-        // return color (0,0,0) - black.
-        if (isZero(d) || d < 0) {
-           return Color.BLACK;
-        }
-
-        // If the angle between the direction vector and the vector from the light source to the point is greater than
-        // 0 degrees, return the Point light calculation .
-        return super.getIntensity(point).scale(d);
-
+    /**
+     * Returns The narrow beam of the spotlight.
+     *
+     * @return The narrow beam of the spotlight.
+     */
+    public SpotLight setNarrowBeam(int narrowBeam) {
+        this.narrowBeam = narrowBeam;
+        return this;
     }
 
+    /**
+     * Get the intensity of the light at a given point.
+     *
+     * @param point the point at which to calculate the intensity
+     * @return the intensity of the light at point
+     */
+    @Override
+    public Color getIntensity(Point point) {
+        // Calculate the dot product between the light direction and the direction from the point to the light source
+        double cos = alignZero(direction.dotProduct(getL(point)));
+
+        // Check if the narrow beam effect is applied (narrowBeam is not equal to 1)
+        return narrowBeam != 1
+                // If narrow beam is applied, scale the intensity by the dot product raised to the power of narrowBeam
+                ? super.getIntensity(point).scale(Math.pow(Math.max(0, direction.dotProduct(getL(point))), narrowBeam))
+                // If narrow beam is not applied, scale the intensity by the dot product
+                : super.getIntensity(point).scale(Math.max(0, direction.dotProduct(getL(point))));
+    }
 }
