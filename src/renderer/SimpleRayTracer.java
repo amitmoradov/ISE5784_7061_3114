@@ -18,6 +18,8 @@ import lighting.LightSource;
  */
 public class SimpleRayTracer extends RayTracerBase{
 
+    private static final double DELTA = 0.1;
+
     /**
      * constructor for scene
      *
@@ -86,7 +88,7 @@ public class SimpleRayTracer extends RayTracerBase{
             double nl = alignZero(n.dotProduct(l));
 
             // sign(nl) == sing(nv) check if the camera and the light source are on the same side of the geometry
-            if (nl * nv > 0) {
+            if ((nl * nv > 0) && unshaded(gp,l)) {
                 // Take the intensity of the light source at the point
                 Color iL = lightSource.getIntensity(gp.point);
                 // Add the diffusive and specular reflections to the color
@@ -130,5 +132,10 @@ public class SimpleRayTracer extends RayTracerBase{
         Vector reflectVector = (l).subtract(n.scale(nl * 2));
         double max0_var = max(0, v.scale(-1).dotProduct(reflectVector));
         return material.kS.scale(pow(max0_var, material.shininess));
+    }
+
+
+    private boolean unshaded(GeoPoint gp, Vector l, Vector n){
+
     }
 }
