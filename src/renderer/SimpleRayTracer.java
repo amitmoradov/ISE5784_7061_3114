@@ -86,10 +86,11 @@ public class SimpleRayTracer extends RayTracerBase{
         for (LightSource lightSource : scene.lights) {
             // vector l - from the point to the light source
             Vector l = lightSource.getL(gp.point);
+            // nl - angle between the normal , and the vector l
             double nl = alignZero(n.dotProduct(l));
 
             // sign(nl) == sing(nv) check if the camera and the light source are on the same side of the geometry
-            if ((nl * nv > 0) && unshaded(gp,l,n,lightSource)) {
+            if ((nl * nv > 0) && unshaded(gp,l,n,nl,lightSource)) {
                 // Take the intensity of the light source at the point
                 Color iL = lightSource.getIntensity(gp.point);
                 // Add the diffusive and specular reflections to the color
@@ -142,12 +143,12 @@ public class SimpleRayTracer extends RayTracerBase{
      * @param n the normal to the geometry
      * @return
      */
-    private boolean unshaded(GeoPoint gp, Vector l, Vector n, LightSource lightSource){
+    private boolean unshaded(GeoPoint gp, Vector l, Vector n, double nl, LightSource lightSource){
         // lightDirection - from the point to the light source
         Vector lightDirection = l.scale(-1); // from point to light source
 
         // point with a small offset 0.1 from the geometry
-        Vector espVector = n.scale(DELTA);
+        Vector espVector = n.scale(nl < 0 ? DELTA : -DELTA);
         // point with a small offset 0.1 from the geometry
         Point point = gp.point.add(espVector);
 
