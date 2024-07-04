@@ -12,7 +12,10 @@ import geometries.Intersectable.GeoPoint;
 public class Ray {
     private final Point head; // The starting point of the ray
     private final Vector direction; // The direction of the ray
-
+    /**
+     * A constant delta value used for numerical approximations or small adjustments
+     */
+    private static final double DELTA = 0.1;
     /**
      * Constructs a new Ray with the specified starting point (head) and direction.
      * @param head The starting point of the ray.
@@ -23,7 +26,20 @@ public class Ray {
         this.direction = direction.normalize(); // Normalizing the direction vector to ensure it represents
         // a unit vector.
     }
+    /**
+     * ray constructor with offset point
+     *
+     * @param point     in ray
+     * @param direction in ray
+     * @param normal    on plane
+     */
+    public Ray(Point point, Vector direction, Vector normal) {
+        this.direction = direction.normalize();
+        double nv = normal.dotProduct(this.direction);
+        Vector dltVector = normal.scale(nv < 0 ? -DELTA : DELTA);
+        head = point.add(dltVector);
 
+    }
     /**
      * Retrieves the direction of the ray.
      * @return The direction of the ray.
