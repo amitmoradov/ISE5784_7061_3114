@@ -88,7 +88,7 @@ public class SimpleRayTracer extends RayTracerBase{
             double nl = alignZero(n.dotProduct(l));
 
             // sign(nl) == sing(nv) check if the camera and the light source are on the same side of the geometry
-            if ((nl * nv > 0) && unshaded(gp,l)) {
+            if ((nl * nv > 0) && unshaded(gp,l,n)) {
                 // Take the intensity of the light source at the point
                 Color iL = lightSource.getIntensity(gp.point);
                 // Add the diffusive and specular reflections to the color
@@ -134,8 +134,21 @@ public class SimpleRayTracer extends RayTracerBase{
         return material.kS.scale(pow(max0_var, material.shininess));
     }
 
-
+    /**
+     * check if the point is shaded by another geometry
+     * @param gp the point
+     * @param l the vector from the point to the light source
+     * @param n the normal to the geometry
+     * @return
+     */
     private boolean unshaded(GeoPoint gp, Vector l, Vector n){
+        Vector lightDirection = l.scale(-1); // from point to light source
 
+        Vector espVector = n.scale(DELTA);
+        Point point = gp.point.add(espVector);
+
+        Ray ray = new Ray(point, lightDirection);
+        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(ray);
+        return intersections == null;
     }
 }
