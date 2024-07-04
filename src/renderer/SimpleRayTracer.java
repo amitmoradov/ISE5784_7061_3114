@@ -27,8 +27,16 @@ public class SimpleRayTracer extends RayTracerBase{
      */
     private static final Double3 INITIAL_K = Double3.ONE;
 
+    /**
+     * The maximum level of recursion for transparency or reflection calculations.
+     * This constant is used to limit the number of recursive calls to the calcColor method.
+     */
     private static final int MAX_CALC_COLOR_LEVEL = 10;
 
+    /**
+     * The minimum coefficient for transparency or reflection calculations.
+     * This constant is used to determine when to stop the recursive color calculations.
+     */
     private static final double MIN_CALC_COLOR_K = 0.001;
 
     /**
@@ -67,8 +75,9 @@ public class SimpleRayTracer extends RayTracerBase{
      * @param ray The ray that intersected with the geometry at the geometric point.
      * @return The calculated color at the geometric point, taking into account ambient light, emission, local lighting effects (diffuse and specular reflections), and recursive effects of transparency or reflection.
      */
-    private Color calcColor(GeoPoint gp, Ray ray) {
-        return calcColor(gp, ray, MAX_CALC_COLOR_LEVEL, INITIAL_K).add(scene.ambientLight.getIntensity());
+    private Color calcColor(GeoPoint gp, Ray ray,int level, Double3 k) {
+        Color color =  scene.ambientLight.getIntensity().add(calcLocalEffects(gp, ray));
+        return 1 == level ? color : color.add(calcGlobalEffects(gp, ray, level, k));
     }
 
     /**
@@ -181,5 +190,14 @@ public class SimpleRayTracer extends RayTracerBase{
         }
         // if there are no intersections or the intersection point is further from the light source than the point
         return true;
+    }
+
+    private Color calcGlobalEffects(GeoPoint gp, Ray ray, int level, Double3 k) {
+        Material material = gp.geometry.getMaterial();
+        return calcGlobalEffect(constructRefractedRay(gp, ray), material.kT,level, k)
+                .add(constructRefractedRay((gp, ray), material.kR,level, k);
+
+
+
     }
 }
