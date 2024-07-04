@@ -18,6 +18,7 @@ import lighting.LightSource;
  */
 public class SimpleRayTracer extends RayTracerBase{
 
+    // The offset from the geometry
     private static final double DELTA = 0.1;
 
     /**
@@ -88,7 +89,7 @@ public class SimpleRayTracer extends RayTracerBase{
             double nl = alignZero(n.dotProduct(l));
 
             // sign(nl) == sing(nv) check if the camera and the light source are on the same side of the geometry
-            if ((nl * nv > 0) && unshaded(gp,l,n)) {
+            if ((nl * nv > 0) && unshaded(gp,l,n,lightSource)) {
                 // Take the intensity of the light source at the point
                 Color iL = lightSource.getIntensity(gp.point);
                 // Add the diffusive and specular reflections to the color
@@ -142,13 +143,30 @@ public class SimpleRayTracer extends RayTracerBase{
      * @return
      */
     private boolean unshaded(GeoPoint gp, Vector l, Vector n, LightSource lightSource){
+        // lightDirection - from the point to the light source
         Vector lightDirection = l.scale(-1); // from point to light source
 
+        // point with a small offset 0.1 from the geometry
         Vector espVector = n.scale(DELTA);
+        // point with a small offset 0.1 from the geometry
         Point point = gp.point.add(espVector);
 
+        // create a ray from the point to the light source
         Ray ray = new Ray(point, lightDirection);
+        /**
+         * find intersections of the ray with geometries in the scene
+         * if there are no intersections return true
+         * else check if the intersection point is closer to the light source than the point
+         * if it is return false
+         */
         List<GeoPoint> intersections = scene.geometries.findGeoIntersections(ray);
-        return intersections == null;
+        if (intersections != null){
+            for (GeoPoint geoPoint : intersections){
+                if (geoPoint.point.distance(ray.getHead()) < lightSource.getDistance(gp.point))
+                    return false;
+            }
+        }
+        // if there are no intersections or the intersection point is further from the light source than the point
+        return true;
     }
 }
