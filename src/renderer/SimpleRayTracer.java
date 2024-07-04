@@ -22,6 +22,16 @@ public class SimpleRayTracer extends RayTracerBase{
     private static final double DELTA = 0.1;
 
     /**
+     * The initial coefficient for transparency or reflection calculations.
+     * This constant is used as the starting value for the accumulated coefficient in recursive color calculations.
+     */
+    private static final Double3 INITIAL_K = Double3.ONE;
+
+    private static final int MAX_CALC_COLOR_LEVEL = 10;
+
+    private static final double MIN_CALC_COLOR_K = 0.001;
+
+    /**
      * constructor for scene
      *
      * @param scene the scene
@@ -50,13 +60,15 @@ public class SimpleRayTracer extends RayTracerBase{
 
 
     /**
-     * function to calculate the color of a GeoPoint in the scene
+     * Calculates the color at a given geometric point considering ambient light, emission from the geometry, and local lighting effects.
+     * This method uses recursive ray tracing to handle transparency and reflection up to a specified recursion level.
      *
-     * @param intersection the GeoPoint
-     * @return the color
+     * @param gp  The geometric point at which to calculate the color.
+     * @param ray The ray that intersected with the geometry at the geometric point.
+     * @return The calculated color at the geometric point, taking into account ambient light, emission, local lighting effects (diffuse and specular reflections), and recursive effects of transparency or reflection.
      */
-    private Color calcColor(GeoPoint intersection , Ray ray) {
-        return scene.ambientLight.getIntensity().add(calcLocalEffects(intersection, ray));
+    private Color calcColor(GeoPoint gp, Ray ray) {
+        return calcColor(gp, ray, MAX_CALC_COLOR_LEVEL, INITIAL_K).add(scene.ambientLight.getIntensity());
     }
 
     /**
