@@ -92,4 +92,9 @@ public class SpotLight extends PointLight implements LightSource {
                 // If narrow beam is not applied, scale the intensity by the dot product
                 : super.getIntensity(point).scale(Math.max(0, direction.dotProduct(getL(point))));
     }
+
+    @Override
+    public double getDistance(Point point){
+        return super.getDistance(point);
+    }
 }

@@ -141,7 +141,7 @@ public class SimpleRayTracer extends RayTracerBase{
      * @param n the normal to the geometry
      * @return
      */
-    private boolean unshaded(GeoPoint gp, Vector l, Vector n){
+    private boolean unshaded(GeoPoint gp, Vector l, Vector n, LightSource lightSource){
         Vector lightDirection = l.scale(-1); // from point to light source
 
         Vector espVector = n.scale(DELTA);
