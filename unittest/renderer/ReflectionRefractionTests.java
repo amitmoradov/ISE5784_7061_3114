@@ -1,10 +1,14 @@
 /**
  * 
  */
-package unittests.renderer;
+package renderer;
 
 import static java.awt.Color.*;
 
+import geometries.Plane;
+import geometries.Polygon;
+import lighting.DirectionalLight;
+import lighting.PointLight;
 import org.junit.jupiter.api.Test;
 
 import geometries.Sphere;
@@ -78,29 +82,34 @@ public class ReflectionRefractionTests {
          .writeToImage();
    }
 
-   /** Produce a picture of a two triangles lighted by a spot light with a
-    * partially
-    * transparent Sphere producing partial shadow */
+   /** produce an image featuring four different shapes, lighting, shadows, reflections, and transparency */
    @Test
-   public void trianglesTransparentSphere() {
-      scene.geometries.add(
-                           new Triangle(new Point(-150, -150, -115), new Point(150, -150, -135),
-                                        new Point(75, 75, -150))
-                              .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(60)),
-                           new Triangle(new Point(-150, -150, -115), new Point(-70, 70, -140), new Point(75, 75, -150))
-                              .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(60)),
-                           new Sphere(new Point(60, 50, -50), 30d).setEmission(new Color(BLUE))
-                              .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setKT(0.6)));
-      scene.setAmbientLight(new AmbientLight(new Color(WHITE), 0.15));
-      scene.lights.add(
-                       new SpotLight(new Color(700, 400, 400), new Point(60, 50, 0), new Vector(0, 0, -1))
-                          .setKl(4E-5).setKq(2E-7));
+   public void ALLCombinations() {
+      scene.setAmbientLight(new AmbientLight(new Color(BLUE), new Double3(0.20)));
 
-      cameraBuilder.setLocation(new Point(0, 0, 1000)).setVpDistance(1000)
-         .setVpSize(200, 200)
-         .setImageWriter(new ImageWriter("refractionShadow", 600, 600))
-         .build()
-         .renderImage()
-         .writeToImage();
+      scene.geometries.add(
+              new Triangle(new Point(-150, -150, -115), new Point(150, -150, -135), new Point(75, 75, -150))
+                      .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(60)),
+              new Triangle(new Point(-150, -150, -115), new Point(-70, 70, -140), new Point(75, 75, -150))
+                      .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(60).setkR(new Double3(0.8))),
+              new Sphere(new Point(-60, 70, 40), 30d).setEmission(new Color(2, 200, 2))
+                      .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setKT(0.9)),
+              new Sphere(new Point(50, -20, -100), 30d).setEmission(new Color(250, 140, 4))
+                      .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30))
+      );
+
+      scene.setAmbientLight(new AmbientLight(new Color(WHITE), 0.15));
+
+      // Strengthened Point Lights
+      scene.lights.add(new PointLight(new Color(0, 255, 255), new Point(60, 50, 100))
+              .setKl(0.00002).setKq(0.000005));
+
+      scene.lights.add(new PointLight(new Color(255, 255, 180), new Point(-6, 24, -10))
+              .setKl(0.00002).setKq(0.000005));
+
+      scene.lights.add(new DirectionalLight(new Color(2, 6, 182), new Vector(-3, -3, -3)));
+
+      cameraBuilder.setLocation(new Point(0, 0, 1000)).setVpDistance(1000).setVpSize(200, 200)
+              .setImageWriter(new ImageWriter("AllItems", 600, 600)).build().renderImage().writeToImage();
    }
 }

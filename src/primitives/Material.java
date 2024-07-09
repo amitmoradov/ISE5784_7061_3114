@@ -84,6 +84,7 @@ public class Material {
         return this;
     }
 
+
     public Material setKT(double kT) {
         this.kT = new Double3(kT);
         return this;
