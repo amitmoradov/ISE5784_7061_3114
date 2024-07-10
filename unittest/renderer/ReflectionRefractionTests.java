@@ -106,7 +106,6 @@ public class ReflectionRefractionTests {
       );
 
       scene.setAmbientLight(new AmbientLight(new Color(WHITE), 0.15));
-
       // Strengthened Point Lights
       scene.lights.add(new PointLight(new Color(0, 255, 255), new Point(60, 50, 100))
               .setKl(0.00002).setKq(0.000005));
