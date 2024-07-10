@@ -20,10 +20,10 @@ public class ALLItemsTest {
     public void allItems() {
         Scene scene = new Scene("Test scene");
         Camera.Builder cameraBuilder = Camera.getBuilder()
-                .setLocation(new Point(0, -200, 0))
+                .setLocation(new Point(0, -200, 100))
                 .setVpDistance(200)
 
-                .setDirection(new Vector(0, 1, 0), new Vector(0, 0, 1))
+                .setDirection(new Vector(0, 1,0), new Vector( 0, 0,1))
                 .setRayTracer(new SimpleRayTracer(scene));
 
 
