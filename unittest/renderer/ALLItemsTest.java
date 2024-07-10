@@ -22,6 +22,7 @@ public class ALLItemsTest {
         Camera.Builder cameraBuilder = Camera.getBuilder()
                 .setLocation(new Point(0, -200, 0))
                 .setVpDistance(200)
+
                 .setDirection(new Vector(0, 1, 0), new Vector(0, 0, 1))
                 .setRayTracer(new SimpleRayTracer(scene));
 
