@@ -48,6 +48,10 @@ public class EffectsTest {
                     new Sphere(new Point(-100, -100, 5), 25).setEmission(new Color(255,165,0))
                             .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100))
 
+                    // Add a triangle inside triangle
+
+
+
             );
             // Add a light sources
             scene.lights.add(new SpotLight(new Color(1000,600,600), new Point(-500, 250, 500),
