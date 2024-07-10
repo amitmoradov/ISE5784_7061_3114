@@ -3,17 +3,14 @@ package renderer;
 import static java.awt.Color.*;
 
 import geometries.*;
-import lighting.DirectionalLight;
-import lighting.PointLight;
 import org.junit.jupiter.api.Test;
 
 import lighting.AmbientLight;
 import lighting.SpotLight;
 import primitives.*;
-import renderer.*;
 import scene.Scene;
 
-public class ALLItemsTest {
+public class SnowmanTest {
     /** A scene with ten different bodies that combines the material of the bodies, shining light, shadow, mirroring,
      *  and reflection */
     @Test
