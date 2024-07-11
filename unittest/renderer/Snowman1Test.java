@@ -11,7 +11,7 @@ import lighting.SpotLight;
 import primitives.*;
 import scene.Scene;
 
-public class SnowmanTest {
+public class Snowman1Test {
     /** A scene with ten different bodies that combines the material of the bodies, shining light, shadow, mirroring,
      *  and reflection */
     @Test
@@ -132,6 +132,7 @@ public class SnowmanTest {
                 new Vector(1, -1, 0)).setKl(0.0004).setKq(0.0000006));
 
         scene.setAmbientLight(new AmbientLight(new Color(WHITE), 0.15)).setBackground(new Color(75, 120, 130));
+
 
         cameraBuilder.setVpSize(300, 300)
                 .setImageWriter(new ImageWriter("allItemsP", 600, 600))
