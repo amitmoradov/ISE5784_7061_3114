@@ -133,6 +133,7 @@ public class SnowmanTest {
 
         scene.setAmbientLight(new AmbientLight(new Color(WHITE), 0.15)).setBackground(new Color(75, 120, 130));
 
+
         cameraBuilder.setVpSize(300, 300)
                 .setImageWriter(new ImageWriter("allItemsP", 600, 600))
                 .build()
