@@ -85,17 +85,14 @@ public class RenderTests {
       // Load the scene from the XML file
       Scene scene = XmlSceneBuilder.buildScene("Test scene", "src/scene/renderTestTwoColors.xml");
 
-      // using the code you added in appropriate packages
-      // ...
-      // NB: unit tests is not the correct place to put XML parsing code
 
 
       camera
+              .setRayTracer(new SimpleRayTracer(scene))
               .setImageWriter(new ImageWriter("xml render test", 1000, 1000))
               .build()
               .renderImage()
               .printGrid(100, new Color(YELLOW))
               .writeToImage();
-
    }
 }
