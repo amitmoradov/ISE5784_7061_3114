@@ -38,10 +38,6 @@ public class SimpleRayTracer extends RayTracerBase {
      */
     private static final Double3 INITIAL_K = Double3.ONE;
 
-    private int glossinessRaysNum = 36;
-    private double distanceGrid = 25;
-    private double sizeGrid=4;
-
     /**
      * Constructs a new SimpleRayTracer with the specified scene.
      *

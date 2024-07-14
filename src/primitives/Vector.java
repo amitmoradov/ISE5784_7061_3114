@@ -1,5 +1,7 @@
 package primitives;
 
+import static primitives.Util.isZero;
+
 /**
  * * Class Vector is the basic class representing a Vector in space of Euclidean geometry in Cartesian
  * * 3-Dimensional coordinate system.
@@ -122,5 +124,18 @@ public class Vector extends Point {
     @Override
     public String toString() {
         return "Vector(" + super.xyz.toString() + ")";
+    }
+
+    /**
+     * Computes a vector that is perpendicular to this vector.
+     * @return A new vector that is perpendicular to this vector.
+     */
+    public Vector makePerpendicularVector() {
+        // אם הוקטור לא מקביל לאף אחד מצירי הקואורדינטות, ניתן לבחור באחד מהם ליצירת וקטור אנך
+        if (!isZero(xyz.d1) || !isZero(xyz.d2)) {
+            return new Vector(-xyz.d2, xyz.d1, 0).normalize();
+        } else {
+            return new Vector(0, -xyz.d3, xyz.d2).normalize();
+        }
     }
 }

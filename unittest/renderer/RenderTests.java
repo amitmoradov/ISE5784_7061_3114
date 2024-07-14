@@ -89,13 +89,13 @@ public class RenderTests {
       // ...
       // NB: unit tests is not the correct place to put XML parsing code
 
+
       camera
               .setImageWriter(new ImageWriter("xml render test", 1000, 1000))
               .build()
               .renderImage()
               .printGrid(100, new Color(YELLOW))
               .writeToImage();
-
 
    }
 }

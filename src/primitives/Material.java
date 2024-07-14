@@ -29,10 +29,20 @@ public class Material {
     /** The shininess exponent of the material */
     public int shininess = 0;
 
-    public double Glossy=0;
+    /**Glossy*/
+    public double kG = 0;
 
-    public Material setGlossy(double Glossy) {
-        this.Glossy = Glossy;
+    /** טישטוש*/
+    public double kB = 0;
+
+
+    public Material setkB(double kB) {
+        this.kB = kB;
+        return this;
+    }
+
+    public Material setkG(double Glossy) {
+        this.kG = Glossy;
         return this;
     }
 
@@ -94,7 +104,7 @@ public class Material {
     /**
      * Setter for the transparency coefficient.
      * double KT
-     * @param KT The transparency coefficient to set.
+     * @param kT The transparency coefficient to set.
      * @return This Material object.
      */
     public Material setKT(double kT) {
@@ -105,7 +115,7 @@ public class Material {
     /**
      * Setter for the transparency coefficient.
      * Double3 KT
-     * @param KT The transparency coefficient to set.
+     * @param kT The transparency coefficient to set.
      * @return This Material object.
      */
     public Material setKT(Double3 kT) {
