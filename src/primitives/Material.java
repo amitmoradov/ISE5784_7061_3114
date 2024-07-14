@@ -29,18 +29,27 @@ public class Material {
     /** The shininess exponent of the material */
     public int shininess = 0;
 
-    /**Glossy*/
+    /** Matte appearance*/
     public double kG = 0;
 
-    /** טישטוש*/
+    /** Blurring*/
     public double kB = 0;
 
-
+    /**
+     * Setter for blurring.
+     * @param kB The blurring to set.
+     * @return This Material object.
+     */
     public Material setkB(double kB) {
         this.kB = kB;
         return this;
     }
 
+    /**
+     * Setter for matte appearance.
+     * @param Glossy The matte appearance to set.
+     * @return This Material object.
+     */
     public Material setkG(double Glossy) {
         this.kG = Glossy;
         return this;
