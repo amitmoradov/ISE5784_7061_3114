@@ -111,6 +111,7 @@ public class Camera implements Cloneable {
         }
 
         public Camera build() {
+            // Check if the required properties are set
             if (camera.targetArea == null || camera.imageWriter == null || camera.rayTracer == null) {
                 throw new MissingResourceException("Missing required properties for Camera", Camera.class.getName(), "");
             }
