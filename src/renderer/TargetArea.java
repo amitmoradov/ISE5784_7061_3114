@@ -90,6 +90,7 @@ public class TargetArea {
          * @throws IllegalArgumentException if the provided position is null.
          */
         public Builder setLocation(Point location) {
+            // Validate the location
             if (location == null) {
                 throw new IllegalArgumentException("Target area location cannot be null");
             }
