@@ -24,10 +24,27 @@ public class Camera implements Cloneable {
     private RayTracerBase rayTracer; // The ray tracer used to render the image
     private Point pCenter;
 
+//    /**
+//     * The width of the view plane.
+//     */
+//    private double viewPlaneWidth = 0.0;
+//
+//    /**
+//     * The height of the view plane.
+//     */
+//    private double viewPlaneHeight = 0.0;
+//
+//    /**
+//     * The distance from the camera to the view plane.
+//     */
+//    private double viewPlaneDistance = 0.0;
+
+
     /**
      * A builder class for constructing a Camera object.
      */
     private Camera(){}
+
 
     public TargetArea getTargetArea() {
         return targetArea;
@@ -41,6 +58,7 @@ public class Camera implements Cloneable {
         return rayTracer;
     }
 
+
     /**
      * Builder class for Camera, implementing the Builder Pattern.
      */
@@ -50,7 +68,7 @@ public class Camera implements Cloneable {
          * This builder class allows for the creation of Camera objects with a fluent interface.
          */
         private final Camera camera;
-
+        private final TargetArea.Builder targetAreaBuilder = TargetArea.getBuilder();
 
         /**
          * Private constructor for Builder.
@@ -89,7 +107,7 @@ public class Camera implements Cloneable {
             if (location == null) {
                 throw new IllegalArgumentException("Target area location cannot be null");
             }
-            targetArea. = location;
+            targetAreaBuilder.setLocation(location);
             return this;
         }
 
@@ -102,7 +120,7 @@ public class Camera implements Cloneable {
          * @throws IllegalArgumentException if the provided direction is null or if the direction and up vector are not orthogonal.
          */
         public Builder setDirection(Vector vTo, Vector vUp) {
-            if (this.camera.targetArea.getVTo() == null || vUp == null) {
+            if (vTo == null || vUp == null) {
                 throw new IllegalArgumentException("Target area direction cannot be null");
             }
 
@@ -111,12 +129,43 @@ public class Camera implements Cloneable {
                 throw new IllegalArgumentException("The vectors vTo and vUp are not orthogonal");
             }
 
-            this.targetArea.vTo = vTo.normalize();
-            this.targetArea.vUp = vUp.normalize();
-            this.targetArea.vRight = vTo.crossProduct(vUp).normalize();
+            targetAreaBuilder.setDirection(vTo,vUp);
             return this;
         }
 
+        /**
+         * Set the view plane size
+         *
+         * @param width  the width of the view plane
+         * @param height the height of the view plane
+         * @return the camera builder
+         */
+        public Builder setVpSize(double width, double height) {
+            targetAreaBuilder.setVpSize(width, height);
+            return this;
+        }
+
+        /**
+         * Set the distance from the camera to the view plane
+         *
+         * @param distance the distance from the camera to the view plane
+         * @return the camera builder
+         */
+        public Builder setVpDistance(double distance) {
+            targetAreaBuilder.setVpDistance(distance);
+            return this;
+        }
+
+        /**
+         * Set the density of the view plane
+         *
+         * @param density the density of the view plane
+         * @return the camera builder
+         */
+        public Builder setDensity(int density) {
+            targetAreaBuilder.setDensity(density);
+            return this;
+        }
 
         /**
          * Sets the image writer to be used by the camera.
@@ -151,12 +200,25 @@ public class Camera implements Cloneable {
             return this;
         }
 
+        /**
+         * Build the camera. In case of missing parameters, an exception will be thrown.
+         *
+         * @return the camera
+         */
         public Camera build() {
-            // Check if the required properties are set
-            if (camera.imageWriter == null || camera.rayTracer == null) {
-                throw new MissingResourceException("Missing required properties for Camera", Camera.class.getName(), "");
+            // check composed objects
+            if (camera.imageWriter == null)
+                throw new MissingResourceException("imageWriter is missing", "Camera", "");
+            if (camera.rayTracer == null)
+                throw new MissingResourceException("rayTracer is missing", "Camera", "");
+
+            camera.targetArea = targetAreaBuilder.build();
+
+            try {
+                return (Camera) camera.clone();
+            } catch (CloneNotSupportedException ignore) {
+                return null;
             }
-            return camera;
         }
     }
 //====================================== END OF BUILDER CLASS =========================================================
@@ -219,6 +281,20 @@ public class Camera implements Cloneable {
     }
 
     /**
+     * Construct a ray from the camera to a pixel
+     *
+     * @param nX size of webcam in X
+     * @param nY size of webcam in Y
+     * @param j  the x index of the pixel
+     * @param i  the y index of the pixel
+     * @return the ray from the camera to the pixel
+     */
+    public Ray constructRay(int nX, int nY, int j, int i) {
+        return targetArea.constructRay(nX, nY, j, i);
+    }
+
+
+    /**
      * Casts a ray from the camera to the view plane.
      *
      * @param Nx     The number of pixels in the x direction
@@ -226,7 +302,7 @@ public class Camera implements Cloneable {
      * @param column The column index of the pixel
      * @param row    The row index of the pixel
      */
-    private void castRay(int Nx, int Ny, int column, int row) {
+     void castRay(int Nx, int Ny, int column, int row) {
         Ray ray = targetArea.constructRay(Nx, Ny, column, row);
         Color color = rayTracer.traceRay(ray);
         imageWriter.writePixel(column, row, color);

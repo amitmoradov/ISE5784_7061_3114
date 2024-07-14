@@ -1,5 +1,6 @@
 package renderer;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.MissingResourceException;
 import primitives.Point;
@@ -25,7 +26,7 @@ public class TargetArea {
     double height = 0.0; // The height of the view plane
     double distance = 0.0; // The distance between the target area and the view plane
 
-    double density = 0.0; // The density of the grid
+    int density = 9; // The density of the grid
 
     Point getP0() {
         return p0;
@@ -73,13 +74,24 @@ public class TargetArea {
          * Represents a builder for constructing TargetArea objects.
          * This builder class allows for the creation of TargetArea objects with a fluent interface.
          */
-        private final TargetArea targetArea;
+        private final TargetArea targetArea = new TargetArea();
 
         /**
          * Private constructor for Builder.
          */
         private Builder() {
-            targetArea = new TargetArea();
+        }
+
+        /**
+         * Constructor for TargetArea class
+         *
+         * @param ray  the main ray to the target area
+         * @param size the size of the target area
+         */
+        public Builder(Ray ray, double size) {
+            setDirection(ray);
+            targetArea.height = targetArea.width = size;
+            targetArea.distance = 100;
         }
 
         /**
@@ -95,6 +107,20 @@ public class TargetArea {
                 throw new IllegalArgumentException("Target area location cannot be null");
             }
             this.targetArea.p0 = location;
+            return this;
+        }
+
+        /**
+         * Set the TargetArea direction according to the ray
+         *
+         * @param ray the TargetArea direction
+         * @return the TargetArea builder
+         */
+        public Builder setDirection(Ray ray) {
+            targetArea.p0 = ray.getHead();
+            targetArea.vTo = ray.getDirection();
+            targetArea.vUp = targetArea.vTo.makePerpendicularVector();
+            targetArea.vRight = targetArea.vUp.crossProduct(targetArea.vTo);
             return this;
         }
 
@@ -155,13 +181,43 @@ public class TargetArea {
         }
 
         /**
+         * Set the view plane size
+         *
+         * @param width  the width of the view plane
+         * @param height the height of the view plane
+         * @return the TargetArea builder
+         */
+        public Builder setVpSize(double width, double height) {
+            if (width <= 0)
+                throw new IllegalArgumentException("Width cannot be equal or smaller than 0");
+            if (height <= 0)
+                throw new IllegalArgumentException("Height cannot be equal or smaller than 0");
+            targetArea.width = alignZero(width);
+            targetArea.height = alignZero(height);
+            return this;
+        }
+
+        /**
+         * Set the distance from the TargetArea to the view plane
+         *
+         * @param distance the distance from the TargetArea to the view plane
+         * @return the TargetArea builder
+         */
+        public Builder setVpDistance(double distance) {
+            if (distance <= 0)
+                throw new IllegalArgumentException("Distance cannot be equal or smaller than 0");
+            targetArea.distance = alignZero(distance);
+            return this;
+        }
+
+        /**
          * Sets the density of the grid in the target area.
          *
          * @param density The density to set for the target area.
          * @return The current Builder object.
          * @throws IllegalArgumentException if the provided density is not positive.
          */
-        public Builder setDensity(double density) {
+        public Builder setDensity(int density) {
             if (density <= 0) {
                 throw new IllegalArgumentException("The density must be positive");
             }
@@ -260,7 +316,7 @@ public class TargetArea {
      * @return The constructed ray
      */
     public Ray constructRay(int nx, int ny, int j, int i) {
-        Point Pc = pCenter;
+        Point Pc = p0.add(vTo.scale(distance));
 
         double Ry = height / ny;
         double Rx = width / nx;
@@ -280,57 +336,16 @@ public class TargetArea {
         return new Ray(p0, Vij);
     }
 
-
     /**
-     * Constructs a grid of rays through the pixel area.
+     * Constructs a grid of rays in the target area
      *
-     * @param nx        The number of pixels in the x direction
-     * @param ny        The number of pixels in the y direction
-     * @param j         The x index of the pixel
-     * @param i         The y index of the pixel
-     * @param numRaysX  The number of rays to construct in the x direction
-     * @param numRaysY  The number of rays to construct in the y direction
-     * @return A list of constructed rays
+     * @return list of rays
      */
-    public List<Ray> constructRayGrid(int nx, int ny, int j, int i, int numRaysX, int numRaysY) {
-        List<Ray> rays = new ArrayList<>();
-        Point Pc = pCenter;
-
-        double Ry = height / ny;
-        double Rx = width / nx;
-
-        double Yi = -(i - (ny - 1) / 2.0) * Ry;
-        double Xj = (j - (nx - 1) / 2.0) * Rx;
-
-        Point Pij = Pc;
-
-        if (Xj != 0)
-            Pij = Pij.add(vRight.scale(Xj));
-
-        if (Yi != 0)
-            Pij = Pij.add(vUp.scale(Yi));
-
-        double subRy = Ry / numRaysY;
-        double subRx = Rx / numRaysX;
-
-        for (int subI = 0; subI < numRaysY; subI++) {
-            for (int subJ = 0; subJ < numRaysX; subJ++) {
-                double subYi = (subI - (numRaysY - 1) / 2.0) * subRy;
-                double subXj = (subJ - (nx - 1) / 2.0) * subRx;
-
-                Point subPij = Pij;
-
-                if (subXj != 0)
-                    subPij = subPij.add(vRight.scale(subXj));
-
-                if (subYi != 0)
-                    subPij = subPij.add(vUp.scale(subYi));
-
-                Vector subVij = subPij.subtract(p0).normalize();
-                rays.add(new Ray(p0, subVij));
-            }
-        }
-
+    public List<Ray> constructRayGrid() {
+        List<Ray> rays = new LinkedList<>();
+        for (int i = 0; i < density; ++i)
+            for (int j = 0; j < density; j++)
+                rays.add(constructRay(density, density, j, i));
         return rays;
     }
 
