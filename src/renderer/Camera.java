@@ -172,6 +172,7 @@ public class Camera implements Cloneable {
             throw new IllegalStateException("Image writer is not set");
         }
 
+        // Write the image to the file
         imageWriter.writeToImage();
     }
 
