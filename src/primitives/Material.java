@@ -29,6 +29,13 @@ public class Material {
     /** The shininess exponent of the material */
     public int shininess = 0;
 
+    public double Glossy=0;
+
+    public Material setGlossy(double Glossy) {
+        this.Glossy = Glossy;
+        return this;
+    }
+
     /**
      * Setter for the diffuse coefficient.
      *
