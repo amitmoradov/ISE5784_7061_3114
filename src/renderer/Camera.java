@@ -27,9 +27,7 @@ public class Camera implements Cloneable {
     /**
      * A builder class for constructing a Camera object.
      */
-    private Camera(){
-
-    }
+    private Camera(){}
 
     public TargetArea getTargetArea() {
         return targetArea;
