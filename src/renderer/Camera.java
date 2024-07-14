@@ -51,6 +51,7 @@ public class Camera implements Cloneable {
          */
         private final Camera camera;
 
+
         /**
          * Private constructor for Builder.
          */
@@ -75,6 +76,46 @@ public class Camera implements Cloneable {
             return this;
         }
 
+
+        /**
+         * Sets the location of the target area.
+         *
+         * @param location The position to set for the target area.
+         * @return The current Builder object.
+         * @throws IllegalArgumentException if the provided position is null.
+         */
+        public Builder setLocation(Point location) {
+            // Validate the location
+            if (location == null) {
+                throw new IllegalArgumentException("Target area location cannot be null");
+            }
+            targetArea. = location;
+            return this;
+        }
+
+        /**
+         * Sets the direction of the target area.
+         *
+         * @param vTo The direction to set for the target area.
+         * @param vUp The up vector to set for the target area.
+         * @return The current Builder object.
+         * @throws IllegalArgumentException if the provided direction is null or if the direction and up vector are not orthogonal.
+         */
+        public Builder setDirection(Vector vTo, Vector vUp) {
+            if (this.camera.targetArea.getVTo() == null || vUp == null) {
+                throw new IllegalArgumentException("Target area direction cannot be null");
+            }
+
+            // Check if the vectors are orthogonal
+            if (!isZero(vTo.dotProduct(vUp))) {
+                throw new IllegalArgumentException("The vectors vTo and vUp are not orthogonal");
+            }
+
+            this.targetArea.vTo = vTo.normalize();
+            this.targetArea.vUp = vUp.normalize();
+            this.targetArea.vRight = vTo.crossProduct(vUp).normalize();
+            return this;
+        }
 
 
         /**
@@ -112,7 +153,7 @@ public class Camera implements Cloneable {
 
         public Camera build() {
             // Check if the required properties are set
-            if (camera.targetArea == null || camera.imageWriter == null || camera.rayTracer == null) {
+            if (camera.imageWriter == null || camera.rayTracer == null) {
                 throw new MissingResourceException("Missing required properties for Camera", Camera.class.getName(), "");
             }
             return camera;

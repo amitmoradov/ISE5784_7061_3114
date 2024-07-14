@@ -62,7 +62,7 @@ public class TargetArea {
     /**
      * A builder class for constructing a TargetArea object.
      */
-    private TargetArea() {
+    public TargetArea() {
     }
 
     /**
