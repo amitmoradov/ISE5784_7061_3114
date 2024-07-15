@@ -331,22 +331,27 @@ public class TargetArea {
      * @return The constructed ray
      */
     public Ray constructRay(int nx, int ny, int j, int i) {
+        // Calculate the center point of the view plane
         Point Pc = p0.add(vTo.scale(distance));
+
 
         double Ry = height / ny;
         double Rx = width / nx;
 
+        // Calculate the coordinates of the pixel
         double Yi = -(i - (ny - 1) / 2.0) * Ry;
         double Xj = (j - (nx - 1) / 2.0) * Rx;
 
         Point Pij = Pc;
 
         if (Xj != 0)
+
             Pij = Pij.add(vRight.scale(Xj));
 
         if (Yi != 0)
             Pij = Pij.add(vUp.scale(Yi));
 
+        // Calculate the direction vector of the ray
         Vector Vij = Pij.subtract(p0).normalize();
         return new Ray(p0, Vij);
     }
@@ -357,9 +362,14 @@ public class TargetArea {
      * @return list of rays
      */
     public List<Ray> constructRayGrid() {
+        // Create a list to store the rays
         List<Ray> rays = new LinkedList<>();
+
+        // Loop through the pixels in the target area
         for (int i = 0; i < density; ++i)
             for (int j = 0; j < density; j++)
+
+                // Construct a ray for the current pixel and add it to the list
                 rays.add(constructRay(density, density, j, i));
         return rays;
     }

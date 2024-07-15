@@ -68,6 +68,7 @@ public class SimpleRayTracer extends RayTracerBase {
      * @return The calculated color at the geometric point, taking into account ambient light, emission, local lighting effects (diffuse and specular reflections), and recursive effects of transparency or reflection.
      */
     private Color calcColor(GeoPoint gp, Ray ray) {
+        // Calculate the color at the intersection point using recursive ray tracing
         return calcColor(gp, ray, MAX_CALC_COLOR_LEVEL, INITIAL_K).add(scene.ambientLight.getIntensity());
     }
 
@@ -82,6 +83,7 @@ public class SimpleRayTracer extends RayTracerBase {
      */
     private Color calcColor(GeoPoint gp, Ray ray, int level, Double3 k) {
         Color color = calcLocalEffects(gp, ray, k);
+        // If the recursion level is 1 , return the calculated color
         return level == 1 ? color : color.add(calcGlobalEffects(gp, ray, level, k));
     }
 
@@ -95,9 +97,12 @@ public class SimpleRayTracer extends RayTracerBase {
      * @return The reflected ray originating from the intersection point.
      */
     private Ray constructReflectedRay(GeoPoint gp, Vector v, Vector n) {
+        // Calculate the reflection vector
         double nv = n.dotProduct(v);
+        // If the normal and the view direction are orthogonal, there is no reflection
         if (nv == 0) return null;
 
+        // Calculate the reflection vector
         Vector vec = v.subtract(n.scale(2 * nv));
         return new Ray(gp.point, vec, n);
     }
@@ -112,6 +117,7 @@ public class SimpleRayTracer extends RayTracerBase {
      * @return The refracted ray originating from the intersection point.
      */
     private Ray constructRefractedRay(GeoPoint gp, Vector v, Vector n) {
+        // Calculate the refractive index ratio
         return new Ray(gp.point, v, n);
     }
 
@@ -145,15 +151,20 @@ public class SimpleRayTracer extends RayTracerBase {
     private Color calcGlobalEffects(GeoPoint gp, Ray ray, int level, Double3 k) {
         // Get the material of the geometry at the intersection point
         Material material = gp.geometry.getMaterial();
+        // Get the direction vector of the incoming ray
         Vector v = ray.getDirection();
+        // Get the normal vector at the intersection point
         Vector n = gp.geometry.getNormal(gp.point);
 
+        // Construct refracted and reflected rays based on the intersection point, view direction, and normal vector
         List<Ray> refractedRays = constructRefractedRays(gp, v, n, material.kB);
         List<Ray> reflectedRays = constructReflectedRays(gp, v, n, material.kG);
 
+        // Calculate the average color for the refracted and reflected rays
         Color refractedColor = calcAverageColor(refractedRays, level, k, material.kT);
         Color reflectedColor = calcAverageColor(reflectedRays, level, k, material.kR);
 
+        // Return the sum of the refracted and reflected colors
         return refractedColor.add(reflectedColor);
     }
 
@@ -230,22 +241,30 @@ public class SimpleRayTracer extends RayTracerBase {
      * @return The transparency coefficient for the given geometry point and light source.
      */
     private Double3 transparency(GeoPoint gp, LightSource ls, Vector l, Vector n) {
+        // Create a ray from the geometric point to the light source
         Vector lDir = l.scale(-1);
+        // Create a ray from the geometric point to the light source
         Ray lR = new Ray(gp.point, lDir, n);
 
         List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lR);
         if (intersections == null)
+            // If no intersections found, return full transparency
             return Double3.ONE;
 
         Double3 ktr = Double3.ONE;
         double distanceToLight = ls.getDistance(gp.point);
+
+        // Check if the intersection point is behind the light source
         for (GeoPoint intersectionPoint : intersections) {
             if (alignZero(intersectionPoint.point.distance(gp.point) - distanceToLight) <= 0) {
                 ktr = ktr.product(intersectionPoint.geometry.getMaterial().kT);
+
+                // If the accumulated coefficient falls below the threshold, terminate the calculation
                 if (ktr.equals(Double3.ZERO))
                     break;
             }
         }
+        // Return the accumulated transparency coefficient
         return ktr;
     }
 
@@ -271,34 +290,81 @@ public class SimpleRayTracer extends RayTracerBase {
      * @return The specular reflection color component.
      */
     private Double3 calcSpecular(Material material, Vector n, Vector l, double nl, Vector v) {
+        // Calculate the reflection vector
         Vector reflectVector = l.subtract(n.scale(nl * 2));
+        // Calculate the dot product of the reflection vector and the view direction vector
         double minusVR = -alignZero(v.dotProduct(reflectVector));
+        // If the dot product is negative, return no contribution , otherwise calculate the specular reflection
         return minusVR <= 0 ? Double3.ZERO : material.kS.scale(pow(minusVR, material.shininess));
     }
 
+    /**
+     * Calculates the average color for a list of rays by accumulating the color for each ray and dividing by the number of rays.
+     *
+     * @param rays  The list of rays for which to calculate the average color.
+     * @param level The current recursion level for handling transparency or reflection effects.
+     * @param k     The accumulated coefficient (e.g., reflection coefficient kR or transparency coefficient kT).
+     * @param kx    The coefficient for the specific effect being calculated (kR for reflection, kT for refraction).
+     * @return The average color for the list of rays.
+     */
     private Color calcAverageColor(List<Ray> rays, int level, Double3 k, Double3 kx) {
         Color color = Color.BLACK;
+        // If the list of rays is empty, return the background color
         if (rays.isEmpty()) return color;
+
+        // Calculate the color for each ray, and accumulate the results for averaging
         for (Ray rT : rays)
             color = color.add(calcGlobalEffect(rT, kx, level, k));
+
+        // Return the average color by dividing the accumulated color by the number of rays
         return color.reduce(rays.size());
     }
 
-    private List<Ray> constructRefractedRays(GeoPoint gp, Vector v, Vector n, double
-            kB) {
+    /**
+     * Constructs a list of refracted rays based on the intersection point, incoming ray, normal vector, and refraction coefficient.
+     *
+     * @param gp The geometric point of intersection.
+     * @param v  The direction vector of the incoming ray.
+     * @param n  The normal vector at the intersection point.
+     * @param kB The refraction coefficient for the material.
+     * @return A list of refracted rays based on the intersection point, incoming ray, normal vector, and refraction coefficient.
+     */
+    private List<Ray> constructRefractedRays(GeoPoint gp, Vector v, Vector n, double kB) {
+        // Construct the refracted ray
         Ray rfRay = constructRefractedRay(gp, v, n);
+        // Calculate the dot product of the refracted ray direction and the normal vector
         double res = rfRay.getDirection().dotProduct(n);
+
+        // If the refraction coefficient is zero, return the refracted ray only , otherwise construct a grid of rays
         return kB == 0 ? List.of(rfRay)
+                // Construct a grid of rays based on the refracted ray and refraction coefficient
                 : TargetArea.getBuilder(rfRay, kB).build().constructRayGrid().stream()
+                // Filter the rays based on the dot product of the direction and normal vector
                 .filter(r -> r.getDirection().dotProduct(n) * res > 0).toList();
     }
 
-    private List<Ray> constructReflectedRays(GeoPoint gp, Vector v, Vector n, double
-            kG) {
+    /**
+     * Constructs a list of reflected rays based on the intersection point, incoming ray, normal vector,
+     * and reflection coefficient.
+     *
+     * @param gp The geometric point of intersection.
+     * @param v  The direction vector of the incoming ray.
+     * @param n  The normal vector at the intersection point.
+     * @param kG The reflection coefficient for the material.
+     * @return A list of reflected rays based on the intersection point, incoming ray, normal vector,
+     * and reflection coefficient.
+     */
+    private List<Ray> constructReflectedRays(GeoPoint gp, Vector v, Vector n, double kG) {
+        // Construct the reflected ray
         Ray rfRay = constructReflectedRay(gp, v, n);
+        // Calculate the dot product of the reflected ray direction and the normal vector in order to filter the rays
         double res = rfRay.getDirection().dotProduct(n);
+
+        // If the reflection coefficient is zero, return the reflected ray only , otherwise construct a grid of rays
         return kG == 0 ? List.of(rfRay)
+                // Construct a grid of rays based on the reflected ray and reflection coefficient
                 : TargetArea.getBuilder(rfRay, kG).build().constructRayGrid().stream()
+                // Filter the rays based on the dot product of the direction and normal vector
                 .filter(r -> r.getDirection().dotProduct(n) * res > 0).toList();
     }
 

@@ -34,9 +34,14 @@ public class Ray {
      * @param normal    on plane
      */
     public Ray(Point point, Vector direction, Vector normal) {
+
         this.direction = direction.normalize();
         double nv = normal.dotProduct(this.direction);
+
+        // if the normal is orthogonal to the direction vector of the ray (90 degrees) we will add a small offset
         Vector dltVector = normal.scale(nv < 0 ? -DELTA : DELTA);
+
+        // add the offset to the point
         head = point.add(dltVector);
 
     }

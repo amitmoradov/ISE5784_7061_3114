@@ -209,6 +209,8 @@ public class Camera implements Cloneable {
             // check composed objects
             if (camera.imageWriter == null)
                 throw new MissingResourceException("imageWriter is missing", "Camera", "");
+
+            // check composed objects
             if (camera.rayTracer == null)
                 throw new MissingResourceException("rayTracer is missing", "Camera", "");
 
