@@ -143,6 +143,7 @@ public class SimpleRayTracer extends RayTracerBase {
      */
 
     private Color calcGlobalEffects(GeoPoint gp, Ray ray, int level, Double3 k) {
+        // Get the material of the geometry at the intersection point
         Material material = gp.geometry.getMaterial();
         Vector v = ray.getDirection();
         Vector n = gp.geometry.getNormal(gp.point);
