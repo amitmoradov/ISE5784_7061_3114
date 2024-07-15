@@ -19,7 +19,6 @@ public class TargetArea {
     private Vector vTo; // The vector pointing towards the view plane
     private Vector vUp; // The vector pointing upwards
     private Vector vRight; // The vector pointing to the right
-    private Point pCenter; // The center point of the view plane
 
 
     double width = 0.0; // The width of the view plane
