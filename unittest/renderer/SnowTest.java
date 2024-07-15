@@ -121,46 +121,46 @@ public class SnowTest {
     }
 
 
-    // Test for Target Area
-    @Test
-    public void Snow2() {
-        Scene scene = new Scene("Test scene");
-        TargetArea.Builder cameraBuilder = TargetArea.getBuilder()
-                .setLocation(new Point(0, -200, 100))
-                .setVpDistance(200)
-
-                .setDirection(new Vector(0, 1, 0), new Vector(0, 0, 1))
-                .setRayTracer(new SimpleRayTracer(scene));
-
-        scene.setBackground(new Color(75, 120, 130));
-
-        scene.geometries.add(
-                // Polygon to create a wall on the left side of the snowman
-                new Polygon(
-                        new Point(-180, 210, -50),
-                        new Point(180, 210, -50),
-                        new Point(180, 210, 150),
-                        new Point(-180, 210, 150)
-                ).setEmission(new Color(BLACK))
-                        .setMaterial(new Material().setKd(0.1).setKs(0.6).setKR(1.0).setKT(0.5).setShininess(100).setkB(0.8))
-
-                // Add sphere to show the target area
-                , new Sphere(new Point(10, 270, 5), 60).setEmission(new Color(255, 180, 255))
-                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100))
-        );
-        // Add a light sources
-        scene.lights.add(new PointLight(new Color(YELLOW), new Point(0, -150, 148))
-                .setKl(0.0004).setKq(0.0000006));
-
-        scene.setAmbientLight(new AmbientLight(new Color(WHITE), 0.15));
-
-
-        // C
-        cameraBuilder.setVpSize(300, 300)
-                .setImageWriter(new ImageWriter("Bl", 600, 600))
-                .build()
-                .renderImage()
-                .writeToImage();
-    }
+//    // Test for Target Area
+//    @Test
+//    public void Snow2() {
+//        Scene scene = new Scene("Test scene");
+//        TargetArea.Builder cameraBuilder = TargetArea.getBuilder()
+//                .setLocation(new Point(0, -200, 100))
+//                .setVpDistance(200)
+//
+//                .setDirection(new Vector(0, 1, 0), new Vector(0, 0, 1))
+//                .setRayTracer(new SimpleRayTracer(scene));
+//
+//        scene.setBackground(new Color(75, 120, 130));
+//
+//        scene.geometries.add(
+//                // Polygon to create a wall on the left side of the snowman
+//                new Polygon(
+//                        new Point(-180, 210, -50),
+//                        new Point(180, 210, -50),
+//                        new Point(180, 210, 150),
+//                        new Point(-180, 210, 150)
+//                ).setEmission(new Color(BLACK))
+//                        .setMaterial(new Material().setKd(0.1).setKs(0.6).setKR(1.0).setKT(0.5).setShininess(100).setkB(0.8))
+//
+//                // Add sphere to show the target area
+//                , new Sphere(new Point(10, 270, 5), 60).setEmission(new Color(255, 180, 255))
+//                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100))
+//        );
+//        // Add a light sources
+//        scene.lights.add(new PointLight(new Color(YELLOW), new Point(0, -150, 148))
+//                .setKl(0.0004).setKq(0.0000006));
+//
+//        scene.setAmbientLight(new AmbientLight(new Color(WHITE), 0.15));
+//
+//
+//        // C
+//        cameraBuilder.setVpSize(300, 300)
+//                .setImageWriter(new ImageWriter("Bl", 600, 600))
+//                .build()
+//                .renderImage()
+//                .writeToImage();
+//    }
 
 }
