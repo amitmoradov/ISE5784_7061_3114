@@ -141,6 +141,7 @@ public class SimpleRayTracer extends RayTracerBase {
      * @param k      The accumulated coefficient (e.g., reflection coefficient kR or transparency coefficient kT).
      * @return The calculated color representing combined global effects at the geometric point.
      */
+
     private Color calcGlobalEffects(GeoPoint gp, Ray ray, int level, Double3 k) {
         Material material = gp.geometry.getMaterial();
         Vector v = ray.getDirection();
