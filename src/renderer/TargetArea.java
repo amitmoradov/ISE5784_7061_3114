@@ -133,6 +133,7 @@ public class TargetArea {
          * @throws IllegalArgumentException if the provided direction is null or if the direction and up vector are not orthogonal.
          */
         public Builder setDirection(Vector vTo, Vector vUp) {
+            // Validate the direction and up vector
             if (vTo == null || vUp == null) {
                 throw new IllegalArgumentException("Target area direction cannot be null");
             }
@@ -174,7 +175,8 @@ public class TargetArea {
          */
         public Builder setDistance(double distance) {
             if (distance <= 0) {
-                throw new IllegalArgumentException("The distance between the target area and the view plane must be positive");
+                throw new IllegalArgumentException("The distance between the target area and the view plane" +
+                        " must be positive");
             }
             this.targetArea.distance = distance;
             return this;
