@@ -115,6 +115,23 @@ public class SimpleRayTracer extends RayTracerBase {
         return new Ray(gp.point, v, n);
     }
 
+//    /**
+//     * Calculates the combined global effects (such as reflection and refraction) at a given geometric point using recursive ray tracing.
+//     *
+//     * @param gp     The geometric point at which to calculate global effects.
+//     * @param ray    The view direction vector.
+//     * @param level  The current recursion level for handling transparency or reflection effects.
+//     * @param k      The accumulated coefficient (e.g., reflection coefficient kR or transparency coefficient kT).
+//     * @return The calculated color representing combined global effects at the geometric point.
+//     */
+//    private Color calcGlobalEffects(GeoPoint gp, Ray ray, int level, Double3 k) {
+//        Material material = gp.geometry.getMaterial();
+//        Vector v = ray.getDirection();
+//        Vector n = gp.geometry.getNormal(gp.point);
+//        return calcGlobalEffect(constructRefractedRay(gp, v, n), material.kT, level, k)
+//                .add(calcGlobalEffect(constructReflectedRay(gp, v, n), material.kR, level, k));
+//    }
+
     /**
      * Calculates the combined global effects (such as reflection and refraction) at a given geometric point using recursive ray tracing.
      *
@@ -128,9 +145,16 @@ public class SimpleRayTracer extends RayTracerBase {
         Material material = gp.geometry.getMaterial();
         Vector v = ray.getDirection();
         Vector n = gp.geometry.getNormal(gp.point);
-        return calcGlobalEffect(constructRefractedRay(gp, v, n), material.kT, level, k)
-                .add(calcGlobalEffect(constructReflectedRay(gp, v, n), material.kR, level, k));
+
+        List<Ray> refractedRays = constructRefractedRays(gp, v, n, material.kB);
+        List<Ray> reflectedRays = constructReflectedRays(gp, v, n, material.kG);
+
+        Color refractedColor = calcAverageColor(refractedRays, level, k, material.kT);
+        Color reflectedColor = calcAverageColor(reflectedRays, level, k, material.kR);
+
+        return refractedColor.add(reflectedColor);
     }
+
 
     /**
      * Calculates the global effect (reflection or refraction) for a given ray and coefficient.
@@ -249,4 +273,31 @@ public class SimpleRayTracer extends RayTracerBase {
         double minusVR = -alignZero(v.dotProduct(reflectVector));
         return minusVR <= 0 ? Double3.ZERO : material.kS.scale(pow(minusVR, material.shininess));
     }
+
+    private Color calcAverageColor(List<Ray> rays, int level, Double3 k, Double3 kx) {
+        Color color = Color.BLACK;
+        if (rays.isEmpty()) return color;
+        for (Ray rT : rays)
+            color = color.add(calcGlobalEffect(rT, kx, level, k));
+        return color.reduce(rays.size());
+    }
+
+    private List<Ray> constructRefractedRays(GeoPoint gp, Vector v, Vector n, double
+            kB) {
+        Ray rfRay = constructRefractedRay(gp, v, n);
+        double res = rfRay.getDirection().dotProduct(n);
+        return kB == 0 ? List.of(rfRay)
+                : TargetArea.getBuilder(rfRay, kB).build().constructRayGrid().stream()
+                .filter(r -> r.getDirection().dotProduct(n) * res > 0).toList();
+    }
+
+    private List<Ray> constructReflectedRays(GeoPoint gp, Vector v, Vector n, double
+            kG) {
+        Ray rfRay = constructReflectedRay(gp, v, n);
+        double res = rfRay.getDirection().dotProduct(n);
+        return kG == 0 ? List.of(rfRay)
+                : TargetArea.getBuilder(rfRay, kG).build().constructRayGrid().stream()
+                .filter(r -> r.getDirection().dotProduct(n) * res > 0).toList();
+    }
+
 }

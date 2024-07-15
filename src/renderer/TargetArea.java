@@ -307,6 +307,19 @@ public class TargetArea {
     }
 
     /**
+     * Get a TargetArea builder
+     *
+     * @param ray  the main ray to the target area
+     * @param size the size of the target area
+     * @return a new target area builder
+     */
+    public static Builder getBuilder(Ray ray, double size) {
+        return new Builder(ray, size);
+    }
+
+
+
+    /**
      * Constructs a ray through the center of the pixel.
      *
      * @param nx The number of pixels in the x direction
