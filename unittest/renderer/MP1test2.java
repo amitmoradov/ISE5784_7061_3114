@@ -23,7 +23,7 @@ public class MP1test2 {
 
         scene.geometries.add(
                 new Sphere(new Point(-80, 10, -50), 50)
-                        .setMaterial(new Material().setKd(0.3).setKs(0.5).setShininess(10).setKR(0.5)// .setKt(0.55)
+                        .setMaterial(new Material().setKd(0.3).setKs(0.5).setShininess(10).setKR(0.3)// .setKt(0.5 5)
                                 .setkG(10)),
                 new Sphere(new Point(60, 0, 20), 35d)
                         .setMaterial(new Material().setKd(0.6).setKs(0.2).setShininess(3).setKR(0.4).setKT(0.2))
