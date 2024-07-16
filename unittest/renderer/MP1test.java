@@ -41,8 +41,8 @@ public class MP1test {
                         .setMaterial(new Material().setKd(0.5).setKs(0.5).setKR(0.8).setShininess(100)),
 
 
-                new Sphere(new Point(188, -6, -10), 26).setEmission(new Color(0, 18, 188))
-                        .setMaterial(new Material().setKd(0.5).setKs(0.6).setKR(0.3).setkG(11).setShininess(20)),
+                new Sphere(new Point(290, 255, -10), 26).setEmission(new Color(0, 18, 188))
+                        .setMaterial(new Material().setKd(0.5).setKs(0.7).setKR(0.8).setkG(11).setShininess(70)),
 
                 new Polygon(
                         new Point(-100, 8, -150),
