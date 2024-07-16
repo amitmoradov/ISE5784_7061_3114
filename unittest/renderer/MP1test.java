@@ -40,17 +40,27 @@ public class MP1test {
                 new Sphere(new Point(-130, 260, -16), 26).setEmission(new Color((GREEN)))
                         .setMaterial(new Material().setKd(0.5).setKs(0.5).setKR(0.8).setShininess(100)),
 
+                new Sphere(new Point(-240, 260, -16), 26).setEmission(new Color(165,42,42))
+                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setKR(0.8).setShininess(100)),
+
 
                 new Sphere(new Point(290, 255, -10), 26).setEmission(new Color(0, 18, 188))
                         .setMaterial(new Material().setKd(0.5).setKs(0.7).setKR(0.8).setkG(11).setShininess(70)),
 
+                new Polygon(
+                        new Point(-190, 8, -150),
+                        new Point(-190, 8, 150),
+                        new Point(-120, 8, 150),
+                        new Point(-120, 8, -150)
+                ).setEmission(new Color(BLACK))
+                        .setMaterial(new Material().setKd(0.1).setKs(0.8).setKT(1.0).setKR(0.06).setkB(0.03).setShininess(100)),
                 new Polygon(
                         new Point(-100, 8, -150),
                         new Point(-100, 8, 150),
                         new Point(-30, 8, 150),
                         new Point(-30, 8, -150)
                 ).setEmission(new Color(BLACK))
-                        .setMaterial(new Material().setKd(0.1).setKs(0.8).setKT(1.0).setKR(0.1).setkB(0.03).setShininess(100)),
+                        .setMaterial(new Material().setKd(0.1).setKs(0.8).setKT(1.0).setKR(0.1).setkB(2).setShininess(100)),
 
                 new Polygon(
                         new Point(-10, 8, -150),
@@ -58,7 +68,7 @@ public class MP1test {
                         new Point(60, 8, 150),
                         new Point(60, 8, -150)
                 ).setEmission(new Color(BLACK))
-                        .setMaterial(new Material().setKd(0.1).setKs(0.8).setKT(1.0).setKR(0.2).setkB(3).setShininess(100)),
+                        .setMaterial(new Material().setKd(0.1).setKs(0.8).setKT(1.0).setKR(0.2).setkB(7).setShininess(100)),
 
                 new Polygon(
                         new Point(80, 8, -150),
@@ -69,7 +79,7 @@ public class MP1test {
                         .setMaterial(new Material().setKd(0.1).setKs(0.8).setKT(1.0).setKR(0.2).setkB(12).setShininess(100))
         );
         // Add a light sources
-        scene.lights.add(new SpotLight(new Color(1000, 600, 600), new Point(-120, 250, 500),
+        scene.lights.add(new SpotLight(new Color(1000, 600, 600), new Point(-250, 250, 500),
                 new Vector(1, -1, 0)).setKl(0.004).setKq(0.0000006));
 
 
