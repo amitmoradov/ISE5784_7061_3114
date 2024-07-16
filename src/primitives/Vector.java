@@ -131,7 +131,7 @@ public class Vector extends Point {
      * @return A new vector that is perpendicular to this vector.
      */
     public Vector makePerpendicularVector() {
-        // אם הוקטור לא מקביל לאף אחד מצירי הקואורדינטות, ניתן לבחור באחד מהם ליצירת וקטור אנך
+        // If the vector is not parallel to the x-axis, return a vector perpendicular to the x-axis
         if (!isZero(xyz.d1) || !isZero(xyz.d2)) {
             return new Vector(-xyz.d2, xyz.d1, 0).normalize();
         } else {
