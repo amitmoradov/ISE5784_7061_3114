@@ -76,21 +76,19 @@ public class MP1test {
 //                ).setEmission(new Color(70, 130, 180))
 //                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100).setKT(0.7)),
 
-                // Polygon to create a wall on the left side of the snowman
                 new Polygon(
                         new Point(-180, -100, -50),
                         new Point(-180, -100, 150),
-                        new Point(-180, -100, 150),
-                        new Point(-180, -100, -50)
+                        new Point(-130, -100, 150),
+                        new Point(-130, -100, -50)
                 ).setEmission(new Color(BLACK))
                         .setMaterial(new Material().setKd(0.1).setKs(0.6).setKR(1.0).setShininess(100)),
 
-                // Polygon to create a back wall that is straight and vertical
                 new Polygon(
-                        new Point(-170, 260, 150),
-                        new Point(170, 260, 150),
-                        new Point(170, 260, -50),
-                        new Point(-170, 260, -50)
+                        new Point(-120, -100, 150),
+                        new Point(170, -100, 150),
+                        new Point(170, -100, -50),
+                        new Point(-170, -100, -50)
                 ).setEmission(new Color(BLACK))
                         .setMaterial(new Material().setKd(0.1).setKs(0.8).setKR(1.0).setShininess(100))
         );
