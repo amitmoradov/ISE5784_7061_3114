@@ -85,8 +85,6 @@ public class RenderTests {
       // Load the scene from the XML file
       Scene scene = XmlSceneBuilder.buildScene("Test scene", "src/scene/renderTestTwoColors.xml");
 
-
-
       camera
               .setRayTracer(new SimpleRayTracer(scene))
               .setImageWriter(new ImageWriter("xml render test", 1000, 1000))

@@ -25,7 +25,7 @@ public class TargetArea {
     double height = 0.0; // The height of the view plane
     double distance = 0.0; // The distance between the target area and the view plane
 
-    int density = 6; // The density of the grid
+    int density = 9; // The density of the grid
 
     Point getP0() {
         return p0;

@@ -110,6 +110,7 @@ public class XmlSceneBuilder {
                     case "geometries":  // If the tag name is "geometries"
                         parseGeometries(childElement, scene);  // Parse and add geometries to the scene
                         break;
+
                 }
             }
         }
