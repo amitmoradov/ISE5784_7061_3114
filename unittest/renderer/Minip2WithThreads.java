@@ -27,7 +27,7 @@ public class Minip2WithThreads {
         Camera.Builder cameraBuilder = Camera.getBuilder().
                 setLocation(new Point(0, 0, 1000)).setVpSize(200, 200).setVpDistance(1000)
                 .setDirection(new Vector(0, 0, -1), new Vector(0, 1, 0))
-                .setMultithreading(100)
+                .setMultithreading(5)
                 .setRayTracer(new SimpleRayTracer(scene));
 
         scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.15));

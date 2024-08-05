@@ -131,8 +131,10 @@ public class BoundingBox {
      */
     private BoundingBox union(BoundingBox box) {
         return new BoundingBox(
-                new Point(Math.min(min.getX(), box.min.getX()), Math.min(min.getY(), box.min.getY()), Math.min(min.getZ(), box.min.getZ())),
-                new Point(Math.max(max.getX(), box.max.getX()), Math.max(max.getY(), box.max.getY()), Math.max(max.getZ(), box.max.getZ()))
+                new Point(Math.min(min.getX(), box.min.getX()), Math.min(min.getY(), box.min.getY()),
+                        Math.min(min.getZ(), box.min.getZ())),
+                new Point(Math.max(max.getX(), box.max.getX()), Math.max(max.getY(), box.max.getY()),
+                        Math.max(max.getZ(), box.max.getZ()))
         );
     }
 
@@ -163,7 +165,9 @@ public class BoundingBox {
 
         // Split the list into two halves and recursively build the BVH
         int mid = intersectableList.size() / 2;
+        // Recursively build the BVH for the left and right halves
         List<Intersectable> leftGeometries = buildBVH(intersectableList.subList(0, mid));
+        // Recursively build the BVH for the right half
         List<Intersectable> rightGeometries = buildBVH(intersectableList.subList(mid, intersectableList.size()));
 
         // Create bounding boxes for the left and right halves
@@ -171,7 +175,7 @@ public class BoundingBox {
         BoundingBox rightBox = getBoundingBox(rightGeometries);
 
         // Combine the left and right geometries into a single Geometries object
-        Geometries combined = new Geometries(leftGeometries);
+        Geometries combined = new Geometries((leftGeometries);
         combined.add(rightGeometries);
         combined.box = leftBox.union(rightBox);
 

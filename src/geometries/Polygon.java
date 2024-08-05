@@ -83,7 +83,11 @@ public class Polygon extends Geometry {
             throw new IllegalArgumentException("All vertices must be ordered and the polygon must be convex");
       }
    }
-
+   /**
+    * Calculate the bounding box of the polygon
+    * @param vertices the vertices of the polygon
+    * @return the bounding box of the polygon
+    */
    private static BoundingBox getBoundingBox(Point[] vertices) {
       // Initialize minimum and maximum values for each coordinate
       double minX = Double.POSITIVE_INFINITY;

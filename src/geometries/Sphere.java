@@ -91,26 +91,30 @@ public class Sphere extends RadialGeometry {
     }
 
     /**
-     * method sets the values of the bounding volume for the intersectable sphere
+     * Calculate the bounding box of the sphere
+     * @param center the center of the sphere
+     * @param radius the radius of the sphere
+     * @return the bounding box of the sphere
      */
-    @Override
-    public void setBoundingBox() {
+    private static BoundingBox getBoundingBox(Point center, double radius) {
+        // Initialize minimum and maximum values for each coordinate
 
-        super.setBoundingBox();
+        double minX = Double.POSITIVE_INFINITY;
+        double minY = Double.POSITIVE_INFINITY;
+        double minZ = Double.POSITIVE_INFINITY;
+        double maxX = Double.NEGATIVE_INFINITY;
+        double maxY = Double.NEGATIVE_INFINITY;
+        double maxZ = Double.NEGATIVE_INFINITY;
 
-        // get minimal & maximal x value for the containing box
-        double minX = center.getX() - radius;
-        double maxX = center.getX() + radius;
+        // Calculate the minimum and maximum values for each coordinate
+        minX = center.getX() - radius;
+        minY = center.getY() - radius;
+        minZ = center.getZ() - radius;
+        maxX = center.getX() + radius;
+        maxY = center.getY() + radius;
+        maxZ = center.getZ() + radius;
 
-        // get minimal & maximal y value for the containing box
-        double minY = center.getY() - radius;
-        double maxY = center.getY() + radius;
-
-        // get minimal & maximal z value for the containing box
-        double minZ = center.getZ() - radius;
-        double maxZ = center.getZ() + radius;
-
-        // set the minimum and maximum values in 3 axes for this bounding region of the component
-        box.setBoundingBox(minX, maxX, minY, maxY, minZ, maxZ);
+        // Create a BoundingBox object using the calculated minimum and maximum points
+        return new BoundingBox(new Point(minX, minY, minZ), new Point(maxX, maxY, maxZ));
     }
 }
