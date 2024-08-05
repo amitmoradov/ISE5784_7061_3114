@@ -3,7 +3,6 @@ package geometries;
 import primitives.Point;
 import primitives.Ray;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -39,6 +38,11 @@ public abstract class Intersectable {
          * The actual point of intersection.
          */
         public Point point;
+
+        /**
+         * Bounding Box
+         */
+        protected BoundingBox boundingBox;
 
         /**
          * Constructor for GeoPoint.
