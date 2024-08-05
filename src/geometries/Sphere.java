@@ -97,7 +97,7 @@ public class Sphere extends RadialGeometry {
      * @return the bounding box of the sphere
      */
     private static BoundingBox getBoundingBox(Point center, double radius) {
-        // Initialize minimum and maximum values for each coordinate
+        // Initialize minimum and maximum values for each coordinate to positive and negative infinity respectively
 
         double minX = Double.POSITIVE_INFINITY;
         double minY = Double.POSITIVE_INFINITY;
