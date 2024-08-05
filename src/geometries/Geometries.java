@@ -46,6 +46,7 @@ public class Geometries extends Intersectable {
         if (this.lstGeo.isEmpty()) { // Check if the list is empty
             return null; // If empty, return null
         }
+
         List<GeoPoint> intersections = null; // Create a new list to store intersection points
         for (Intersectable geometry : lstGeo) { // Loop through all objects in the list
             List<GeoPoint> geometryIntersections = geometry.findGeoIntersectionsHelper(ray); // Find intersection points with
