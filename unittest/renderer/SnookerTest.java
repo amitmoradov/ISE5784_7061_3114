@@ -20,10 +20,10 @@ public class SnookerTest {
     private final Camera.Builder camera = Camera.getBuilder()
             .setRayTracer(new SimpleRayTracer(scene))
             .setLocation(new Point(200, 200, 100))
-            .setDirection(new Point(0, 0, 0), new Vector(-1, -30, 180).normalize())
+            .setDirection(new Vector(0, 1, 0), new Vector(0, 0, 1).normalize())
             .setVpDistance(500)
             .setVpSize(800, 600)
-            .setNumSamples(9)
+            //.setNumSamples(9)
             .setMultithreading(3);
 
     /**

@@ -221,9 +221,11 @@ public class Camera implements Cloneable {
             if (threads < -2) throw new IllegalArgumentException("Multithreading must be -2 or higher");
             if (threads >= -1) camera.threadsCount = threads;
             else { // == -2
+
                 int cores = Runtime.getRuntime().availableProcessors() - camera.SPARE_THREADS;
                 camera.threadsCount = cores <= 2 ? 1 : cores;
             }
+            // Return the camera object
             return this;
         }
         /**
@@ -359,29 +361,41 @@ public class Camera implements Cloneable {
      * included in the ray tracer object
      * @return the camera object itself
      */
+    // After mini project 2
     public Camera renderImage() {
+        // Get the number of pixels in the x and y direction
         final int nX = imageWriter.getNx();
         final int nY = imageWriter.getNy();
+        // Initialize the progress percentage
         Pixel.initialize(nY, nX, printInterval);
+        // If no threads are used
         if (threadsCount == 0)
             for (int i = 0; i < nY; ++i)
                 for (int j = 0; j < nX; ++j)
                     castRay(nX, nY, j, i);
 
         else {
+            // If the number of threads is > 0 use in parallel stream
+            // List of threads
             var threads = new LinkedList<Thread>();
             while (threadsCount-- > 0)
+                // Add a new thread to the list
                 threads.add(new Thread(() -> {
                     Pixel pixel;
+                    // While there are pixels to render
                     while ((pixel = Pixel.nextPixel()) != null)
+                        // Cast a ray to the pixel
                         castRay(nX, nY, pixel.col(), pixel.row());
                 }));
+            // Start all the threads
             for (var thread : threads) thread.start();
             try {
+                // Wait for all the threads to finish
                 for (var thread : threads) thread.join();
             } catch (InterruptedException ignore) {
             }
         }
+        // Return the camera object
         return this;
     }
 }
