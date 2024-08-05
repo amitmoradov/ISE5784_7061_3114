@@ -195,7 +195,9 @@ public class Minip2WithThreads {
         scene.lights.add(new PointLight(new Color(0, 0, 255), new Point(0, 92, 148))
                 .setKl(0.0004).setKq(0.0000006));
 
-//
+        //----------------------BVH---------------------------------------
+        scene.geometries.makeBVH();// BVH
+        //----------------------------------------------------------------
         scene.setAmbientLight(new AmbientLight(new Color(WHITE), 0.15)).setBackground(new Color(75, 120, 130));
 
         cameraBuilder.setVpSize(300, 300)

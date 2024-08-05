@@ -11,6 +11,20 @@ import java.util.Objects;
  * author Amit Moradov , Yinon Shaul
  */
 public abstract class Intersectable {
+
+
+    /**
+     * Bounding Box
+     */
+    protected BoundingBox box;
+
+    /**
+     * Constructs an Intersectable object with the specified bounding box.
+     */
+    public BoundingBox getBoundingBox() {
+        return box;
+    }
+
     /**
      * Public method findIntersections for finding intersection points between the
      * intersectable object and a given ray, by calling the helper method.
@@ -38,11 +52,6 @@ public abstract class Intersectable {
          * The actual point of intersection.
          */
         public Point point;
-
-        /**
-         * Bounding Box
-         */
-        protected BoundingBox boundingBox;
 
         /**
          * Constructor for GeoPoint.

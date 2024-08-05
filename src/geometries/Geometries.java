@@ -60,4 +60,14 @@ public class Geometries extends Intersectable {
         return intersections; // Return the list of found intersection points
     }
 
+    /**
+     * Creates a bounding volume hierarchy (BVH) for the geometries in the collection.
+     * This method optimizes the intersection tests by organizing the geometries into a hierarchical structure.
+     */
+    public void makeBVH() {
+        List<Intersectable> intersectables = BoundingBox.buildBVH(lstGeo);
+        lstGeo.clear();
+        lstGeo.addAll(intersectables);
+    }
+
 }

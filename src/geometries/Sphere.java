@@ -26,6 +26,7 @@ public class Sphere extends RadialGeometry {
     public Sphere(Point center, double radius) {
         // Call the RadialGeometry constructor with the specified radius
         super(radius);
+        this.box = getBoundingBox();
         this.center = center;
         
     }
@@ -87,5 +88,29 @@ public class Sphere extends RadialGeometry {
 
         // If no intersection points are in front of the ray origin
         return null;
+    }
+
+    /**
+     * method sets the values of the bounding volume for the intersectable sphere
+     */
+    @Override
+    public void setBoundingBox() {
+
+        super.setBoundingBox();
+
+        // get minimal & maximal x value for the containing box
+        double minX = center.getX() - radius;
+        double maxX = center.getX() + radius;
+
+        // get minimal & maximal y value for the containing box
+        double minY = center.getY() - radius;
+        double maxY = center.getY() + radius;
+
+        // get minimal & maximal z value for the containing box
+        double minZ = center.getZ() - radius;
+        double maxZ = center.getZ() + radius;
+
+        // set the minimum and maximum values in 3 axes for this bounding region of the component
+        box.setBoundingBox(minX, maxX, minY, maxY, minZ, maxZ);
     }
 }
