@@ -28,6 +28,24 @@ public class Geometries extends Intersectable {
         add(geometries);
     }
 
+    /**
+     * Constructor that initializes the Geometries collection with a list of Intersectable objects.
+     *
+     * @param geometries A list of Intersectable objects to be added to the collection.
+     */
+    public Geometries(List<Intersectable> geometries) {
+        add(geometries);
+    }
+
+    /**
+     * Adds a list of Intersectable objects to the Geometries collection.
+     *
+     * @param geometries A list of Intersectable objects to be added.
+     */
+    public void add(List<Intersectable> geometries) {
+        this.lstGeo.addAll(geometries);
+    }
+
     // Method to add objects to the list, accepts an array of Intersectable objects
     public void add(Intersectable... geometries) {
         if (geometries != null) { // Check if the array is not null

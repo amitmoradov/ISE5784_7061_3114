@@ -175,7 +175,7 @@ public class BoundingBox {
         BoundingBox rightBox = getBoundingBox(rightGeometries);
 
         // Combine the left and right geometries into a single Geometries object
-        Geometries combined = new Geometries((leftGeometries);
+        Geometries combined = new Geometries(leftGeometries);
         combined.add(rightGeometries);
         combined.box = leftBox.union(rightBox);
 
