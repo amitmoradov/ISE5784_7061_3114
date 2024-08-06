@@ -28,12 +28,13 @@ public class TeapotTest {
 			new Vector(0, 1, 0))
 			.setVpDistance(1000).setVpSize(200, 200)
 			.setImageWriter(new ImageWriter("teapot", 800, 800))
-			.setMultithreading(3).setDebugPrint(0.1);
-
-	private final Scene scene = new Scene("Test scene");
+			.setMultithreading(5).setDebugPrint(0.1);
 
 	private static final Color color = new Color(200, 0, 0);
 	private static final Material mat = new Material().setKd(0.5).setKs(0.5).setShininess(60);
+
+	// Add BVH to the scene
+	Scene scene = new Scene("Test scene");
 
 	private static Point[] pnts = new Point[] { null, //
 			new Point(40.6266, 28.3457, -1.10804), //
@@ -1568,7 +1569,8 @@ public class TeapotTest {
 				new Triangle(pnts[529], pnts[530], pnts[470]).setEmission(color).setMaterial(mat) //
 		);
 		scene.lights.add(new PointLight(new Color(500, 500, 500), new Point(100, 0, -100)).setKq(0.000001));
-
+		// Add BVH to scene
+		scene.geometries.makeBVH();
 
 		camera.setRayTracer(new SimpleRayTracer(scene)).build().renderImage().printGrid(50,
 				new Color(YELLOW)).writeToImage();

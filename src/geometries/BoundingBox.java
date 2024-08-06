@@ -3,6 +3,7 @@ package geometries;
 import primitives.*;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -14,11 +15,11 @@ public class BoundingBox {
     /**
      * The minimum point of the bounding box
      */
-    public Point min;
+    public Point min = new Point(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
     /**
      * The maximum point of the bounding box
      */
-    public Point max;
+    public Point max = new Point(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
 
     /**
      * Constructs a BoundingBox with specified minimum and maximum points.
@@ -117,6 +118,7 @@ public class BoundingBox {
      * @return the center point of the bounding box
      */
     public Point getCenter() {
+        // Calculate the center point by averaging the minimum and maximum points
         double centerX = (min.getX() + max.getX()) / 2.0;
         double centerY = (min.getY() + max.getY()) / 2.0;
         double centerZ = (min.getZ() + max.getZ()) / 2.0;
@@ -145,20 +147,20 @@ public class BoundingBox {
      * @return a list of intersectable geometries organized in a BVH
      */
     static public List<Intersectable> buildBVH(List<Intersectable> intersectableList) {
-        // If the list has one or zero elements, return it as is
         if (intersectableList.size() <= 1) {
             return intersectableList;
         }
 
-        // Separate geometries without a bounding box
-        List<Intersectable> infiniteGeometries = new ArrayList<>();
-        intersectableList.removeIf(g -> {
+        // extract infinite geometries into a separate list
+        List<Intersectable> infiniteGeometries = new LinkedList<>();
+        for (int i = 0; i < intersectableList.size(); i++) {
+            var g = intersectableList.get(i);
             if (g.getBoundingBox() == null) {
                 infiniteGeometries.add(g);
-                return true;
+                intersectableList.remove(i);
+                i--;
             }
-            return false;
-        });
+        }
 
         // Sort geometries by the X coordinate of their bounding box centers
         intersectableList.sort(Comparator.comparingDouble(g -> g.getBoundingBox().getCenter().getX()));

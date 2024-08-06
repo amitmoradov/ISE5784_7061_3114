@@ -84,7 +84,9 @@ public class Geometries extends Intersectable {
      * This method optimizes the intersection tests by organizing the geometries into a hierarchical structure.
      */
     public void makeBVH() {
+        // Create a new list to store the optimized geometries
         List<Intersectable> intersectables = BoundingBox.buildBVH(lstGeo);
+        // Clear the current list and add the optimized geometries
         lstGeo.clear();
         lstGeo.addAll(intersectables);
     }

@@ -68,7 +68,7 @@ public abstract class Intersectable {
      * @param ray the ray to intersect with the object
      * @return a list of GeoPoints where the ray intersects the object, or null if there are no intersections
      */
-    public    final List<GeoPoint> findGeoIntersections(Ray ray) {
+    public final List<GeoPoint> findGeoIntersections(Ray ray) {
         // Calls the helper method with an infinite maximum distance to find all intersections
         return findGeoIntersections(ray, Double.POSITIVE_INFINITY);
     }

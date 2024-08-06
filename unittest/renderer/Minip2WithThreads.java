@@ -27,10 +27,13 @@ public class Minip2WithThreads {
         Camera.Builder cameraBuilder = Camera.getBuilder().
                 setLocation(new Point(0, 0, 1000)).setVpSize(200, 200).setVpDistance(1000)
                 .setDirection(new Vector(0, 0, -1), new Vector(0, 1, 0))
-                .setMultithreading(5)
+                .setMultithreading(60)
                 .setRayTracer(new SimpleRayTracer(scene));
 
         scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.15));
+
+        // Add BVH to the scene
+        scene.geometries.makeBVH();
 
         scene.geometries.add(
                 new Sphere(new Point(-50, 40, 40), 50)

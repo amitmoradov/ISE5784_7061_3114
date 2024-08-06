@@ -44,8 +44,6 @@ public class Polygon extends Geometry {
     */
    public Polygon(Point... vertices) {
 
-      // calculate bounding box:
-      this.box = getBoundingBox(vertices);
 
       if (vertices.length < 3)
          throw new IllegalArgumentException("A polygon can't have less than 3 vertices");
@@ -82,6 +80,8 @@ public class Polygon extends Geometry {
          if (positive != (edge1.crossProduct(edge2).dotProduct(n) > 0))
             throw new IllegalArgumentException("All vertices must be ordered and the polygon must be convex");
       }
+      // calculate bounding box:
+      this.box = getBoundingBox(vertices);
    }
    /**
     * Calculate the bounding box of the polygon
