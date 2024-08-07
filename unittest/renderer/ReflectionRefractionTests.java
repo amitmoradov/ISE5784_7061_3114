@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import lighting.AmbientLight;
 import lighting.SpotLight;
 import primitives.*;
-import renderer.*;
 import scene.Scene;
 
 /** Tests for reflection and transparency functionality, test for partial
@@ -73,7 +72,7 @@ public class ReflectionRefractionTests {
               new Triangle(new Point(1500, -1500, -1500), new Point(-1500, 1500, -1500),
                       new Point(-1500, -1500, -2000))
                       .setEmission(new Color(20, 20, 20))
-                      .setMaterial(new Material().setkR(new Double3(0.5, 0, 0.4))));
+                      .setMaterial(new Material().setKR(new Double3(0.5, 0, 0.4))));
       scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), 0.1));
       scene.lights.add(new SpotLight(new Color(1020, 400, 400), new Point(-750, -750, -150),
               new Vector(-1, -1, -4))
@@ -98,7 +97,7 @@ public class ReflectionRefractionTests {
               new Triangle(new Point(-150, -150, -115), new Point(150, -150, -135), new Point(75, 75, -150))
                       .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(60)),
               new Triangle(new Point(-150, -150, -115), new Point(-70, 70, -140), new Point(75, 75, -150))
-                      .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(60).setkR(new Double3(0.8))),
+                      .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(60).setKR(new Double3(0.8))),
               new Sphere(new Point(-60, 70, 40), 30d).setEmission(new Color(2, 200, 2))
                       .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setKT(0.9)),
               new Sphere(new Point(50, -20, -100), 30d).setEmission(new Color(250, 140, 4))
@@ -139,7 +138,7 @@ public class ReflectionRefractionTests {
               new Triangle(new Point(-150, -150, -115), new Point(150, -150, -135), new Point(75, 75, -150))
                       .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(60)),
               new Triangle(new Point(-150, -150, -115), new Point(-70, 70, -140), new Point(75, 75, -150))
-                      .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(60).setkR(new Double3(0.8))),
+                      .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(60).setKR(new Double3(0.8))),
               new Sphere(new Point(-60, 70, 40), 30d).setEmission(new Color(2, 200, 2))
                       .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setKT(0.9)),
               new Sphere(new Point(50, -20, -100), 30d).setEmission(new Color(250, 140, 4))

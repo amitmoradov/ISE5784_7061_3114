@@ -149,7 +149,7 @@ public class Material {
      * @param kR The reflection coefficient to set.
      * @return This Material object.
      */
-    public Material setkR(Double3 kR){
+    public Material setKR(Double3 kR){
         this.kR = kR;
         return this;
     }

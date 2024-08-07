@@ -32,9 +32,6 @@ public class Minip2WithThreads {
 
         scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.15));
 
-        // Add BVH to the scene
-        scene.geometries.makeBVH();
-
         scene.geometries.add(
                 new Sphere(new Point(-50, 40, 40), 50)
                         .setMaterial(new Material().setKd(0.3).setKs(0.5).setShininess(10).setKR(0.3)// .setKt(0.5 5)
@@ -63,6 +60,8 @@ public class Minip2WithThreads {
                 new Triangle(new Point(-160, -160, -115), new Point(-70, -70, -140), new Point(75, -75, -150)) //
                         .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(60)));//
 
+        // Add BVH to the scene
+        scene.geometries.makeBVH();
         scene.lights.add(new SpotLight(new Color(200, 400, 200), new Point(60, 50, 0), new Vector(0, 0, -1)) //
                 .setKl(4E-5).setKq(2E-7));
 

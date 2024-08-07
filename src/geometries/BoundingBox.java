@@ -179,7 +179,10 @@ public class BoundingBox {
         // Combine the left and right geometries into a single Geometries object
         Geometries combined = new Geometries(leftGeometries);
         combined.add(rightGeometries);
-        combined.box = leftBox.union(rightBox);
+        if(leftBox != null && rightBox != null) {
+            combined.box = leftBox.union(rightBox);
+        }
+
 
         // Combine the infinite geometries and the BVH into a single list
         List<Intersectable> result = new ArrayList<>(infiniteGeometries);
