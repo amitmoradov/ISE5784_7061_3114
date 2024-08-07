@@ -26,7 +26,7 @@ public class Sphere extends RadialGeometry {
     public Sphere(Point center, double radius) {
         // Call the RadialGeometry constructor with the specified radius
         super(radius);
-        this.box = getBoundingBox();
+        this.box = getBoundingBox(center, radius);
         this.center = center;
         
     }

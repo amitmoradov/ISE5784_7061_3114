@@ -27,7 +27,7 @@ public class Minip2WithThreads {
         Camera.Builder cameraBuilder = Camera.getBuilder().
                 setLocation(new Point(0, 0, 1000)).setVpSize(200, 200).setVpDistance(1000)
                 .setDirection(new Vector(0, 0, -1), new Vector(0, 1, 0))
-                .setMultithreading(60)
+                .setMultithreading(10)
                 .setRayTracer(new SimpleRayTracer(scene));
 
         scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.15));
@@ -60,10 +60,11 @@ public class Minip2WithThreads {
                 new Triangle(new Point(-160, -160, -115), new Point(-70, -70, -140), new Point(75, -75, -150)) //
                         .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(60)));//
 
-        // Add BVH to the scene
-        scene.geometries.makeBVH();
+
         scene.lights.add(new SpotLight(new Color(200, 400, 200), new Point(60, 50, 0), new Vector(0, 0, -1)) //
                 .setKl(4E-5).setKq(2E-7));
+        // Add BVH to the scene
+        scene.geometries.makeBVH();
 
         cameraBuilder //
                 .setRayTracer(new SimpleRayTracer(scene)) //
@@ -77,7 +78,8 @@ public class Minip2WithThreads {
     public void mega1Test2() {
         Camera.Builder cameraBuilder = Camera.getBuilder().setLocation(new Point(0, 0, 1000)).setVpSize(200, 200).setVpDistance(1000)
                 .setDirection(new Vector(0, 0, -1), new Vector(0, 1, 0))
-                .setRayTracer(new SimpleRayTracer(scene));
+                .setRayTracer(new SimpleRayTracer(scene))
+                .setMultithreading(10);
 
         scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.15));
 
@@ -111,6 +113,8 @@ public class Minip2WithThreads {
 
         scene.lights.add(new SpotLight(new Color(200, 400, 200), new Point(60, 50, 0), new Vector(0, 0, -1)) //
                 .setKl(4E-5).setKq(2E-7));
+        // Add BVH to the scene
+        scene.geometries.makeBVH();
 
         cameraBuilder //
                 .setRayTracer(new SimpleRayTracer(scene)) //
@@ -130,7 +134,7 @@ public class Minip2WithThreads {
         Camera.Builder cameraBuilder = Camera.getBuilder()
                 .setLocation(new Point(0, -400, 100))
                 .setVpDistance(250)
-                .setMultithreading(5)
+                .setMultithreading(10)
 
                 .setDirection(new Vector(0, 1, 0), new Vector(0, 0, 1))
                 .setRayTracer(new SimpleRayTracer(scene));

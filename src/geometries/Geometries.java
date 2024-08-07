@@ -4,10 +4,7 @@ import primitives.Point;
 import primitives.Ray;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * The Geometries class represents a collection of Intersectable objects.
@@ -67,8 +64,9 @@ public class Geometries extends Intersectable {
 
         List<GeoPoint> intersections = null; // Create a new list to store intersection points
         for (Intersectable geometry : lstGeo) { // Loop through all objects in the list
-            List<GeoPoint> geometryIntersections = geometry.findGeoIntersectionsHelper(ray); // Find intersection points with
-            // the current object
+            List<GeoPoint> geometryIntersections = geometry.findGeoIntersections(ray)
+                    ; // Find intersection points with
+            // The current object
             if (geometryIntersections != null) { // Check if intersection points were found
                 if (intersections == null)
                     intersections = new LinkedList<>();

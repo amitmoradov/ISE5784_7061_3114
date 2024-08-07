@@ -131,7 +131,7 @@ public class BoundingBox {
      * @param box the bounding box to union with
      * @return a new bounding box that encompasses both bounding boxes
      */
-    private BoundingBox union(BoundingBox box) {
+    public BoundingBox union(BoundingBox box) {
         return new BoundingBox(
                 new Point(Math.min(min.getX(), box.min.getX()), Math.min(min.getY(), box.min.getY()),
                         Math.min(min.getZ(), box.min.getZ())),

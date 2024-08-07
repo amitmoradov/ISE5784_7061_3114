@@ -28,7 +28,7 @@ public class TeapotTest {
 			new Vector(0, 1, 0))
 			.setVpDistance(1000).setVpSize(200, 200)
 			.setImageWriter(new ImageWriter("teapot", 800, 800))
-			.setMultithreading(8).setDebugPrint(0.1);
+			.setMultithreading(10).setDebugPrint(0.1);
 
 	private static final Color color = new Color(200, 0, 0);
 	private static final Material mat = new Material().setKd(0.5).setKs(0.5).setShininess(60);
@@ -1573,8 +1573,15 @@ public class TeapotTest {
 		scene.geometries.makeBVH();
 		// Build the scene
 
+		// Measure the time
+		long startTime = System.nanoTime();
 		camera.setRayTracer(new SimpleRayTracer(scene)).build().renderImage().printGrid(50,
 				new Color(YELLOW)).writeToImage();
+
+		long endTime = System.nanoTime();
+
+		double duration = (endTime - startTime) / 1_000_000_000.0;
+		System.out.println("Render time " +  ": " + duration + "seconds");
 	}
 
 }

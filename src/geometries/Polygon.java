@@ -54,6 +54,8 @@ public class Polygon extends Geometry {
       // polygon with this plane.
       // The plane holds the invariant normal (orthogonal unit) vector to the polygon
       plane = new Plane(vertices[0], vertices[1], vertices[2]);
+      // calculate bounding box:
+      this.box = getBoundingBox(vertices);
       if (size == 3) return; // no need for more tests for a Triangle
 
       Vector n = plane.getNormal();
@@ -80,8 +82,7 @@ public class Polygon extends Geometry {
          if (positive != (edge1.crossProduct(edge2).dotProduct(n) > 0))
             throw new IllegalArgumentException("All vertices must be ordered and the polygon must be convex");
       }
-      // calculate bounding box:
-      this.box = getBoundingBox(vertices);
+
    }
    /**
     * Calculate the bounding box of the polygon

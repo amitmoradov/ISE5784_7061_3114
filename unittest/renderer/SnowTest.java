@@ -29,6 +29,7 @@ public class SnowTest {
                 .setLocation(new Point(0, -200, 100))
                 .setVpDistance(200)
 
+                .setMultithreading(3)
                 .setDirection(new Vector(0, 1, 0), new Vector(0, 0, 1))
                 .setRayTracer(new SimpleRayTracer(scene));
 
@@ -109,6 +110,8 @@ public class SnowTest {
         // Add a point light with blue color
         scene.lights.add(new PointLight(new Color(0, 0, 255), new Point(0, 92, 148))
                 .setKl(0.0004).setKq(0.0000006));
+
+        scene.geometries.makeBVH();
 
 //
         scene.setAmbientLight(new AmbientLight(new Color(WHITE), 0.15)).setBackground(new Color(75, 120, 130));
