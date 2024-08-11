@@ -86,6 +86,7 @@ public class Geometries extends Intersectable {
         List<Intersectable> intersectables = BoundingBox.buildBVH(lstGeo);
         // Clear the current list and add the optimized geometries
         lstGeo.clear();
+        // Add the optimized geometries to the list
         lstGeo.addAll(intersectables);
     }
 

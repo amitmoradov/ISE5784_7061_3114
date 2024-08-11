@@ -108,7 +108,7 @@ public class BoundingBox {
             }
         }
 
-        // Check for overlap in the XYZ slab
+        // Check for overlap in the XYZ slab and return the result of the test for Z overlap
         return tMinX <= tMaxZ && tMinZ <= tMaxX;
     }
 
@@ -151,11 +151,13 @@ public class BoundingBox {
             return intersectableList;
         }
 
-        // extract infinite geometries into a separate list
+        // Extract infinite geometries into a separate list
         List<Intersectable> infiniteGeometries = new LinkedList<>();
         for (int i = 0; i < intersectableList.size(); i++) {
+            // Remove geometries with infinite bounding boxes
             var g = intersectableList.get(i);
             if (g.getBoundingBox() == null) {
+                // Add the geometry to the infinite geometries list
                 infiniteGeometries.add(g);
                 intersectableList.remove(i);
                 i--;

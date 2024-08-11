@@ -99,12 +99,12 @@ public class Sphere extends RadialGeometry {
     private static BoundingBox getBoundingBox(Point center, double radius) {
         // Initialize minimum and maximum values for each coordinate to positive and negative infinity respectively
 
-        double minX = Double.POSITIVE_INFINITY;
-        double minY = Double.POSITIVE_INFINITY;
-        double minZ = Double.POSITIVE_INFINITY;
-        double maxX = Double.NEGATIVE_INFINITY;
-        double maxY = Double.NEGATIVE_INFINITY;
-        double maxZ = Double.NEGATIVE_INFINITY;
+        double minX = Double.NEGATIVE_INFINITY;
+        double minY = Double.NEGATIVE_INFINITY;
+        double minZ = Double.NEGATIVE_INFINITY;
+        double maxX = Double.POSITIVE_INFINITY;
+        double maxY = Double.POSITIVE_INFINITY;
+        double maxZ = Double.POSITIVE_INFINITY;
 
         // Calculate the minimum and maximum values for each coordinate
         minX = center.getX() - radius;
