@@ -20,13 +20,15 @@ import java.util.List;
 public class SimpleRayTracer extends RayTracerBase {
     /**
      * Maximum recursion level for calculating colors considering transparency or reflection.
-     * This constant defines the depth limit to prevent excessive recursion. Adjust this value based on scene complexity and performance considerations.
+     * This constant defines the depth limit to prevent excessive recursion. Adjust this value based on
+     * scene complexity and performance considerations.
      */
     private static final int MAX_CALC_COLOR_LEVEL = 10;
 
     /**
      * Minimum threshold value for the accumulated coefficient of transparency or reflection.
-     * If the accumulated coefficient falls below this threshold, recursion for transparency or reflection terminates to avoid negligible contributions to the final color.
+     * If the accumulated coefficient falls below this threshold, recursion for transparency or reflection
+     * terminates to avoid negligible contributions to the final color.
      * Adjust this value based on scene specifics and desired precision.
      */
     private static final double MIN_CALC_COLOR_K = 0.001;
@@ -60,12 +62,14 @@ public class SimpleRayTracer extends RayTracerBase {
     }
 
     /**
-     * Calculates the color at a given geometric point considering ambient light, emission from the geometry, and local lighting effects.
+     * Calculates the color at a given geometric point considering ambient light, emission from the geometry,
+     * and local lighting effects.
      * This method uses recursive ray tracing to handle transparency and reflection up to a specified recursion level.
      *
      * @param gp  The geometric point at which to calculate the color.
      * @param ray The ray that intersected with the geometry at the geometric point.
-     * @return The calculated color at the geometric point, taking into account ambient light, emission, local lighting effects (diffuse and specular reflections), and recursive effects of transparency or reflection.
+     * @return The calculated color at the geometric point, taking into account ambient light, emission,
+     * local lighting effects (diffuse and specular reflections), and recursive effects of transparency or reflection.
      */
     private Color calcColor(GeoPoint gp, Ray ray) {
         // Calculate the color at the intersection point using recursive ray tracing
@@ -73,13 +77,16 @@ public class SimpleRayTracer extends RayTracerBase {
     }
 
     /**
-     * Calculates the color at a given geometric intersection point considering local lighting effects and potentially global effects such as transparency or reflection.
+     * Calculates the color at a given geometric intersection point considering local lighting effects and potentially
+     * global effects such as transparency or reflection.
      *
      * @param gp     The geometric point at which to calculate the color.
      * @param ray    The ray that intersected with the geometry at the intersection point.
      * @param level  The current recursion level for handling transparency or reflection effects.
-     * @param k      The accumulated coefficient (e.g., transparency or reflection coefficient) up to the current recursion level.
-     * @return The calculated color at the intersection point, considering local lighting effects and global effects up to the specified recursion level.
+     * @param k      The accumulated coefficient (e.g., transparency or reflection coefficient) up to the current
+     *              recursion level.
+     * @return The calculated color at the intersection point, considering local lighting effects and global effects up
+     * to the specified recursion level.
      */
     private Color calcColor(GeoPoint gp, Ray ray, int level, Double3 k) {
         Color color = calcLocalEffects(gp, ray, k);

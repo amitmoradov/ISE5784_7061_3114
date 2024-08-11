@@ -1573,15 +1573,8 @@ public class TeapotTest {
 		scene.geometries.makeBVH();
 		// Build the scene
 
-		// Measure the time
-		long startTime = System.nanoTime();
 		camera.setRayTracer(new SimpleRayTracer(scene)).build().renderImage().printGrid(50,
 				new Color(YELLOW)).writeToImage();
-
-		long endTime = System.nanoTime();
-
-		double duration = (endTime - startTime) / 1_000_000_000.0;
-		System.out.println("Render time " +  ": " + duration + "seconds");
 	}
 
 }
