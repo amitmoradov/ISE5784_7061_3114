@@ -378,26 +378,20 @@ Below are two sample scenes rendered using the engine, demonstrating its lightin
 
 ---
 
-## 👥 Contributors
+## 👨‍💻 Project Developers
 
 This project was developed by:
 
-- **Student IDs**: 7061, 3114
-- **Course**: ISE5784 - Introduction to Software Engineering
-- **Institution**: Jerusalem College of Engineering
+- **Student names**: Amit Moradov , Yinon Shaul
+- **Course**: Introduction to Software Engineering
+- **Institution**: Jerusalem College of Technology
 
 ### 🙏 Acknowledgments
 - Course instructor: Dan Zilberstein
 - Initial test framework and structure provided by the course
 
 ---
-
-## 📚 Course Information
-
-**Course**: Introduction to Software Engineering (ISE5784)  
-**Academic Year**: 5784 (2023-2024)  
-**Institution**: Jerusalem College of Engineering  
-
+  
 ### Learning Objectives Met
 - ✅ Object-Oriented Programming principles
 - ✅ Design patterns implementation
@@ -415,5 +409,6 @@ This project was developed by:
 ## 🌐 Connect
 
 **yinon.shaul99@gmail.com
+**053-4309220
 
 ---
