@@ -395,21 +395,13 @@ This project was developed by:
 
 ---
 
-## 📄 License
-
-This project is part of an academic course assignment. All rights reserved to the course instructors and students.
-
-### Usage Terms
-- 📖 This code is for **educational purposes only**
-- ❌ Do not copy for other course submissions
-- ✅ Feel free to learn from the implementation
-- ✅ Contributions and improvements are welcome
+✅ Contributions and improvements are welcome
 
 ---
 
 ## 🌐 Connect
 
-**Repository**: [ISE5784_7061_3114](https://github.com/amitmoradov/ISE5784_7061_3114)
+**yinon.shaul99@gmail.com
 
 ---
 
