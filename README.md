@@ -177,12 +177,9 @@ Before running this project, ensure you have the following installed:
 
 #### Option 1: Run the Test Program
 ```bash
-# Navigate to the project directory
-cd src/test
-
-# Compile and run Main.java
-javac -cp ../../ Main.java
-java -cp ../../ test.Main
+# From the project root directory
+javac -d out src/test/Main.java src/primitives/*.java
+java -cp out test.Main
 ```
 
 #### Option 2: Run Unit Tests
@@ -287,11 +284,10 @@ The project includes comprehensive unit tests covering:
 ### Running Tests
 
 ```bash
-# Run all tests
-./gradlew test  # If using Gradle
-
-# Or in IntelliJ IDEA:
+# In IntelliJ IDEA:
 # Right-click on 'unittest' folder → Run 'All Tests'
+
+# Or run specific test classes individually
 ```
 
 ---
@@ -385,7 +381,7 @@ This project was developed by:
 
 ## 📚 Course Information
 
-**Course Name**: Introduction to Software Engineering (ISE5784)  
+**Course**: Introduction to Software Engineering (ISE5784)  
 **Academic Year**: 5784 (2023-2024)  
 **Institution**: Jerusalem College of Engineering  
 
