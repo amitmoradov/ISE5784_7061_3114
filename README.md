@@ -320,7 +320,7 @@ Below are two sample scenes rendered using the engine, demonstrating its lightin
 
 | ❄️ Snowman Scene | 🔮 Transparent Balls Scene |
 |:----------------:|:--------------------------:|
-| ![Snowman Render](images/Snowman.jfif) | ![Transparent Balls Render](images/TransparentBalls.jfif) |
+| ![Snowman Render](Images/Snowman.jfif) | ![Transparent Balls Render](Images/TransparentBalls.jfif) |
 
 **Left:** A “Snowman” scene composed of multiple spheres with different materials and light sources.  
 **Right:** Transparent glass-like spheres demonstrating realistic refraction and reflection effects.
