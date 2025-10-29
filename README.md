@@ -395,7 +395,7 @@ This project was developed by:
 
 ---
 
-✅ Contributions and improvements are welcome
+✅ Improvements are welcome
 
 ---
 
