@@ -404,11 +404,3 @@ This project was developed by:
 **yinon.shaul99@gmail.com
 
 ---
-
-<div align="center">
-
-### ⭐ If you found this project helpful, please consider giving it a star!
-
-**Made with ❤️ and ☕ by Software Engineering Students**
-
-</div>
