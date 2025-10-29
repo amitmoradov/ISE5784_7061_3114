@@ -311,6 +311,19 @@ The test suite includes rendering tests for:
 - `TeapotTest` - Complex 3D model (Utah Teapot)
 - `SnowmanTest` - Composite scene with multiple spheres
 - `DaimonTest` - Diamond rendering with refractions
+  
+---
+
+### 🧊 Example Outputs
+
+Below are two sample scenes rendered using the engine, demonstrating its lighting, reflection, and refraction capabilities:
+
+| ❄️ Snowman Scene | 🔮 Transparent Balls Scene |
+|:----------------:|:--------------------------:|
+| ![Snowman Render](images/Snowman.jfif) | ![Transparent Balls Render](images/TransparentBalls.jfif) |
+
+**Left:** A “Snowman” scene composed of multiple spheres with different materials and light sources.  
+**Right:** Transparent glass-like spheres demonstrating realistic refraction and reflection effects.
 
 ---
 
