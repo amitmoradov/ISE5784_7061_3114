@@ -408,7 +408,9 @@ This project was developed by:
 
 ## 🌐 Connect
 
-**yinon.shaul99@gmail.com
-**053-4309220
+**yinon.shaul99@gmail.com**
+
+
+**053-4309220**
 
 ---
