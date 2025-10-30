@@ -410,7 +410,4 @@ This project was developed by:
 
 **yinon.shaul99@gmail.com**
 
-
-**053-4309220**
-
 ---
